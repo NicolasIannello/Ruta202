@@ -149,12 +149,34 @@ a {
 }
 
 /* Hero Section */
-.foto{
-    background-image: url('../public/Ruta202.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: bottom;
-    height: 100%;
+.scroll {
+  white-space: nowrap;
+  margin: 0 2em;
+}
+
+.scroll div {
+  display: flex;
+  gap: 2em;
+}
+
+.scroll p {
+  font-size: 5em;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.RightToLeft {
+  animation: RightToLeft 10s infinite linear;
+}
+
+@keyframes  RightToLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .hero {
@@ -591,6 +613,20 @@ a {
 }
 
 /* Utilities */
+.foto{
+    background-image: url('../public/Ruta202.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    height: 100%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .text-center {
   text-align: center;
 }
@@ -683,41 +719,5 @@ a {
 
   .footer-grid {
     grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.scroll {
-  white-space: nowrap;
-  margin: 0 2em;
-}
-
-.scroll div {
-  display: flex;
-  gap: 2em;
-}
-
-.scroll p {
-  font-size: 5em;
-  color: white;
-  font-weight: bold;
-  margin-bottom: 0;
-}
-
-.RightToLeft {
-  animation: RightToLeft 10s infinite linear;
-}
-
-@keyframes  RightToLeft {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-50%);
   }
 }

@@ -1,0 +1,17 @@
+<section id="services" class="services">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Nuestros <span class="section-title-highlight">Servicios</span>
+            </h2>
+            <p class="section-description">
+                Ofrecemos nuestros servicios para:
+            </p>
+        </div>
+        <div class="grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3">
+            <div  *ngFor="let s of servicios" class="service-card">
+                <h3 class="service-title">{{s}}</h3>
+            </div>
+        </div>
+    </div>
+</section>

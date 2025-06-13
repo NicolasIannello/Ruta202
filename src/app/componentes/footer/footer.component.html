@@ -1,0 +1,47 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <div class="foto" style="width: 2.5rem; height: 2.5rem;"></div>
+                    <span class="logo-text">Ruta 202</span>
+                </div>
+                <p class="footer-description">mini descripción</p>
+            </div>
+            <div>
+                <h3 class="footer-heading">Accesos</h3>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <span (click)="scroller.scrollToAnchor('services');" class="nav-link" style="font-weight: 100;">Servicios</span>
+                    </li>
+                    <li class="footer-link">
+                        <span (click)="scroller.scrollToAnchor('about');" class="nav-link" style="font-weight: 100;">Nosotros</span>
+                    </li>
+                    <li class="footer-link">
+                        <span (click)="scroller.scrollToAnchor('contact');" class="nav-link" style="font-weight: 100;">Contáctenos</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-heading">Contacto</h3>
+                <ul class="footer-links">
+                    <li class="footer-contact-item">
+                        <i class="fa-brands fa-whatsapp center" style="color: var(--color-red); width: 1rem; height: 1rem"></i>
+                        <span class="footer-contact-text">(123) 456-7890</span>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i class="fa-solid fa-location-dot center" style="color: var(--color-red); width: 1rem; height: 1rem"></i>
+                        <span class="footer-contact-text">123 Towing Street, City, State 12345</span>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i class="fa-solid fa-envelope center" style="color: var(--color-red); width: 1rem; height: 1rem"></i>
+                        <span class="footer-contact-text">mail</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="footer-bottom">
+            <p>&copy; {new Date().getFullYear()} Ruta 202. All rights reserved.</p>
+        </div> -->
+    </div>
+</footer>
