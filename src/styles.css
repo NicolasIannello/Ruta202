@@ -1,3 +1,12 @@
+/* Navbar */
+/* Landing */
+/* Servicios */
+/* Nosotros */
+/* Contacto */
+/* Buttons */
+/* Utilities */
+/* Media Queries */
+
 /* CSS Variables */
 :root {
   --color-red: #e11d48;
@@ -90,7 +99,7 @@ a {
   grid-template-columns: 1fr;
 }
 
-/* Header */
+/* Landing */
 .header {
   position: sticky;
   top: 0;
@@ -241,7 +250,7 @@ a {
   box-shadow: var(--shadow-lg);
 }
 
-/* Services Section */
+/* Servicios */
 .services {
   padding: var(--spacing-16) 0;
   background-color: var(--color-white);
@@ -294,7 +303,7 @@ a {
   color: var(--color-gray-600);
 }
 
-/* About Section */
+/* Nosotros */
 .about {
   padding: var(--spacing-16) 0;
   background-color: var(--color-gray-100);
@@ -365,7 +374,7 @@ a {
   font-weight: bold;
 }
 
-/* Call to Action */
+/* Contacto */
 .cta {
   padding: var(--spacing-16) 0;
   background-color: var(--color-red);
@@ -387,7 +396,6 @@ a {
   margin-right: auto;
 }
 
-/* Contact Section */
 .contact {
   padding: var(--spacing-16) 0;
   background-color: var(--color-white);
