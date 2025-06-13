@@ -1,0 +1,395 @@
+    <div class="flex-col min-h-screen">
+      <!-- {/* Header */} -->
+      <header class="header">
+        <div class="container header-container">
+          <div class="logo">
+            <!--LOGO  <Truck class="text-red" [ngStyle]="{' color: "var(--color-red)", width: "2rem", height: "2rem" '}" /> -->
+            <span class="logo-text">RAPID TOW</span>
+          </div>
+          <nav class="nav">
+            <span href="#services" class="nav-link">
+              Services
+            </span>
+            <span href="#about" class="nav-link">
+              About
+            </span>
+            <span href="#testimonials" class="nav-link">
+              Testimonials
+            </span>
+            <span href="#contact" class="nav-link">
+              Contact
+            </span>
+          </nav>
+          <div class="header-actions">
+            <span href="tel:+1234567890" class="phone-link">
+              <!-- <PhoneCall [ngStyle]="{' color: "var(--color-red)", width: "1rem", height: "1rem" '}" /> -->
+              <!-- <span [ngStyle]="{' fontWeight: "bold" '}">24/7 EMERGENCY: (123) 456-7890</span> -->
+            </span>
+            <button class="btn btn-primary">
+              <!-- <PhoneCall [ngStyle]="{' width: "1rem", height: "1rem" '}" class="btn-icon" /> Call Now -->
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1">
+        <!-- {/* Hero Section */} -->
+        <section class="hero">
+          <div class="container hero-container">
+            <div class="hero-content">
+              <h1 class="hero-title">
+                Fast & Reliable <span class="hero-title-highlight">Towing Service</span>
+              </h1>
+              <p class="hero-description">
+                24/7 emergency roadside assistance and towing services. We'll get you back on the road quickly and
+                safely.
+              </p>
+              <div class="hero-actions">
+                <button class="btn btn-primary btn-lg">
+                  <!-- <PhoneCall [ngStyle]="{' width: "1rem", height: "1rem" '}" class="btn-icon" />  -->
+                  Request Tow
+                </button>
+                <button class="btn btn-outline btn-lg">Our Services</button>
+              </div>
+              <div class="hero-features">
+                <div class="feature">
+                  <!-- <Clock [ngStyle]="{' color: "var(--color-red)", width: "1.25rem", height: "1.25rem" '}" /> -->
+                  <span>24/7 Service</span>
+                </div>
+                <div class="feature">
+                  <!-- <MapPin [ngStyle]="{' color: "var(--color-red)", width: "1.25rem", height: "1.25rem" '}" /> -->
+                  <span>Local & Long Distance</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-image-container">
+              <Img
+                src="/placeholder.svg?height=500&width=600"
+                alt="Tow Truck"
+                width={600}
+                height={500}
+                class="hero-image"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- {/* Services Section */} -->
+        <section id="services" class="services">
+          <div class="container">
+            <div class="section-header">
+              <h2 class="section-title">
+                Our <span class="section-title-highlight">Services</span>
+              </h2>
+              <p class="section-description">
+                We offer a comprehensive range of towing and roadside assistance services to get you back on the road.
+              </p>
+            </div>
+            <!-- <div class="grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3">
+              {[
+                {
+                  title: "Emergency Towing",
+                  description:
+                    "24/7 emergency towing service for all vehicle types, including cars, trucks, and motorcycles.",
+                  icon: <Truck [ngStyle]="{' color: "var(--color-red)", width: "2.5rem", height: "2.5rem" '}" />,
+                },
+                {
+                  title: "Roadside Assistance",
+                  description:
+                    "Jump starts, tire changes, fuel delivery, and lockout services to get you moving again.",
+                  icon: <Tools [ngStyle]="{' color: "var(--color-red)", width: "2.5rem", height: "2.5rem" '}" />,
+                },
+                {
+                  title: "Accident Recovery",
+                  description: "Professional accident recovery services with careful handling of damaged vehicles.",
+                  icon: <Shield [ngStyle]="{' color: "var(--color-red)", width: "2.5rem", height: "2.5rem" '}" />,
+                },
+                {
+                  title: "Flatbed Towing",
+                  description: "Secure flatbed towing for luxury, classic, and low-clearance vehicles.",
+                  icon: <Truck [ngStyle]="{' color: "var(--color-red)", width: "2.5rem", height: "2.5rem" '}" />,
+                },
+                {
+                  title: "Long Distance Towing",
+                  description: "Reliable long-distance towing services for all your vehicle transportation needs.",
+                  icon: <MapPin [ngStyle]="{' color: "var(--color-red)", width: "2.5rem", height: "2.5rem" '}" />,
+                },
+                {
+                  title: "Heavy Duty Towing",
+                  description:
+                    "Specialized equipment for towing heavy vehicles, including commercial trucks and buses.",
+                  icon: <Truck [ngStyle]="{' color: "var(--color-red)", width: "2.5rem", height: "2.5rem" '}" />,
+                },
+              ].map((service, index) => (
+                <div key={index} class="service-card">
+                  <div class="service-icon">{service.icon}</div>
+                  <h3 class="service-title">{service.title}</h3>
+                  <p class="service-description">{service.description}</p>
+                </div>
+              ))}
+            </div> -->
+          </div>
+        </section>
+
+        <!-- {/* About Section */} -->
+        <section id="about" class="about">
+          <div class="container">
+            <div class="grid grid-cols-1 grid-cols-lg-2" style="align-items: center; gap: 3rem">
+              <div>
+                <Img
+                  src="/placeholder.svg?height=500&width=600"
+                  alt="About Our Company"
+                  width={600}
+                  height={500}
+                  class="hero-image"
+                />
+              </div>
+              <div>
+                <h2 class="about-title">
+                  About <span class="section-title-highlight">Rapid Tow</span>
+                </h2>
+                <p class="about-description">
+                  With over 15 years of experience, Rapid Tow has been providing reliable towing and roadside assistance
+                  services to our community. Our team of certified professionals is committed to delivering prompt and
+                  efficient service when you need it most.
+                </p>
+                <div class="about-features">
+                  <div class="about-feature">
+                    <div class="feature-icon-container">
+                      <!-- <Clock [ngStyle]="{' color: "white", width: "1.25rem", height: "1.25rem" '}" /> -->
+                    </div>
+                    <span class="feature-text">Fast Response Time</span>
+                  </div>
+                  <div class="about-feature">
+                    <div class="feature-icon-container">
+                      <!-- <Shield [ngStyle]="{' color: "white", width: "1.25rem", height: "1.25rem" '}" /> -->
+                    </div>
+                    <span class="feature-text">Licensed & Insured</span>
+                  </div>
+                  <div class="about-feature">
+                    <div class="feature-icon-container">
+                      <!-- <Tools [ngStyle]="{' color: "white", width: "1.25rem", height: "1.25rem" '}" /> -->
+                    </div>
+                    <span class="feature-text">Modern Equipment</span>
+                  </div>
+                  <div class="about-feature">
+                    <div class="feature-icon-container">
+                      <!-- <Star [ngStyle]="{' color: "white", width: "1.25rem", height: "1.25rem" '}" /> -->
+                    </div>
+                    <span class="feature-text">5-Star Service</span>
+                  </div>
+                </div>
+                <button class="btn btn-primary">Learn More About Us</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- {/* Testimonials */} -->
+        <section id="testimonials" class="testimonials">
+          <div class="container">
+            <div class="section-header">
+              <h2 class="section-title">
+                Customer <span class="section-title-highlight">Testimonials</span>
+              </h2>
+              <p style="color: var(--color-gray-300); max-width: 42rem; margin: 0 auto">
+                Don't just take our word for it. Here's what our customers have to say about our services.
+              </p>
+            </div>
+            <!-- <div class="grid grid-cols-1 grid-cols-md-3">
+              {[
+                {
+                  name: "John Smith",
+                  comment:
+                    "Rapid Tow saved me when my car broke down on the highway at night. They arrived within 20 minutes and were extremely professional.",
+                  rating: 5,
+                },
+                {
+                  name: "Sarah Johnson",
+                  comment:
+                    "I've used Rapid Tow multiple times and they never disappoint. Their drivers are courteous and their service is top-notch.",
+                  rating: 5,
+                },
+                {
+                  name: "Michael Brown",
+                  comment:
+                    "After an accident, I was worried about my car getting damaged during towing. Rapid Tow handled everything with care and professionalism.",
+                  rating: 5,
+                },
+              ].map((testimonial, index) => (
+                <div key={index} class="testimonial-card">
+                  <div class="rating">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        [ngStyle]="{' color: "var(--color-red)", width: "1.25rem", height: "1.25rem" '}"
+                        class="fill-red"
+                      />
+                    ))}
+                  </div>
+                  <p class="testimonial-text">"{testimonial.comment}"</p>
+                  <p class="testimonial-author">- {testimonial.name}</p>
+                </div>
+              ))}
+            </div> -->
+          </div>
+        </section>
+
+        <!-- {/* Call to Action */} -->
+        <section class="cta">
+          <div class="container">
+            <h2 class="cta-title">Need a Tow? We're Available 24/7</h2>
+            <p class="cta-description">
+              Don't wait stranded on the road. Our professional team is ready to help you anytime, day or night.
+            </p>
+            <button class="btn btn-black btn-lg">
+              <!-- <PhoneCall [ngStyle]="{' width: "1.25rem", height: "1.25rem" '}" class="btn-icon" /> Call (123) 456-7890 -->
+            </button>
+          </div>
+        </section>
+
+        <!-- {/* Contact Section */} -->
+        <section id="contact" class="contact">
+          <div class="container">
+            <div class="grid grid-cols-1 grid-cols-lg-2">
+              <div>
+                <h2 class="contact-title">
+                  Contact <span class="section-title-highlight">Us</span>
+                </h2>
+                <p class="contact-description">
+                  Have questions or need assistance? Reach out to us using the contact information below or fill out the
+                  form and we'll get back to you as soon as possible.
+                </p>
+                <div class="contact-info">
+                  <div class="contact-item">
+                    <div class="contact-icon-container">
+                      <!-- <PhoneCall [ngStyle]="{' color: "white", width: "1.5rem", height: "1.5rem" '}" /> -->
+                    </div>
+                    <div class="contact-details">
+                      <p>Phone</p>
+                      <p>(123) 456-7890</p>
+                    </div>
+                  </div>
+                  <div class="contact-item">
+                    <div class="contact-icon-container">
+                      <!-- <MapPin [ngStyle]="{' color: "white", width: "1.5rem", height: "1.5rem" '}" /> -->
+                    </div>
+                    <div class="contact-details">
+                      <p>Address</p>
+                      <p>123 Towing Street, City, State 12345</p>
+                    </div>
+                  </div>
+                  <div class="contact-item">
+                    <div class="contact-icon-container">
+                      <!-- <Clock [ngStyle]="{' color: "white", width: "1.5rem", height: "1.5rem" '}" /> -->
+                    </div>
+                    <div class="contact-details">
+                      <p>Hours</p>
+                      <p>24 hours a day, 7 days a week</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="contact-form">
+                <h3 class="form-title">Send Us a Message</h3>
+                <form>
+                  <div class="form-row">
+                    <div class="form-field">
+                      <label htmlFor="name" class="form-label">
+                        Name
+                      </label>
+                      <input id="name" class="form-input" placeholder="Your name" />
+                    </div>
+                    <div class="form-field">
+                      <label htmlFor="phone" class="form-label">
+                        Phone
+                      </label>
+                      <input id="phone" class="form-input" placeholder="Your phone number" />
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label htmlFor="email" class="form-label">
+                      Email
+                    </label>
+                    <input id="email" type="email" class="form-input" placeholder="Your email" />
+                  </div>
+                  <div class="form-field">
+                    <label htmlFor="message" class="form-label">
+                      Message
+                    </label>
+                    <textarea id="message" rows={4} class="form-textarea" placeholder="How can we help you?"></textarea>
+                  </div>
+                  <button class="btn btn-primary btn-full">Send Message</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- {/* Footer */} -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div>
+              <div class="footer-logo">
+                <!-- <Truck [ngStyle]="{' color: "var(--color-red)", width: "2rem", height: "2rem" '}" /> -->
+                <span class="logo-text">RAPID TOW</span>
+              </div>
+              <p class="footer-description">Professional towing and roadside assistance services available 24/7.</p>
+            </div>
+            <div>
+              <h3 class="footer-heading">Quick Links</h3>
+              <ul class="footer-links">
+                <li class="footer-link">
+                  <span href="#services">Services</span>
+                </li>
+                <li class="footer-link">
+                  <span href="#about">About Us</span>
+                </li>
+                <li class="footer-link">
+                  <span href="#testimonials">Testimonials</span>
+                </li>
+                <li class="footer-link">
+                  <span href="#contact">Contact</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-heading">Services</h3>
+              <ul class="footer-links">
+                <li class="footer-link">
+                  <span href="#">Emergency Towing</span>
+                </li>
+                <li class="footer-link">
+                  <span href="#">Roadside Assistance</span>
+                </li>
+                <li class="footer-link">
+                  <span href="#">Accident Recovery</span>
+                </li>
+                <li class="footer-link">
+                  <span href="#">Flatbed Towing</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-heading">Contact</h3>
+              <ul class="footer-links">
+                <li class="footer-contact-item">
+                  <!-- <PhoneCall [ngStyle]="{' color: "var(--color-red)", width: "1rem", height: "1rem" '}" /> -->
+                  <span class="footer-contact-text">(123) 456-7890</span>
+                </li>
+                <li class="footer-contact-item">
+                  <!-- <MapPin [ngStyle]="{' color: "var(--color-red)", width: "1rem", height: "1rem" '}" /> -->
+                  <span class="footer-contact-text">123 Towing Street, City, State 12345</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <!-- <p>&copy; {new Date().getFullYear()} Rapid Tow. All rights reserved.</p> -->
+          </div>
+        </div>
+      </footer>
+    </div>
