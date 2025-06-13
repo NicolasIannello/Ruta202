@@ -1,0 +1,115 @@
+/* Contacto */
+.cta {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-4);
+}
+
+.cta-description {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-8);
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-white);
+}
+
+.contact-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-6);
+}
+
+.contact-description {
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-6);
+}
+
+.contact-info {
+  margin-bottom: var(--spacing-4);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.contact-icon-container {
+  background-color: var(--color-red);
+  padding: var(--spacing-3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-details p:first-child {
+  font-weight: 500;
+}
+
+.contact-details p:last-child {
+  color: var(--color-gray-600);
+}
+
+.contact-form {
+  background-color: var(--color-gray-50);
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.form-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-4);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-4);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.form-field {
+  margin-bottom: var(--spacing-2);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-2);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--border-radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}

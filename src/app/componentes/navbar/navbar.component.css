@@ -1,0 +1,57 @@
+/* Navbar */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background-color: var(--color-black);
+  border-bottom: 1px solid var(--color-gray-800);
+}
+
+.header-container {
+  display: flex;
+  height: 4rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-white);
+}
+
+.nav {
+  display: none;
+}
+
+.nav-link {
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-white);
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--color-red);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.phone-link {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-white);
+}

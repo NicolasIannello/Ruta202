@@ -1,0 +1,52 @@
+/* Servicios */
+.services {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-white);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-4);
+}
+
+.section-title-highlight {
+  color: var(--color-red);
+}
+
+.section-description {
+  color: var(--color-gray-600);
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.service-card {
+  background-color: var(--color-gray-50);
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-gray-200);
+  transition: box-shadow 0.3s;
+}
+
+.service-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.service-icon {
+  margin-bottom: var(--spacing-4);
+}
+
+.service-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-2);
+}
+
+.service-description {
+  color: var(--color-gray-600);
+}
