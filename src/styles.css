@@ -240,6 +240,9 @@ a {
   .about-features {
     grid-template-columns: 1fr 1fr;
   }
+  .scroll-text {
+    font-size: 5em !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -253,7 +256,7 @@ a {
   }
 
   .hero-title {
-    font-size: 3.75rem;
+    font-size: 3.75rem !important;
   }
 
   .grid-cols-md-2 {
@@ -300,4 +303,5 @@ a {
   .footer-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+  
 }

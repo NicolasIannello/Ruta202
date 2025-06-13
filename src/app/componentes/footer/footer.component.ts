@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-
+  mail:string='remolques@ruta202.com.ar';
+  
   constructor(public scroller: ViewportScroller) {}
 }

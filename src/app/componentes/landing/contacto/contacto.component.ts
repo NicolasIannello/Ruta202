@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './contacto.component.css'
 })
 export class ContactoComponent {
+  mail:string='remolques@ruta202.com.ar';
 
 }
