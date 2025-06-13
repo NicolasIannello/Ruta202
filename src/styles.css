@@ -47,6 +47,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.5;
   color: var(--color-gray-900);
+  overflow-x: hidden;
 }
 
 img {
@@ -123,6 +124,7 @@ a {
 }
 
 .nav-link {
+  cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-white);
@@ -147,10 +149,20 @@ a {
 }
 
 /* Hero Section */
+.foto{
+    background-image: url('../public/Ruta202.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    height: 100%;
+}
+
 .hero {
   position: relative;
   background-color: var(--color-black);
   color: var(--color-white);
+  height: 80vh;
+  align-content: center;
 }
 
 .hero-container {
@@ -643,13 +655,13 @@ a {
 
 @media (min-width: 1024px) {
   .hero-container {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
   }
 
   .hero-content {
-    width: 50%;
+    width: 100%;
     margin-bottom: 0;
   }
 
@@ -671,5 +683,41 @@ a {
 
   .footer-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll {
+  white-space: nowrap;
+  margin: 0 2em;
+}
+
+.scroll div {
+  display: flex;
+  gap: 2em;
+}
+
+.scroll p {
+  font-size: 5em;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.RightToLeft {
+  animation: RightToLeft 10s infinite linear;
+}
+
+@keyframes  RightToLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
