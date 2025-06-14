@@ -1,13 +1,13 @@
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
-import { ServiciosComponent } from "./servicios/servicios.component";
-import { NosotrosComponent } from "./nosotros/nosotros.component";
-import { ContactoComponent } from "./contacto/contacto.component";
+import { NavbarComponent } from "../navbar/navbar.component";
+import { FooterComponent } from "../footer/footer.component";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, ServiciosComponent, NosotrosComponent, ContactoComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
