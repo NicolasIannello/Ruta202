@@ -4,16 +4,16 @@
             <div class="foto" style="width: 2.5rem; height: 2.5rem;"></div>
             <span class="logo-text">RUTA 202</span>
         </div>
-        <nav class="nav">
-            <span (click)="scroller.scrollToAnchor('services');" class="nav-link">Servicios</span>
-            <span (click)="scroller.scrollToAnchor('about');" class="nav-link">Nosotros</span>
-            <span (click)="scroller.scrollToAnchor('contact');" class="nav-link">Contacto</span>
+        <nav class="nav" *ngIf="pagina=='/'">
+            <span (click)="scroller.scrollToAnchor('services'); nav='services'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='services'}">Servicios</span>
+            <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='about'}">Nosotros</span>
+            <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='contact'}">Contacto</span>
         </nav>
         <div class="header-actions">
-            <button class="btn btn-outline" routerLink="login">
+            <button class="btn btn-outline" routerLink="login" (click)="nav=''">
                 Ingresar
             </button>
-            <button class="btn btn-primary" routerLink="registro">
+            <button class="btn btn-primary" routerLink="registro" (click)="nav=''">
                 <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
             </button>
         </div>
