@@ -1,0 +1,153 @@
+/* Login/Register Pages */
+.login-section {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-gray-100);
+  min-height: calc(100vh);
+  display: flex;
+  align-items: center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.login-card {
+  background-color: var(--color-white);
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 28rem;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-2);
+  color: var(--color-gray-900);
+}
+
+.login-subtitle {
+  color: var(--color-gray-600);
+  font-size: 1rem;
+}
+
+.login-form {
+  margin-bottom: var(--spacing-6);
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.form-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-red);
+}
+
+.checkbox-text {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+}
+
+.forgot-link {
+  font-size: 0.875rem;
+  color: var(--color-red);
+  font-weight: 500;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.forgot-link:hover {
+  color: var(--color-red-dark);
+}
+
+.login-footer {
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.signup-text {
+  color: var(--color-gray-600);
+  font-size: 0.875rem;
+}
+
+.signup-link {
+  color: var(--color-red);
+  font-weight: 500;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.signup-link:hover {
+  color: var(--color-red-dark);
+}
+
+.terms-link {
+  color: var(--color-red);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.terms-link:hover {
+  color: var(--color-red-dark);
+}
+
+.emergency-notice {
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emergency-notice:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-red);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.emergency-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.emergency-title {
+  font-weight: 600;
+  color: var(--color-gray-900);
+  font-size: 0.875rem;
+}
+
+.emergency-subtitle {
+  color: var(--color-gray-600);
+  font-size: 0.875rem;
+}
