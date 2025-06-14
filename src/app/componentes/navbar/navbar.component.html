@@ -1,6 +1,6 @@
 <header class="header">
     <div class="container header-container">
-        <div class="logo">
+        <div class="logo" routerLink="">
             <div class="foto" style="width: 2.5rem; height: 2.5rem;"></div>
             <span class="logo-text">RUTA 202</span>
         </div>
@@ -10,10 +10,10 @@
             <span (click)="scroller.scrollToAnchor('contact');" class="nav-link">Contacto</span>
         </nav>
         <div class="header-actions">
-            <button class="btn btn-outline">
+            <button class="btn btn-outline" routerLink="login">
                 Ingresar
             </button>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" routerLink="registro">
                 <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
             </button>
         </div>
