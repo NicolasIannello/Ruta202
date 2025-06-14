@@ -191,7 +191,56 @@ a {
   opacity: 0.5;
   cursor: not-allowed;
 }
+/* Forms */
+.contact-form {
+  background-color: var(--color-gray-50);
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
 
+.form-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-4);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-4);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.form-field {
+  margin-bottom: var(--spacing-2);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-2);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--border-radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+}
 /* Utilities */
 .foto{
     background-image: url('../public/Ruta202.png');
@@ -242,6 +291,20 @@ a {
   }
   .scroll-text {
     font-size: 5em !important;
+  }
+
+  .login-card {
+    padding: var(--spacing-6);
+    margin: var(--spacing-4);
+  }
+
+  .form-options {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+
+  .checkbox-text {
+    font-size: 0.8rem;
   }
 }
 
