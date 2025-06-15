@@ -323,10 +323,6 @@ a {
     display: flex !important;
     gap: var(--spacing-6);
   }
-  
-  .menu {
-    display: none !important;
-  }
 
   .hero-actions {
     display: flex !important;
@@ -350,6 +346,14 @@ a {
 
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mobile-menu-button {
+    display: none !important;
+  }
+
+  .mobile-menu {
+    display: none;
   }
 }
 
@@ -385,4 +389,15 @@ a {
     grid-template-columns: repeat(4, 1fr);
   }
   
+}
+
+/* Hide desktop nav and header actions on mobile */
+@media (max-width: 767px) {
+  .nav {
+    display: none;
+  }
+
+  .header-actions {
+    display: none;
+  }
 }

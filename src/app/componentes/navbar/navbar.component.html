@@ -17,15 +17,23 @@
                 <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
             </button>
         </div>
-        <div class="menu">
+        <div class="mobile-menu-button">
             <i [ngClass]="{'fa-bars' : !menuOpen, 'fa-xmark' : menuOpen}" class="fa-solid" style="color: var(--color-white); font-size: x-large;" (click)="open()"></i>    
         </div>
-        <div class="desplegable glassTrue" [ngClass]="{'none' : !menuOpen}">
-            <div (click)="scroller.scrollToAnchor('services'); nav='services'"><span>Servicios</span></div>
-            <div (click)="scroller.scrollToAnchor('about'); nav='about'"><span>Nosotros</span></div>
-            <div (click)="scroller.scrollToAnchor('contact'); nav='contact'"><span>Contacto</span></div>
-            <div routerLink="login" (click)="nav=''"><span>Ingresar</span></div>
-            <div routerLink="registro" (click)="nav=''"><span>Crear Cuenta</span></div>
+        <div class="mobile-menu" [ngClass]="{'none' : !menuOpen}">
+            <div class="mobile-menu-content">
+                <span (click)="scroller.scrollToAnchor('services'); nav='services'" class="mobile-nav-link" (click)="open()">Servicios</span>
+                <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="mobile-nav-link" (click)="open()">Nosotros</span>
+                <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="mobile-nav-link" (click)="open()">Contacto</span>
+                <div class="mobile-menu-actions">
+                    <span routerLink="login" (click)="open()">
+                        <button class="btn btn-outline btn-full">Ingresar</button>
+                    </span>
+                    <span routerLink="registro" (click)="open()">
+                        <button class="btn btn-primary btn-full">Crear Cuenta</button>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </header>
