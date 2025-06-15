@@ -151,3 +151,58 @@
   color: var(--color-gray-600);
   font-size: 0.875rem;
 }
+
+.register-card {
+  background-color: var(--color-white);
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 32rem;
+}
+
+.account-type-selector {
+  margin-bottom: var(--spacing-6);
+}
+
+.account-type-tabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-1);
+  background-color: var(--color-gray-100);
+  padding: var(--spacing-1);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-4);
+}
+
+.account-type-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-gray-600);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.account-type-tab:hover {
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+}
+
+.account-type-tab.active {
+  background-color: var(--color-white);
+  color: var(--color-red);
+  box-shadow: var(--shadow-sm);
+}
+
+.account-type-description {
+  text-align: center;
+  color: var(--color-gray-600);
+  font-size: 0.875rem;
+}

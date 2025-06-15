@@ -294,7 +294,7 @@ a {
     font-size: 5em !important;
   }
 
-  .login-card {
+  .login-card, .register-card {
     padding: var(--spacing-6);
     margin: var(--spacing-4);
   }
@@ -306,6 +306,14 @@ a {
 
   .checkbox-text {
     font-size: 0.8rem;
+  }
+
+  .account-type-tabs {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .account-type-tab {
+    padding: var(--spacing-2);
   }
 }
 
