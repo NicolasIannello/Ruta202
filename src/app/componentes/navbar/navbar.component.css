@@ -45,7 +45,7 @@
   color: var(--black);
   top: 7%;
   /* background-color: var(--color1D); */
-  width: 100%;
+  width: 100vw;
   left: 0;
   z-index: 2;
   backdrop-filter: blur(20px);
