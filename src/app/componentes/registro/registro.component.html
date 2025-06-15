@@ -12,11 +12,9 @@
                             <div class="account-type-selector">
                                 <div class="account-type-tabs">
                                     <button class="account-type-tab" [ngClass]="{'active' : type==0}" (click)="type=0">
-                                    <!-- [ngClass]={`account-type-tab ${accountType === "personal" ? "active" : ""}`} onClick={() => setAccountType("personal")}> -->
                                         <i class="fa-solid fa-user center" style="width: 1.25rem; height: 1.25rem"></i><span>Cuenta Cliente</span>
                                     </button>
                                     <button class="account-type-tab" [ngClass]="{'active' : type==1}" (click)="type=1">
-                                    <!-- [ngClass]={`account-type-tab ${accountType === "business" ? "active" : ""}`} onClick={() => setAccountType("business")}> -->
                                         <i class="fa-solid fa-building center" style="width: 1.25rem; height: 1.25rem"></i><span>Cuenta Prestador</span>
                                     </button>
                                 </div>
@@ -27,55 +25,176 @@
                             </div>
 
                             <div class="login-form">
+                                <div class="form-field">
+                                    <label htmlFor="empresa" class="form-label">Empresa</label>
+                                    <input id="empresa" type="text" class="form-input" placeholder="Ingrese su empresa"/>
+                                </div>
+                                <div class="form-field">
+                                    <label htmlFor="CUIT" class="form-label">CUIT</label>
+                                    <input id="CUIT" type="text" class="form-input" placeholder="Ingrese su CUIT"/>
+                                </div>
+                                <div class="form-field">
+                                    <label htmlFor="direccion" class="form-label">Dirección</label>
+                                    <input id="direccion" type="text" class="form-input" placeholder="Ingrese su direccion"/>
+                                </div>
+                                <div class="form-field">
+                                    <label htmlFor="celular" class="form-label">Celular de contacto</label>
+                                    <input id="celular" type="text" class="form-input" placeholder="Ingrese su celular"/>
+                                </div>
+
+                                <ng-container  *ngIf="type==1">
+                                    <div class="form-field">
+                                        <label htmlFor="email operativo" class="form-label">Email operativo</label>
+                                        <input id="email operativo" type="text" class="form-input" placeholder="Ingrese su email operativo"/>
+                                    </div>
+                                </ng-container>
+
                                 <div class="form-row">
                                     <div class="form-field">
-                                        <label htmlFor="firstName" class="form-label">
-                                        Nombre
-                                        </label>
+                                        <label htmlFor="firstName" class="form-label">Nombre</label>
                                         <input id="firstName" type="text" class="form-input" placeholder="Ingrese su nombre">
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="lastName" class="form-label">
-                                        Apellido
-                                        </label>
+                                        <label htmlFor="lastName" class="form-label">Apellido</label>
                                         <input id="lastName" type="text" class="form-input" placeholder="Ingrese su apellido">
                                     </div>
                                 </div>
 
-                                <div class="form-field">
-                                    <label htmlFor="email" class="form-label">
-                                        Email
-                                    </label>
-                                    <input id="email" type="email" class="form-input" placeholder="Ingrese su email"/>
-                                </div>
+                                <ng-container  *ngIf="type==0">
+                                    <div class="form-field">
+                                        <label htmlFor="dni" class="form-label">DNI</label>
+                                        <input id="dni" type="text" class="form-input" placeholder="Ingrese su DNI"/>
+                                    </div>
+                                </ng-container>
 
                                 <div class="form-field">
-                                    <label htmlFor="phone" class="form-label">
-                                        Teléfono
-                                    </label>
-                                    <input id="phone" type="tel" class="form-input" placeholder="Ingrese su teléfono"/>
+                                    <label htmlFor="email del titular" class="form-label">Email del titular</label>
+                                    <input id="email del titular" type="text" class="form-input" placeholder="Ingrese su email del titular"/>
                                 </div>
-
                                 <div class="form-field">
-                                    <label htmlFor="password" class="form-label">
-                                        Contraseña
-                                    </label>
+                                    <label htmlFor="condfiscal" class="form-label">Condición fiscal</label>
+                                    <input id="condfiscal" type="text" class="form-input" placeholder="Ingrese su condición fiscal"/>
+                                </div>
+                                <div class="form-field">
+                                    <label htmlFor="password" class="form-label">Contraseña</label>
                                     <input id="password" type="password" class="form-input" placeholder="Crea una contraseña"/>
                                 </div>
-
                                 <div class="form-field">
-                                    <label htmlFor="confirmPassword" class="form-label">
-                                        Repita contraseña
-                                    </label>
+                                    <label htmlFor="confirmPassword" class="form-label">Repita contraseña</label>
                                     <input id="confirmPassword" type="password" class="form-input" placeholder="Repita contraseña"/>
                                 </div>
+
+                                <ng-container  *ngIf="type==0">
+                                    <div class="form-field">
+                                        <label htmlFor="cargo" class="form-label">Cargo o Puesto</label>
+                                        <input id="cargo" type="text" class="form-input" placeholder="Ingrese su cargo o puesto"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="monotributo" class="form-label">Monotributo</label>
+                                        <input id="monotributo" type="text" class="form-input" placeholder="Ingrese monotributo"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="responsable" class="form-label">Responsable inscripto</label>
+                                        <input id="responsable" type="text" class="form-input" placeholder="Ingrese responsable inscripto"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="excento" class="form-label">Excento</label>
+                                        <input id="excento" type="text" class="form-input" placeholder="Ingrese excento"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="carroceria" class="form-label">Carrocería</label>
+                                        <input id="carroceria" type="text" class="form-input" placeholder="Ingrese carrocería"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="rubro" class="form-label">Rubro</label>
+                                        <select class="form-input" name="rubro" id="rubro">
+                                            <option value="" selected hidden>Ingrese rubro</option>
+                                            <option value="Aseguradora">Aseguradora</option>
+                                            <option value="Productor">Productor</option>
+                                            <option value="Broker">Broker</option>
+                                            <option value="Taller">Taller</option>
+                                            <option value="Mecánica">Mecánica</option>
+                                            <option value="Concesionario">Concesionario</option>
+                                            <option value="Agencia">Agencia</option>
+                                            <option value="Desarmadero">Desarmadero</option>
+                                        </select>
+                                    </div>
+                                    <!-- <div class="form-field">
+                                        <label htmlFor="productor" class="form-label">Productor</label>
+                                        <input id="productor" type="text" class="form-input" placeholder="Ingrese productor"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="broker" class="form-label">Broker</label>
+                                        <input id="broker" type="text" class="form-input" placeholder="Ingrese broker"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="taller" class="form-label">Taller</label>
+                                        <input id="taller" type="text" class="form-input" placeholder="Ingrese taller"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="mecanica" class="form-label">Mecánica</label>
+                                        <input id="mecanica" type="text" class="form-input" placeholder="Ingrese mecánica"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="concesionario" class="form-label">Concesionario</label>
+                                        <input id="concesionario" type="text" class="form-input" placeholder="Ingrese concesionario"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="agencia" class="form-label">Agencia</label>
+                                        <input id="agencia" type="text" class="form-input" placeholder="Ingrese agencia"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="desarmadero" class="form-label">Desarmadero</label>
+                                        <input id="desarmadero" type="text" class="form-input" placeholder="Ingrese desarmadero"/>
+                                    </div> -->
+                                </ng-container>
+
+                                <ng-container  *ngIf="type==1">
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label htmlFor="vehiculo" class="form-label">Vehículo</label>
+                                            <select class="form-input" name="vehiculo" id="vehiculo">
+                                                <option value="" selected hidden>Ingrese vehículo</option>
+                                                <option value="Camion">Camion</option>
+                                                <option value="Pick up">Pick up</option>
+                                                <option value="Trailer">Trailer</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="marca" class="form-label">Marca</label>
+                                            <input id="marca" type="text" class="form-input" placeholder="Marca del vehículo">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label htmlFor="modelo" class="form-label">Modelo y Version</label>
+                                            <input id="modelo" type="text" class="form-input" placeholder="Modelo y version del vehículo">
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="año" class="form-label">Año</label>
+                                            <input id="año" type="text" class="form-input" placeholder="Año del vehículo">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label htmlFor="ejes" class="form-label">Ejes</label>
+                                            <input id="ejes" type="text" class="form-input" placeholder="Ejes vehículo">
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="patente" class="form-label">Patente</label>
+                                            <input id="patente" type="text" class="form-input" placeholder="Patente del vehículo">
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="carga" class="form-label">Capacidad de carga</label>
+                                        <input id="carga" type="text" class="form-input" placeholder="Capacidad de carga del vehículo"/>
+                                    </div>
+                                </ng-container>
 
                                 <div class="form-options">
                                     <label class="checkbox-label">
                                         <input type="checkbox" class="checkbox"/>
-                                        <span class="checkbox-text">
-                                            Acepto los <span href="/terms" class="terms-link">Términos & Condiciones</span>
-                                        </span>
+                                        <span class="checkbox-text">Acepto los <span href="/terms" class="terms-link">Términos & Condiciones</span></span>
                                     </label>
                                 </div>
 
