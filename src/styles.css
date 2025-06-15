@@ -10,6 +10,7 @@
 /* CSS Variables */
 :root {
   --color-red: #e11d48;
+  --color-red-t: rgb(225, 29, 72, 0.85);
   --color-red-dark: #be123c;
   --color-black: #000000;
   --color-white: #ffffff;
@@ -312,6 +313,14 @@ a {
   .nav {
     display: flex !important;
     gap: var(--spacing-6);
+  }
+  
+  .menu {
+    display: none !important;
+  }
+
+  .hero-actions {
+    display: flex !important;
   }
 
   .phone-link {

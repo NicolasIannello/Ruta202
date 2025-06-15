@@ -9,13 +9,23 @@
             <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='about'}">Nosotros</span>
             <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='contact'}">Contacto</span>
         </nav>
-        <div class="header-actions">
+        <div class="nav header-actions">
             <button class="btn btn-outline" routerLink="login" (click)="nav=''">
                 Ingresar
             </button>
             <button class="btn btn-primary" routerLink="registro" (click)="nav=''">
                 <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
             </button>
+        </div>
+        <div class="menu">
+            <i [ngClass]="{'fa-bars' : !menuOpen, 'fa-xmark' : menuOpen}" class="fa-solid" style="color: var(--color-white); font-size: x-large;" (click)="open()"></i>    
+        </div>
+        <div class="desplegable glassTrue" [ngClass]="{'none' : !menuOpen}">
+            <div (click)="scroller.scrollToAnchor('services'); nav='services'"><span>Servicios</span></div>
+            <div (click)="scroller.scrollToAnchor('about'); nav='about'"><span>Nosotros</span></div>
+            <div (click)="scroller.scrollToAnchor('contact'); nav='contact'"><span>Contacto</span></div>
+            <div routerLink="login" (click)="nav=''"><span>Ingresar</span></div>
+            <div routerLink="registro" (click)="nav=''"><span>Crear Cuenta</span></div>
         </div>
     </div>
 </header>

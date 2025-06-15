@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
 export class NavbarComponent implements OnInit{
   pagina:string='/';
   nav:string='';
+  menuOpen:boolean=false;
 
   constructor(public scroller: ViewportScroller, private router: Router) {}
 
@@ -21,5 +22,9 @@ export class NavbarComponent implements OnInit{
         this.pagina=event.urlAfterRedirects;
         this.nav='';
     });
+  }
+
+  open(){
+    this.menuOpen=!this.menuOpen;
   }
 }
