@@ -33,7 +33,7 @@
   position: relative;
   background-color: var(--color-black);
   color: var(--color-white);
-  height: 80vh;
+  height: 100vh;
   align-content: center;
 }
 
@@ -58,6 +58,7 @@
 
 .hero-title-highlight {
   color: var(--color-red);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-description {
@@ -89,4 +90,15 @@
 .hero-image {
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
+}
+
+.ruta-img{
+  background-image: linear-gradient(#0000004d, #0000004d), url('../../../../../public/road.jpg');
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-position: bottom;
+  background-size: cover;
+  /* background-attachment: fixed; */
+  height: 100%;
+  width: 100vw;
 }
