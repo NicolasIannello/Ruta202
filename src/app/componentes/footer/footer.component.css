@@ -37,12 +37,12 @@
   margin-bottom: var(--spacing-2);
 }
 
-.footer-link a {
+.footer-link span {
   color: var(--color-gray-400);
   transition: color 0.2s;
 }
 
-.footer-link a:hover {
+.footer-link span:hover {
   color: var(--color-red);
 }
 
@@ -63,4 +63,10 @@
   padding-top: var(--spacing-8);
   text-align: center;
   color: var(--color-gray-400);
+}
+
+.logo-text-footer {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-white);
 }

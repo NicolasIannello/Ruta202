@@ -9,9 +9,9 @@
 
 /* CSS Variables */
 :root {
-  --color-red: #e11d48;
-  --color-red-dark: #be123c;
-  --color-black: #000000;
+  --color-red: #ea580c;/*#e11d48;*/
+  --color-red-dark: #c2410c;/*#be123c;*/
+  --color-black: #1f2937;/*#000000;*/
   --color-white: #ffffff;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
@@ -252,6 +252,7 @@ a {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: var(--spacing-4);
+  color: var(--color-white);
 }
 
 .section-title-highlight {
@@ -260,7 +261,7 @@ a {
 }
 
 .section-description {
-  color: var(--color-gray-600);
+  color: var(--color-white);/*--color-gray-600);*/
   max-width: 42rem;
   margin: 0 auto;
 }

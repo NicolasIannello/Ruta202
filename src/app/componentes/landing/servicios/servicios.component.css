@@ -1,14 +1,14 @@
 /* Servicios */
 .services {
   padding: var(--spacing-16) 0;
-  background-color: var(--color-white);
+  background-color: var(--color-black);
 }
 
 .service-card {
-  background-color: var(--color-gray-50);
+  background-color: rgba(255, 255, 255, 0.1);/*var(--color-gray-50);*/
   padding: var(--spacing-6);
   border-radius: var(--border-radius-lg);
-  border: 1px solid var(--color-gray-200);
+  border: 1px solid rgb(0, 0, 0, 0.5);/*(--color-gray-200);*/
   transition: box-shadow 0.3s;
   align-content: center;
 }
@@ -25,8 +25,9 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: var(--spacing-2);
+  color: var(--color-white);
 }
 
 .service-description {
-  color: var(--color-gray-600);
+  color: var(--color-white);/*--color-gray-600);*/
 }
