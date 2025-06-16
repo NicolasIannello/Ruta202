@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
 })
 export class ServiciosComponent {
   servicios:Array<string>=["Aseguradoras","Brokers de Seguros","Productores de Seguros","Estudios Liquidadores de Siniestros",
-    "Concesionarios del Automotor","Agencias revendedoras de Autos","Talleres Mecánicos y de Carrocería",]
+    "Concesionarios del Automotor","Agencias revendedoras de Autos","Talleres Mecánicos y de Carrocería","Administradoras de flotas"]
 
 }
