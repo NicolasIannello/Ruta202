@@ -9,7 +9,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
   templateUrl: './landing.component.html',
-  styleUrl: './landing.component.css'
 })
 export class LandingComponent {
   constructor(public scroller: ViewportScroller) {}
