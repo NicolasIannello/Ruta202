@@ -423,3 +423,9 @@ a {
     display: none;
   }
 }
+
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 1.5rem !important;
+  }
+}
