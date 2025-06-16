@@ -1,18 +1,45 @@
 /* Nosotros */
 .about {
   padding: var(--spacing-16) 0;
-  background-color: var(--color-gray-100);
+  /* background-color: var(--color-gray-100); */
+  background-image: url("../../../../../public/tow.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.about::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.8) 100%);
+  z-index: 1;
+}
+
+.about .container {
+  position: relative;
+  z-index: 2;
 }
 
 .about-title {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: var(--spacing-6);
+  color: var(--color-white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .about-description {
-  color: var(--color-gray-600);
+  /* color: var(--color-gray-600); */
+  color: var(--color-gray-200);
   margin-bottom: var(--spacing-6);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 .about-features {
@@ -26,7 +53,19 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-3);
+  border-radius: var(--border-radius-md);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
+
+/* .about-feature:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+} */
 
 .feature-icon-container {
   background-color: var(--color-red);
@@ -35,8 +74,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
 }
 
 .feature-text {
   font-weight: 500;
+  color: var(--color-white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
