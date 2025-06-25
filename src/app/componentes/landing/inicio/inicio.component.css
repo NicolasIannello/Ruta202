@@ -88,6 +88,14 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.feature span {
+  font-weight: 500;
 }
 
 .hero-image {
@@ -96,7 +104,8 @@
 }
 
 .ruta-img{
-  background-image: linear-gradient(#0000004d, #0000004d), url('../../../../../public/road.jpg');
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%), url('../../../../../public/road.jpg');
+  /* background-image: linear-gradient(#0000004d, #0000004d), url('../../../../../public/road.jpg'); */
   background-repeat: no-repeat;
   /* background-size: contain; */
   background-position: bottom;
