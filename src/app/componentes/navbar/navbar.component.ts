@@ -15,12 +15,14 @@ export class NavbarComponent implements OnInit{
   nav:string='';
   menuOpen:boolean=false;
 
-  constructor(public scroller: ViewportScroller, private router: Router) {}
+  constructor(public scroller: ViewportScroller, private router: Router) {
+    this.pagina=router.url    
+  }
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-        this.pagina=event.urlAfterRedirects;
-        this.nav='';
+      this.pagina=event.urlAfterRedirects;
+      this.nav='';      
     });
   }
 
