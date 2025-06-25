@@ -4,11 +4,13 @@
             <div class="foto" style="width: 2.5rem; height: 2.5rem;"></div>
             <span class="logo-text">RUTA 202</span>
         </div>
-        <nav class="nav" *ngIf="pagina=='/'">
-            <span (click)="scroller.scrollToAnchor('services'); nav='services'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='services'}">Servicios</span>
-            <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='about'}">Nosotros</span>
-            <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='contact'}">Contacto</span>
-        </nav>
+        @if (pagina=='/') {
+            <nav class="nav">
+                <span (click)="scroller.scrollToAnchor('services'); nav='services'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='services'}">Servicios</span>
+                <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='about'}">Nosotros</span>
+                <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='contact'}">Contacto</span>
+            </nav>
+        }
         <div class="nav header-actions">
             <button class="btn btn-outline" routerLink="login" (click)="nav=''">
                 Ingresar

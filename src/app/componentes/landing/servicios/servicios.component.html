@@ -9,9 +9,11 @@
             </p>
         </div>
         <div class="grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3">
-            <div  *ngFor="let s of servicios" class="service-card">
-                <h3 class="service-title">{{s}}</h3>
-            </div>
+            @for (s of servicios; track s) {
+                <div class="service-card">
+                    <h3 class="service-title">{{s}}</h3>
+                </div>
+            }
         </div>
     </div>
 </section>
