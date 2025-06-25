@@ -3,6 +3,7 @@ import { ServiciosComponent } from "../servicios/servicios.component";
 import { NosotrosComponent } from "../nosotros/nosotros.component";
 import { ContactoComponent } from "../contacto/contacto.component";
 import { CommonModule, ViewportScroller } from '@angular/common';
+import { CommonService } from '../../../servicios/common.service';
 
 @Component({
   selector: 'app-inicio',
@@ -12,6 +13,6 @@ import { CommonModule, ViewportScroller } from '@angular/common';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
-  constructor(public scroller: ViewportScroller) {}
+  constructor(public scroller: ViewportScroller, public common: CommonService) {}
 
 }

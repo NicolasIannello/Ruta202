@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonService } from '../../servicios/common.service';
 
 @Component({
   selector: 'app-login',
@@ -10,4 +11,5 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginComponent {
 
+  constructor(public common: CommonService) {}
 }

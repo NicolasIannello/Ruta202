@@ -2,7 +2,7 @@
     <div class="container">
         <h2 class="cta-title">No lo dudes, registraste como cliente de RUTA 202 Remolques.</h2>
         <p class="cta-description">No esperes mas.</p>
-        <button class="btn btn-black btn-lg">
+        <button class="btn btn-black btn-lg" (click)="common.openWsp()">
             <i class="fa-brands fa-whatsapp btn-icon center" style="width: 1.25rem; height: 1.25rem"></i>Contacto
         </button>
     </div>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="contact-details">
                             <p>Teléfono</p>
-                            <p>(123) 456-7890</p>
+                            <p>{{numero}}</p>
                         </div>
                     </div>
                     <div class="contact-item">

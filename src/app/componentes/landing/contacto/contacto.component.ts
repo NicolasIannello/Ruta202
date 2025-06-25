@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { CommonService } from '../../../servicios/common.service';
+import { environment } from '../../../../environments/environment';
+
+const numero=environment.numeroString;
 
 @Component({
   selector: 'app-contacto',
@@ -9,5 +13,7 @@ import { Component } from '@angular/core';
 })
 export class ContactoComponent {
   mail:string='remolques@ruta202.com.ar';
+  numero:string=numero;
 
+  constructor(public common: CommonService) {}
 }

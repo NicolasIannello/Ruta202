@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonService } from '../../servicios/common.service';
 
 @Component({
   selector: 'app-registro',
@@ -11,4 +12,6 @@ import { RouterModule } from '@angular/router';
 })
 export class RegistroComponent {
   type:number=0
+
+  constructor(public common: CommonService) {}
 }
