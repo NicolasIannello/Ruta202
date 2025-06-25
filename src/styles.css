@@ -214,7 +214,7 @@ a {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-4);
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
 }
 
 .form-field {
