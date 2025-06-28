@@ -20,9 +20,10 @@
                                 </div>
                                 <div class="account-type-description">
                                     @if (type==0) {
-                                        <p>descripcion cuenta cliente</p>
+                                        <p>Necesitas nuestros servicios de remolques? Regístrate como cliente!</p>
                                     } @else if (type==1) {
-                                        <p>descripcion cuenta prestador</p>
+                                        <p>Tenes un camión para trasladar autos y queres sumarte como prestador de Ruta 202? 
+                                            Crea tu cuenta como prestador para comenzar a operar con nosotros!</p>
                                     }
                                 </div>
                             </div>
@@ -71,12 +72,22 @@
                                 }
 
                                 <div class="form-field">
-                                    <label htmlFor="email del titular" class="form-label">Email del titular</label>
-                                    <input id="email del titular" type="text" class="form-input" placeholder="Ingrese su email del titular"/>
+                                    <label htmlFor="email del responsable" class="form-label">Email del responsable</label>
+                                    <input id="email del responsable" type="text" class="form-input" placeholder="Ingrese email del responsable"/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="condfiscal" class="form-label">Condición fiscal</label>
-                                    <input id="condfiscal" type="text" class="form-input" placeholder="Ingrese su condición fiscal"/>
+                                    <select class="form-input" name="condfiscal" id="condfiscal" [(ngModel)]="registro['CondiciónFiscal'][0]">
+                                        <option value="" selected hidden>Ingrese su condición fiscal</option>
+                                        <option value="Monotributista">Monotributista</option>
+                                        <option value="Responsable inscripto">Responsable inscripto</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                    @if (registro['CondiciónFiscal'][0]=='Otro') {
+                                        <div class="form-field">
+                                            <input id="condfiscalOtro" type="text" class="form-input" placeholder="Ingrese su condición fiscal"/>
+                                        </div>
+                                    }
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="password" class="form-label">Contraseña</label>
@@ -93,24 +104,8 @@
                                         <input id="cargo" type="text" class="form-input" placeholder="Ingrese su cargo o puesto"/>
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="monotributo" class="form-label">Monotributo</label>
-                                        <input id="monotributo" type="text" class="form-input" placeholder="Ingrese monotributo"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="responsable" class="form-label">Responsable inscripto</label>
-                                        <input id="responsable" type="text" class="form-input" placeholder="Ingrese responsable inscripto"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="excento" class="form-label">Excento</label>
-                                        <input id="excento" type="text" class="form-input" placeholder="Ingrese excento"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="carroceria" class="form-label">Carrocería</label>
-                                        <input id="carroceria" type="text" class="form-input" placeholder="Ingrese carrocería"/>
-                                    </div>
-                                    <div class="form-field">
                                         <label htmlFor="rubro" class="form-label">Rubro</label>
-                                        <select class="form-input" name="rubro" id="rubro">
+                                        <select class="form-input" name="rubro" id="rubro" [(ngModel)]="cliente['Rubro'][0]">
                                             <option value="" selected hidden>Ingrese rubro</option>
                                             <option value="Aseguradora">Aseguradora</option>
                                             <option value="Productor">Productor</option>
@@ -120,48 +115,32 @@
                                             <option value="Concesionario">Concesionario</option>
                                             <option value="Agencia">Agencia</option>
                                             <option value="Desarmadero">Desarmadero</option>
+                                            <option value="Otro">Otro</option>
                                         </select>
+                                        @if (cliente['Rubro'][0]=='Otro') {
+                                            <div class="form-field">
+                                                <input id="rubroOtro" type="text" class="form-input" placeholder="Ingrese rubro"/>
+                                            </div>
+                                        }
                                     </div>
-                                    <!-- <div class="form-field">
-                                        <label htmlFor="productor" class="form-label">Productor</label>
-                                        <input id="productor" type="text" class="form-input" placeholder="Ingrese productor"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="broker" class="form-label">Broker</label>
-                                        <input id="broker" type="text" class="form-input" placeholder="Ingrese broker"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="taller" class="form-label">Taller</label>
-                                        <input id="taller" type="text" class="form-input" placeholder="Ingrese taller"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="mecanica" class="form-label">Mecánica</label>
-                                        <input id="mecanica" type="text" class="form-input" placeholder="Ingrese mecánica"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="concesionario" class="form-label">Concesionario</label>
-                                        <input id="concesionario" type="text" class="form-input" placeholder="Ingrese concesionario"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="agencia" class="form-label">Agencia</label>
-                                        <input id="agencia" type="text" class="form-input" placeholder="Ingrese agencia"/>
-                                    </div>
-                                    <div class="form-field">
-                                        <label htmlFor="desarmadero" class="form-label">Desarmadero</label>
-                                        <input id="desarmadero" type="text" class="form-input" placeholder="Ingrese desarmadero"/>
-                                    </div> -->
                                 }
 
                                 @if (type==1) {
                                     <div class="form-row">
                                         <div class="form-field">
                                             <label htmlFor="vehiculo" class="form-label">Vehículo</label>
-                                            <select class="form-input" name="vehiculo" id="vehiculo">
+                                            <select class="form-input" name="vehiculo" id="vehiculo" [(ngModel)]="prestador['Vehículo'][0]">
                                                 <option value="" selected hidden>Ingrese vehículo</option>
                                                 <option value="Camion">Camion</option>
                                                 <option value="Pick up">Pick up</option>
                                                 <option value="Trailer">Trailer</option>
+                                                <option value="Otro">Otro</option>
                                             </select>
+                                            @if (prestador['Vehículo'][0]=='Otro') {
+                                                <div class="form-field">
+                                                    <input id="vehiculoOtro" type="text" class="form-input" placeholder="Ingrese vehículo"/>
+                                                </div>
+                                            }
                                         </div>
                                         <div class="form-field">
                                             <label htmlFor="marca" class="form-label">Marca</label>
@@ -192,9 +171,21 @@
                                         <label htmlFor="carga" class="form-label">Capacidad de carga</label>
                                         <input id="carga" type="text" class="form-input" placeholder="Capacidad de carga del vehículo"/>
                                     </div>
+                                    <div class="form-field">
+                                        <label htmlFor="imagen" class="form-label">Imagenes del vehiculo</label>
+                                        <div [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                            <span>
+                                                @for (src of sources; track src) {
+                                                    <img id=foto{{src.id}} src="{{src.link}}" alt="" style="width: 100px;">
+                                                }
+                                            </span>
+                                        </div>
+                                        <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event)">
+                                        <p class="file-input-help">Máximo de imágenes 4.</p>
+                                    </div>
                                 }
 
-                                <div class="form-options">
+                                <div class="form-options" style="margin-top: var(--spacing-4);">
                                     <label class="checkbox-label">
                                         <input type="checkbox" class="checkbox"/>
                                         <span class="checkbox-text">Acepto los <span href="/terms" class="terms-link">Términos & Condiciones</span></span>
