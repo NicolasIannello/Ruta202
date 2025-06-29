@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   base_url:'https://vps-4154293-x.dattaweb.com/ruta',
-  numero: '+5492983510599',
-  numeroString: '+54 9 2983 51-0599',
+  numero: '+5491127605336',
+  numeroString: '+54 9 11 2760-5336',
 };
