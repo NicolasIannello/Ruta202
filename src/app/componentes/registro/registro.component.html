@@ -180,8 +180,25 @@
                                                 }
                                             </span>
                                         </div>
-                                        <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event)">
+                                        <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event, 0)">
                                         <p class="file-input-help">Máximo de imágenes 4.</p>
+                                    </div>
+                                    <label class="form-label">Imágenes del carnet de conducir</label>
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label class="form-label">Frente</label>
+                                            <span>
+                                                <img id=foto{{frente.id}} src="{{frente.link}}" alt="" style="width: 100px;">
+                                            </span>
+                                            <input type="file" class="form-input" name="carnetFrente" id="carnetFrente" #carnetFrente accept="image/*," (change)="showImg($event, 1)">
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label">Dorso</label>
+                                            <span>
+                                                <img id=foto{{dorso.id}} src="{{dorso.link}}" alt="" style="width: 100px;">
+                                            </span>
+                                            <input type="file" class="form-input" name="carnetDorso" id="carnetDorso" #carnetDorso accept="image/*," (change)="showImg($event, 2)">
+                                        </div>
                                     </div>
                                 }
 

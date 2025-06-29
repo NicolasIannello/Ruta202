@@ -44,16 +44,23 @@ export class RegistroComponent {
     CapacidadCarga: ['',''],
   };
   sources: Array<any> = [];
+  frente: any = {id: '', link: '', name: ''};
+  dorso: any = {id: '', link: '', name: ''};
 
   constructor(public common: CommonService) {}
 
-  showImg(event: Event){
-    this.sources=[];
+  showImg(event: Event, int:number){
+    if (int==0) this.sources=[];
+    if (int==1) this.frente={id: '', link:'', name: ''};
+    if (int==2) this.dorso={id: '', link:'', name: ''};
+
     const element = event.currentTarget as HTMLInputElement;
 		let cantidad = element.files?.length || 0;    
     
 		if(cantidad==0) {
-      this.sources=[];
+      if (int==0) this.sources=[];
+      if (int==1) this.frente={id: '', link: '', name: ''};
+      if (int==2) this.dorso={id: '', link: '', name: ''};
 		}else{
 			for (let index = 0; index < cantidad; index++) {
 				var nombreCortado=element.files![index].name.split('.');
@@ -65,7 +72,9 @@ export class RegistroComponent {
             reader.readAsDataURL(element.files![index]);
 
             reader.onloadend = ()=>{
-              this.sources[index]={id: (index+1), link: reader.result, name: element.files![index].name};
+              if (int==0) this.sources[index]={id: (index+1), link: reader.result, name: element.files![index].name};
+              if (int==1) this.frente={id: (index+1), link: reader.result, name: element.files![index].name};
+              if (int==2) this.dorso={id: (index+1), link: reader.result, name: element.files![index].name};
             }            
           }, index*200);
 				}
