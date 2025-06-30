@@ -39,7 +39,7 @@ export class RegistroComponent {
     Marca: ['',''],
     Modelo: ['',''],
     Año: ['',''],
-    Eje: ['',''],
+    Ejes: ['',''],
     Patente: ['',''],
     CapacidadCarga: ['',''],
   };
@@ -72,6 +72,8 @@ export class RegistroComponent {
             reader.readAsDataURL(element.files![index]);
 
             reader.onloadend = ()=>{
+              console.log(int);
+              
               if (int==0) this.sources[index]={id: (index+1), link: reader.result, name: element.files![index].name};
               if (int==1) this.frente={id: (index+1), link: reader.result, name: element.files![index].name};
               if (int==2) this.dorso={id: (index+1), link: reader.result, name: element.files![index].name};
@@ -81,4 +83,40 @@ export class RegistroComponent {
 			}			
 		}
 	}
+
+  reset(i:number){
+    this.registro={
+      Empresa: ['',''],
+      CUIT: ['',''],
+      Dirección: ['',''],
+      Celular: ['',''],
+      Nombre: ['',''],
+      Apellido: ['',''],
+      EmailResponsable: ['',''],
+      CondiciónFiscal: ['',''],
+      CondiciónFiscalOtro: ['',''],
+      Contraseña: ['',''],
+      Contraseña2: ['',''],
+    };
+    if(i==0){
+      this.prestador={
+        EmailOperativo: ['',''],
+        Vehículo: ['',''],
+        VehículoOtro: ['',''],
+        Marca: ['',''],
+        Modelo: ['',''],
+        Año: ['',''],
+        Ejes: ['',''],
+        Patente: ['',''],
+        CapacidadCarga: ['',''],
+      };
+    }else{
+      this.cliente={
+        DNI: ['',''],
+        Cargo: ['',''],
+        Rubro: ['',''],
+        RubroOtro: ['',''],
+      };
+    }
+  }
 }
