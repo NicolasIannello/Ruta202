@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonService } from '../../servicios/common.service';
 import { FormsModule } from '@angular/forms';
-import { log } from 'node:console';
+import { UsuariosService } from '../servicios/usuarios.service';
 
 @Component({
   selector: 'app-registro',
@@ -56,7 +56,7 @@ export class RegistroComponent {
   tyc: boolean=false;
   showPassword: string = 'password';
 
-  constructor(public common: CommonService) {}
+  constructor(public common: CommonService, private api:UsuariosService) {}
 
   showImg(event: Event, int:number){
     if (int==0) this.sources=[];
@@ -155,12 +155,66 @@ export class RegistroComponent {
       return;
     }
     
-
+    console.log(flag);
+    
     if(!flag){
       alert('complete campos');
       return;
     }else{
+      const formData = new FormData();
 
+      // let datos:{[key: string]: string|number}={
+      //   'Empresa': this.registro['Empresa'][0],
+      //   'CUIT': this.registro['CUIT'][0],
+      //   'Dirección': this.registro['Dirección'][0],
+      //   'Celular': this.registro['Celular'][0],
+      //   'Nombre': this.registro['Nombre'][0],
+      //   'Apellido': this.registro['Apellido'][0],
+      //   'EmailResponsable': this.registro['EmailResponsable'][0],
+      //   'CondiciónFiscal': this.registro['CondiciónFiscal'][0]=='Otro' ? this.registro['CondiciónFiscalOtro'][0] : this.registro['CondiciónFiscal'][0],
+      //   'Contraseña': this.registro['Contraseña'][0],
+      //   'Tipo': this.type
+      // }
+      formData.append('Empresa', this.registro['Empresa'][0])
+      formData.append('CUIT', this.registro['CUIT'][0])
+      formData.append('Direccion', this.registro['Dirección'][0])
+      formData.append('Celular', this.registro['Celular'][0])
+      formData.append('Nombre', this.registro['Nombre'][0])
+      formData.append('Apellido', this.registro['Apellido'][0])
+      formData.append('EmailResponsable', this.registro['EmailResponsable'][0])
+      formData.append('CondicionFiscal', this.registro['CondiciónFiscal'][0]=='Otro' ? this.registro['CondiciónFiscalOtro'][0] : this.registro['CondiciónFiscal'][0])
+      formData.append('Contrasena', this.registro['Contraseña'][0])
+      formData.append('Tipo', String(this.type))
+
+      if(this.type==0){
+        formData.append('DNI', this.cliente['DNI'][0]);
+        formData.append('Cargo', this.cliente['Cargo'][0]);
+        formData.append('Rubro', this.cliente['Rubro'][0]=='Otro' ? this.cliente['RubroOtro'][0] : this.cliente['Rubro'][0]);
+      }else{
+        formData.append('EmailOperativo', this.prestador['EmailOperativo'][0])
+        formData.append('Vehiculo', this.prestador['Vehículo'][0]=='Otro' ? this.prestador['VehículoOtro'][0] : this.prestador['Vehículo'][0])
+        formData.append('Marca', this.prestador['Marca'][0])
+        formData.append('Modelo', this.prestador['Modelo'][0])
+        formData.append('Ano', this.prestador['Año'][0])
+        formData.append('Ejes', this.prestador['Ejes'][0])
+        formData.append('Patente', this.prestador['Patente'][0])
+        formData.append('CapacidadCarga', this.prestador['CapacidadCarga'][0])
+        for (let i = 0; i < this.img.length; i++) {
+				  formData.append('img', this.img[i]);
+			  }
+        formData.append('imgFrente', this.imgFrente[0]);
+        formData.append('imgDorso', this.imgDorso[0]);
+      }
+
+      this.api.crearUsuario(formData).then(resp =>{
+        if(resp.ok){
+          //Swal.fire({title:'Lote creado con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#3083dc'})
+        }else{
+          //Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#3083dc'})
+        }
+      }, (err)=>{				
+        //Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#3083dc'});
+      });
     }
   }
 
