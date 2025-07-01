@@ -30,53 +30,53 @@
 
                             <div class="login-form">
                                 <div class="form-field">
-                                    <label htmlFor="empresa" class="form-label">Empresa</label>
+                                    <label htmlFor="empresa" class="form-label">Empresa <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Empresa'][1]}}</span></label>
                                     <input id="empresa" type="text" class="form-input" placeholder="Ingrese su empresa" [(ngModel)]="registro['Empresa'][0]"/>
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="CUIT" class="form-label">CUIT</label>
+                                    <label htmlFor="CUIT" class="form-label">CUIT  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['CUIT'][1]}}</span></label>
                                     <input id="CUIT" type="text" class="form-input" placeholder="Ingrese su CUIT" [(ngModel)]="registro['CUIT'][0]"/>
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="direccion" class="form-label">Dirección</label>
+                                    <label htmlFor="direccion" class="form-label">Dirección  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Dirección'][1]}}</span></label>
                                     <input id="direccion" type="text" class="form-input" placeholder="Ingrese su direccion" [(ngModel)]="registro['Dirección'][0]"/>
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="celular" class="form-label">Celular de contacto</label>
+                                    <label htmlFor="celular" class="form-label">Celular de contacto  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Celular'][1]}}</span></label>
                                     <input id="celular" type="text" class="form-input" placeholder="Ingrese su celular" [(ngModel)]="registro['Celular'][0]"/>
                                 </div>
 
                                 @if (type==1) {
                                     <div class="form-field">
-                                        <label htmlFor="email operativo" class="form-label">Email operativo</label>
+                                        <label htmlFor="email operativo" class="form-label">Email operativo  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['EmailOperativo'][1]}}</span></label>
                                         <input id="email operativo" type="text" class="form-input" placeholder="Ingrese su email operativo" [(ngModel)]="prestador['EmailOperativo'][0]"/>
                                     </div>
                                 }
 
                                 <div class="form-row">
                                     <div class="form-field">
-                                        <label htmlFor="firstName" class="form-label">Nombre</label>
+                                        <label htmlFor="firstName" class="form-label">Nombre  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Nombre'][1]}}</span></label>
                                         <input id="firstName" type="text" class="form-input" placeholder="Ingrese su nombre" [(ngModel)]="registro['Nombre'][0]">
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="lastName" class="form-label">Apellido</label>
+                                        <label htmlFor="lastName" class="form-label">Apellido  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Apellido'][1]}}</span></label>
                                         <input id="lastName" type="text" class="form-input" placeholder="Ingrese su apellido" [(ngModel)]="registro['Apellido'][0]">
                                     </div>
                                 </div>
 
                                 @if (type==0) {
                                     <div class="form-field">
-                                        <label htmlFor="dni" class="form-label">DNI</label>
+                                        <label htmlFor="dni" class="form-label">DNI  <span class="file-input-help" style="color: var(--color-red-dark2);">{{cliente['DNI'][1]}}</span></label>
                                         <input id="dni" type="text" class="form-input" placeholder="Ingrese su DNI" [(ngModel)]="cliente['DNI'][0]"/>
                                     </div>
                                 }
 
                                 <div class="form-field">
-                                    <label htmlFor="email del responsable" class="form-label">Email del responsable</label>
+                                    <label htmlFor="email del responsable" class="form-label">Email del responsable  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['EmailResponsable'][1]}}</span></label>
                                     <input id="email del responsable" type="text" class="form-input" placeholder="Ingrese email del responsable" [(ngModel)]="registro['EmailResponsable'][0]"/>
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="condfiscal" class="form-label">Condición fiscal</label>
+                                    <label htmlFor="condfiscal" class="form-label">Condición fiscal  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['CondiciónFiscal'][0]=='Otro' ? registro['CondiciónFiscalOtro'][1] : registro['CondiciónFiscal'][1]}}</span></label>
                                     <select class="form-input" name="condfiscal" id="condfiscal" [(ngModel)]="registro['CondiciónFiscal'][0]">
                                         <option value="" selected hidden>Ingrese su condición fiscal</option>
                                         <option value="Monotributista">Monotributista</option>
@@ -90,21 +90,39 @@
                                     }
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="password" class="form-label">Contraseña</label>
-                                    <input id="password" type="password" class="form-input" placeholder="Crea una contraseña" [(ngModel)]="registro['Contraseña'][0]"/>
+                                    <label htmlFor="password" class="form-label">Contraseña  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Contraseña'][1]}}</span></label>
+                                    <div class="password-input-container">
+                                        <input id="password" type="{{showPassword}}" class="form-input" placeholder="Crea una contraseña" [(ngModel)]="registro['Contraseña'][0]"/>
+                                        <button type="button" class="password-toggle-btn" (click)="showPassword= showPassword=='password' ? 'text' : 'password'">
+                                            @if (showPassword=='password') {
+                                                <i class="fa-regular fa-eye center" style="color: var(--color-gray-500); width: 1.25rem; height: 1.25rem"></i>
+                                            } @else if(showPassword=='text'){
+                                                <i class="fa-regular fa-eye-slash center" style="color: var(--color-gray-500); width: 1.25rem; height: 1.25rem"></i>
+                                            }
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="confirmPassword" class="form-label">Repita contraseña</label>
-                                    <input id="confirmPassword" type="password" class="form-input" placeholder="Repita contraseña" [(ngModel)]="registro['Contraseña2'][0]"/>
+                                    <label htmlFor="confirmPassword" class="form-label">Repita contraseña  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Contraseña2'][1]}}</span></label>
+                                    <div class="password-input-container">
+                                        <input id="confirmPassword" type="{{showPassword}}" class="form-input" placeholder="Repita contraseña" [(ngModel)]="registro['Contraseña2'][0]"/>
+                                        <button type="button" class="password-toggle-btn" (click)="showPassword= showPassword=='password' ? 'text' : 'password'">
+                                            @if (showPassword=='password') {
+                                                <i class="fa-regular fa-eye center" style="color: var(--color-gray-500); width: 1.25rem; height: 1.25rem"></i>
+                                            } @else if(showPassword=='text'){
+                                                <i class="fa-regular fa-eye-slash center" style="color: var(--color-gray-500); width: 1.25rem; height: 1.25rem"></i>
+                                            }
+                                        </button>
+                                    </div>
                                 </div>
 
                                 @if (type==0) {
                                     <div class="form-field">
-                                        <label htmlFor="cargo" class="form-label">Cargo o Puesto</label>
+                                        <label htmlFor="cargo" class="form-label">Cargo o Puesto  <span class="file-input-help" style="color: var(--color-red-dark2);">{{cliente['Cargo'][1]}}</span></label>
                                         <input id="cargo" type="text" class="form-input" placeholder="Ingrese su cargo o puesto" [(ngModel)]="cliente['Cargo'][0]"/>
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="rubro" class="form-label">Rubro</label>
+                                        <label htmlFor="rubro" class="form-label">Rubro  <span class="file-input-help" style="color: var(--color-red-dark2);">{{cliente['Rubro'][0]=='Otro' ? cliente['RubroOtro'][1] : cliente['Rubro'][1]}}</span></label>
                                         <select class="form-input" name="rubro" id="rubro" [(ngModel)]="cliente['Rubro'][0]">
                                             <option value="" selected hidden>Ingrese rubro</option>
                                             <option value="Aseguradora">Aseguradora</option>
@@ -128,7 +146,7 @@
                                 @if (type==1) {
                                     <div class="form-row">
                                         <div class="form-field">
-                                            <label htmlFor="vehiculo" class="form-label">Vehículo</label>
+                                            <label htmlFor="vehiculo" class="form-label">Vehículo  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Vehículo'][0]=='Otro' ? prestador['VehículoOtro'][1] : prestador['Vehículo'][1]}}</span></label>
                                             <select class="form-input" name="vehiculo" id="vehiculo" [(ngModel)]="prestador['Vehículo'][0]">
                                                 <option value="" selected hidden>Ingrese vehículo</option>
                                                 <option value="Camion">Camion</option>
@@ -143,36 +161,36 @@
                                             }
                                         </div>
                                         <div class="form-field">
-                                            <label htmlFor="marca" class="form-label">Marca</label>
+                                            <label htmlFor="marca" class="form-label">Marca  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Marca'][1]}}</span></label>
                                             <input id="marca" type="text" class="form-input" placeholder="Marca del vehículo" [(ngModel)]="prestador['Marca'][0]">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-field">
-                                            <label htmlFor="modelo" class="form-label">Modelo y Version</label>
+                                            <label htmlFor="modelo" class="form-label">Modelo y Version  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Modelo'][1]}}</span></label>
                                             <input id="modelo" type="text" class="form-input" placeholder="Modelo y version del vehículo" [(ngModel)]="prestador['Modelo'][0]">
                                         </div>
                                         <div class="form-field">
-                                            <label htmlFor="año" class="form-label">Año</label>
+                                            <label htmlFor="año" class="form-label">Año  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Año'][1]}}</span></label>
                                             <input id="año" type="text" class="form-input" placeholder="Año del vehículo" [(ngModel)]="prestador['Año'][0]">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-field">
-                                            <label htmlFor="ejes" class="form-label">Ejes</label>
+                                            <label htmlFor="ejes" class="form-label">Ejes  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Ejes'][1]}}</span></label>
                                             <input id="ejes" type="text" class="form-input" placeholder="Ejes vehículo" [(ngModel)]="prestador['Ejes'][0]">
                                         </div>
                                         <div class="form-field">
-                                            <label htmlFor="patente" class="form-label">Patente</label>
+                                            <label htmlFor="patente" class="form-label">Patente  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Patente'][1]}}</span></label>
                                             <input id="patente" type="text" class="form-input" placeholder="Patente del vehículo" [(ngModel)]="prestador['Patente'][0]">
                                         </div>
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="carga" class="form-label">Capacidad de carga</label>
+                                        <label htmlFor="carga" class="form-label">Capacidad de carga  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['CapacidadCarga'][1]}}</span></label>
                                         <input id="carga" type="text" class="form-input" placeholder="Capacidad de carga del vehículo" [(ngModel)]="prestador['CapacidadCarga'][0]"/>
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="imagen" class="form-label">Imagenes del vehiculo</label>
+                                        <label htmlFor="imagen" class="form-label">Imagenes del vehiculo  <span class="file-input-help" style="color: var(--color-red-dark2);"></span></label>
                                         <div [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
                                             <span>
                                                 @for (src of sources; track src) {
@@ -183,7 +201,7 @@
                                         <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event, 0)">
                                         <p class="file-input-help">Máximo de imágenes 4.</p>
                                     </div>
-                                    <label class="form-label">Imágenes del carnet de conducir</label>
+                                    <label class="form-label">Imágenes del carnet de conducir  <span class="file-input-help" style="color: var(--color-red-dark2);"></span></label>
                                     <div class="form-row">
                                         <div class="form-field">
                                             <label class="form-label">Frente</label>
@@ -204,12 +222,12 @@
 
                                 <div class="form-options" style="margin-top: var(--spacing-4);">
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="checkbox"/>
+                                        <input type="checkbox" class="checkbox" [(ngModel)]="tyc"/>
                                         <span class="checkbox-text">Acepto los <span href="/terms" class="terms-link">Términos & Condiciones</span></span>
                                     </label>
                                 </div>
 
-                                <button class="btn btn-primary btn-full btn-lg">Crear Cuenta</button>
+                                <button class="btn btn-primary btn-full btn-lg" (click)="crearCuenta(type)">Crear Cuenta</button>
                             </div>
 
                             <div class="login-footer">

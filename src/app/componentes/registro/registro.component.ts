@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonService } from '../../servicios/common.service';
 import { FormsModule } from '@angular/forms';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-registro',
@@ -44,8 +45,16 @@ export class RegistroComponent {
     CapacidadCarga: ['',''],
   };
   sources: Array<any> = [];
+  img: any = [];
+  imgAlerta: string = '';
   frente: any = {id: '', link: '', name: ''};
+  imgFrente: any = [];
+  imgFrenteAlerta: string = '';
   dorso: any = {id: '', link: '', name: ''};
+  imgDorso: any = [];
+  imgDorsoAlerta: string = '';
+  tyc: boolean=false;
+  showPassword: string = 'password';
 
   constructor(public common: CommonService) {}
 
@@ -56,7 +65,10 @@ export class RegistroComponent {
 
     const element = event.currentTarget as HTMLInputElement;
 		let cantidad = element.files?.length || 0;    
-    
+    if (int==0) this.img=element.files;
+    if (int==1) this.imgFrente=element.files;
+    if (int==2) this.imgDorso=element.files;
+
 		if(cantidad==0) {
       if (int==0) this.sources=[];
       if (int==1) this.frente={id: '', link: '', name: ''};
@@ -71,9 +83,7 @@ export class RegistroComponent {
             const reader = new FileReader();
             reader.readAsDataURL(element.files![index]);
 
-            reader.onloadend = ()=>{
-              console.log(int);
-              
+            reader.onloadend = ()=>{              
               if (int==0) this.sources[index]={id: (index+1), link: reader.result, name: element.files![index].name};
               if (int==1) this.frente={id: (index+1), link: reader.result, name: element.files![index].name};
               if (int==2) this.dorso={id: (index+1), link: reader.result, name: element.files![index].name};
@@ -118,5 +128,48 @@ export class RegistroComponent {
         RubroOtro: ['',''],
       };
     }
+  }
+
+  crearCuenta(type:number){    
+    if(!this.tyc) {
+      alert('acepte tyc');
+      return;
+    }
+
+    let flag =true;
+
+    flag = this.checkCampos(this.registro)
+    if(type==0) flag = this.checkCampos(this.cliente)
+    if(type==1) {
+      flag = this.checkCampos(this.prestador)
+      if(this.img.length>4) flag = false;
+      if(this.imgFrente.length==0) flag = false;
+      if(this.imgDorso.length==0) flag = false;
+      this.imgAlerta= this.img.length>4 ? '*Campo Obligatorio' : '';
+      this.imgFrenteAlerta= this.imgFrente.length==0 ? '*Campo Obligatorio' : '';
+      this.imgDorsoAlerta= this.imgDorso.length==0 ? '*Campo Obligatorio' : '';      
+    }
+    if(this.registro['Contraseña'][0]!=this.registro['Contraseña2'][0]) {
+      flag=false;
+      alert('contraseñas no coinciden')
+      return;
+    }
+    
+
+    if(!flag){
+      alert('complete campos');
+      return;
+    }else{
+
+    }
+  }
+
+  checkCampos(campos:any) : boolean{
+    let flag = true;
+    for (const key in campos) {
+      if(campos[key][0]=='') flag=false;
+      campos[key][1] = campos[key][0]=='' ? '*Campo Obligatorio' : ''
+    }    
+    return flag;
   }
 }
