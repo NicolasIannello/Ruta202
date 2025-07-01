@@ -213,3 +213,32 @@
   margin-top: var(--spacing-1);
   line-height: 1.4;
 }
+
+.password-toggle-btn {
+  position: absolute;
+  right: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-1);
+  border-radius: var(--border-radius);
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn:hover {
+  background-color: var(--color-gray-100);
+}
+
+.password-toggle-btn:focus {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+.password-input-container .form-input {
+  padding-right: 3rem;
+}

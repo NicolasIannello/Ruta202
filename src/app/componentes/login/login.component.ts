@@ -10,6 +10,7 @@ import { CommonService } from '../../servicios/common.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  showPassword: string = 'password';
 
   constructor(public common: CommonService) {}
 }
