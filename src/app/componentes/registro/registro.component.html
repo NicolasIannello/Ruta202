@@ -76,7 +76,7 @@
                                     <input id="email del responsable" type="text" class="form-input" placeholder="Ingrese email del responsable" [(ngModel)]="registro['EmailResponsable'][0]"/>
                                 </div>
                                 <div class="form-field">
-                                    <label htmlFor="condfiscal" class="form-label">Condición fiscal  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['CondiciónFiscal'][0]=='Otro' ? registro['CondiciónFiscalOtro'][1] : registro['CondiciónFiscal'][1]}}</span></label>
+                                    <label htmlFor="condfiscal" class="form-label">Condición fiscal  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['CondiciónFiscal'][0]=='Otro' ? otro['CondiciónFiscalOtro'][1] : registro['CondiciónFiscal'][1]}}</span></label>
                                     <select class="form-input" name="condfiscal" id="condfiscal" [(ngModel)]="registro['CondiciónFiscal'][0]">
                                         <option value="" selected hidden>Ingrese su condición fiscal</option>
                                         <option value="Monotributista">Monotributista</option>
@@ -85,7 +85,7 @@
                                     </select>
                                     @if (registro['CondiciónFiscal'][0]=='Otro') {
                                         <div class="form-field">
-                                            <input id="condfiscalOtro" type="text" class="form-input" placeholder="Ingrese su condición fiscal" [(ngModel)]="registro['CondiciónFiscalOtro'][0]"/>
+                                            <input id="condfiscalOtro" type="text" class="form-input" placeholder="Ingrese su condición fiscal" [(ngModel)]="otro['CondiciónFiscalOtro'][0]"/>
                                         </div>
                                     }
                                 </div>
@@ -122,7 +122,7 @@
                                         <input id="cargo" type="text" class="form-input" placeholder="Ingrese su cargo o puesto" [(ngModel)]="cliente['Cargo'][0]"/>
                                     </div>
                                     <div class="form-field">
-                                        <label htmlFor="rubro" class="form-label">Rubro  <span class="file-input-help" style="color: var(--color-red-dark2);">{{cliente['Rubro'][0]=='Otro' ? cliente['RubroOtro'][1] : cliente['Rubro'][1]}}</span></label>
+                                        <label htmlFor="rubro" class="form-label">Rubro  <span class="file-input-help" style="color: var(--color-red-dark2);">{{cliente['Rubro'][1]}}</span></label>
                                         <select class="form-input" name="rubro" id="rubro" [(ngModel)]="cliente['Rubro'][0]">
                                             <option value="" selected hidden>Ingrese rubro</option>
                                             <option value="Aseguradora">Aseguradora</option>
@@ -137,7 +137,7 @@
                                         </select>
                                         @if (cliente['Rubro'][0]=='Otro') {
                                             <div class="form-field">
-                                                <input id="rubroOtro" type="text" class="form-input" placeholder="Ingrese rubro" [(ngModel)]="cliente['RubroOtro'][0]"/>
+                                                <input id="rubroOtro" type="text" class="form-input" placeholder="Ingrese rubro" [(ngModel)]="otro['RubroOtro'][0]"/>
                                             </div>
                                         }
                                     </div>
@@ -146,7 +146,7 @@
                                 @if (type==1) {
                                     <div class="form-row">
                                         <div class="form-field">
-                                            <label htmlFor="vehiculo" class="form-label">Vehículo  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Vehículo'][0]=='Otro' ? prestador['VehículoOtro'][1] : prestador['Vehículo'][1]}}</span></label>
+                                            <label htmlFor="vehiculo" class="form-label">Vehículo  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['Vehículo'][0]=='Otro' ? otro['VehículoOtro'][1] : prestador['Vehículo'][1]}}</span></label>
                                             <select class="form-input" name="vehiculo" id="vehiculo" [(ngModel)]="prestador['Vehículo'][0]">
                                                 <option value="" selected hidden>Ingrese vehículo</option>
                                                 <option value="Camion">Camion</option>
@@ -156,7 +156,7 @@
                                             </select>
                                             @if (prestador['Vehículo'][0]=='Otro') {
                                                 <div class="form-field">
-                                                    <input id="vehiculoOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="prestador['VehículoOtro'][0]"/>
+                                                    <input id="vehiculoOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['VehículoOtro'][0]"/>
                                                 </div>
                                             }
                                         </div>

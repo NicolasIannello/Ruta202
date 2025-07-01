@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonService } from '../../servicios/common.service';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../servicios/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -23,7 +24,6 @@ export class RegistroComponent {
     Apellido: ['',''],
     EmailResponsable: ['',''],
     CondiciónFiscal: ['',''],
-    CondiciónFiscalOtro: ['',''],
     Contraseña: ['',''],
     Contraseña2: ['',''],
   };
@@ -31,18 +31,21 @@ export class RegistroComponent {
     DNI: ['',''],
     Cargo: ['',''],
     Rubro: ['',''],
-    RubroOtro: ['',''],
   };
   prestador:{[key: string]: [string,string]}={
     EmailOperativo: ['',''],
     Vehículo: ['',''],
-    VehículoOtro: ['',''],
     Marca: ['',''],
     Modelo: ['',''],
     Año: ['',''],
     Ejes: ['',''],
     Patente: ['',''],
     CapacidadCarga: ['',''],
+  };
+  otro:{[key: string]: [string,string]}={
+    CondiciónFiscalOtro: ['',''],
+    RubroOtro: ['',''],
+    VehículoOtro: ['',''],
   };
   sources: Array<any> = [];
   img: any = [];
@@ -55,6 +58,7 @@ export class RegistroComponent {
   imgDorsoAlerta: string = '';
   tyc: boolean=false;
   showPassword: string = 'password';
+  flag:boolean=true;
 
   constructor(public common: CommonService, private api:UsuariosService) {}
 
@@ -104,15 +108,18 @@ export class RegistroComponent {
       Apellido: ['',''],
       EmailResponsable: ['',''],
       CondiciónFiscal: ['',''],
-      CondiciónFiscalOtro: ['',''],
       Contraseña: ['',''],
       Contraseña2: ['',''],
+    };
+    this.otro={
+      CondiciónFiscalOtro: ['',''],
+      RubroOtro: ['',''],
+      VehículoOtro: ['',''],
     };
     if(i==0){
       this.prestador={
         EmailOperativo: ['',''],
         Vehículo: ['',''],
-        VehículoOtro: ['',''],
         Marca: ['',''],
         Modelo: ['',''],
         Año: ['',''],
@@ -125,40 +132,35 @@ export class RegistroComponent {
         DNI: ['',''],
         Cargo: ['',''],
         Rubro: ['',''],
-        RubroOtro: ['',''],
       };
     }
   }
 
   crearCuenta(type:number){    
     if(!this.tyc) {
-      alert('acepte tyc');
+      Swal.fire({title:'Acepte los Términos & Condiciones',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
       return;
     }
 
-    let flag =true;
-
-    flag = this.checkCampos(this.registro)
-    if(type==0) flag = this.checkCampos(this.cliente)
+    this.checkCampos(this.registro)
+    if(type==0) this.checkCampos(this.cliente)
     if(type==1) {
-      flag = this.checkCampos(this.prestador)
-      if(this.img.length>4) flag = false;
-      if(this.imgFrente.length==0) flag = false;
-      if(this.imgDorso.length==0) flag = false;
+      this.checkCampos(this.prestador)
+      if(this.img.length>4) this.flag = false;
+      if(this.imgFrente.length==0) this.flag = false;
+      if(this.imgDorso.length==0) this.flag = false;
       this.imgAlerta= this.img.length>4 ? '*Campo Obligatorio' : '';
       this.imgFrenteAlerta= this.imgFrente.length==0 ? '*Campo Obligatorio' : '';
       this.imgDorsoAlerta= this.imgDorso.length==0 ? '*Campo Obligatorio' : '';      
     }
     if(this.registro['Contraseña'][0]!=this.registro['Contraseña2'][0]) {
-      flag=false;
-      alert('contraseñas no coinciden')
+      this.flag=false;
+      Swal.fire({title:'Las contraseñas no coinciden',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
       return;
     }
     
-    console.log(flag);
-    
-    if(!flag){
-      alert('complete campos');
+    if(!this.flag){
+      Swal.fire({title:'Complete todos los campos',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
       return;
     }else{
       const formData = new FormData();
@@ -182,17 +184,17 @@ export class RegistroComponent {
       formData.append('Nombre', this.registro['Nombre'][0])
       formData.append('Apellido', this.registro['Apellido'][0])
       formData.append('EmailResponsable', this.registro['EmailResponsable'][0])
-      formData.append('CondicionFiscal', this.registro['CondiciónFiscal'][0]=='Otro' ? this.registro['CondiciónFiscalOtro'][0] : this.registro['CondiciónFiscal'][0])
+      formData.append('CondicionFiscal', this.registro['CondiciónFiscal'][0]=='Otro' ? this.otro['CondiciónFiscalOtro'][0] : this.registro['CondiciónFiscal'][0])
       formData.append('Contrasena', this.registro['Contraseña'][0])
       formData.append('Tipo', String(this.type))
 
       if(this.type==0){
         formData.append('DNI', this.cliente['DNI'][0]);
         formData.append('Cargo', this.cliente['Cargo'][0]);
-        formData.append('Rubro', this.cliente['Rubro'][0]=='Otro' ? this.cliente['RubroOtro'][0] : this.cliente['Rubro'][0]);
+        formData.append('Rubro', this.cliente['Rubro'][0]=='Otro' ? this.otro['RubroOtro'][0] : this.cliente['Rubro'][0]);
       }else{
         formData.append('EmailOperativo', this.prestador['EmailOperativo'][0])
-        formData.append('Vehiculo', this.prestador['Vehículo'][0]=='Otro' ? this.prestador['VehículoOtro'][0] : this.prestador['Vehículo'][0])
+        formData.append('Vehiculo', this.prestador['Vehículo'][0]=='Otro' ? this.otro['VehículoOtro'][0] : this.prestador['Vehículo'][0])
         formData.append('Marca', this.prestador['Marca'][0])
         formData.append('Modelo', this.prestador['Modelo'][0])
         formData.append('Ano', this.prestador['Año'][0])
@@ -208,22 +210,21 @@ export class RegistroComponent {
 
       this.api.crearUsuario(formData).then(resp =>{
         if(resp.ok){
-          //Swal.fire({title:'Lote creado con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#3083dc'})
+          Swal.fire({title:'Cuenta creada con éxito', text: 'Se ha enviado un mail de confirmación al Email: '+resp.EmailResponsable,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }else{
-          //Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#3083dc'})
+          Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }
       }, (err)=>{				
-        //Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#3083dc'});
+        Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
       });
     }
   }
 
-  checkCampos(campos:any) : boolean{
-    let flag = true;
+  checkCampos(campos:any){
     for (const key in campos) {
-      if(campos[key][0]=='') flag=false;
-      campos[key][1] = campos[key][0]=='' ? '*Campo Obligatorio' : ''
+      if(campos[key][0]=='') this.flag=false;
+      if(campos[key][0]=='Otro' && this.otro[key+'Otro'][0]=='') this.flag=false;
+      campos[key][1] = campos[key][0]=='' ? '*Campo Obligatorio' : (campos[key][0]=='Otro' && this.otro[key+'Otro'][0]=='') ? '*Campo Obligatorio' : '';
     }    
-    return flag;
   }
 }
