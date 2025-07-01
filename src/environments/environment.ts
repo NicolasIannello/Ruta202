@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //base_url:'https://vps-4154293-x.dattaweb.com/ruta',
-  base_url:'http://localhost:3000/ruta',
+  base_url:'http://localhost:5000/ruta',
   numero: '+5491127605336',
   numeroString: '+54 9 11 2760-5336',
 };
