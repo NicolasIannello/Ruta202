@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonService } from '../../servicios/common.service';
 import { FormsModule } from '@angular/forms';
-import { UsuariosService } from '../servicios/usuarios.service';
+import { UsuariosService } from '../../servicios/usuarios.service';
 import Swal from 'sweetalert2';
 
 @Component({
