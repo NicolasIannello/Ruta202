@@ -14,6 +14,8 @@
   --color-red-dark2: #e11d48;
   --color-black: #1f2937;/*#000000;*/
   --color-white: #ffffff;
+  --color-green: #10b981;
+  --color-orange: #f59e0b;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
@@ -245,6 +247,39 @@ a {
   font-size: 1rem;
 }
 /* Utilities */
+.emergency-notice {
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emergency-notice:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-red);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.emergency-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.emergency-title {
+  font-weight: 600;
+  color: var(--color-gray-900);
+  font-size: 0.875rem;
+}
+
+.emergency-subtitle {
+  color: var(--color-gray-600);
+  font-size: 0.875rem;
+}
+
 .section-header {
   text-align: center;
   margin-bottom: var(--spacing-12);
@@ -319,7 +354,7 @@ a {
     font-size: 4em !important;
   }
 
-  .login-card, .register-card {
+  .login-card, .register-card, .verification-card {
     padding: var(--spacing-6);
     margin: var(--spacing-4);
   }
@@ -339,6 +374,14 @@ a {
 
   .account-type-tab {
     padding: var(--spacing-2);
+  }
+
+  .verification-actions {
+    gap: var(--spacing-2);
+  }
+
+  .verification-title {
+    font-size: 1.5rem;
   }
 }
 

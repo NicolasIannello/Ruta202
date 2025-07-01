@@ -119,39 +119,6 @@
   color: var(--color-red-dark);
 }
 
-.emergency-notice {
-  background-color: var(--color-gray-50);
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-4);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.emergency-notice:hover {
-  background-color: var(--color-white);
-  border-color: var(--color-red);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-.emergency-content {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-}
-
-.emergency-title {
-  font-weight: 600;
-  color: var(--color-gray-900);
-  font-size: 0.875rem;
-}
-
-.emergency-subtitle {
-  color: var(--color-gray-600);
-  font-size: 0.875rem;
-}
-
 .register-card {
   background-color: var(--color-white);
   padding: var(--spacing-8);
