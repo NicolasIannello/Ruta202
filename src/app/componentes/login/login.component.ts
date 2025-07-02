@@ -40,7 +40,7 @@ export class LoginComponent {
           if(!value.validado) Swal.fire({title:'Se requiere validación', text: 'Se ha enviado un mail de confirmación al Email: '+this.email, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
           if(value.validado && !value.habilitado) Swal.fire({title:'Su cuenta espera ser habilitada por un Administrador', text: 'Este proceso puede demorar unas horas', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }else{
-          Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }
       },
       error(err) {
