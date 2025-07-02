@@ -1,0 +1,103 @@
+<div class="flex-col min-h-screen" style="display: flex; align-items: center;">
+    <main class="flex-1" style="display: flex; align-items: center;">
+        <!-- {/* Verification Section */} -->
+        <section class="login-section">
+            <div class="container">
+                <div class="login-container">
+                    <div class="verification-card">
+                        @if (verificationStatus=='loading') {
+                            <div class="verification-content">
+                                <div class="verification-icon loading">
+                                    <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+                                </div>
+                                <h1 class="verification-title">Validando Cuenta</h1>
+                                <p class="verification-subtitle">Aguarde mientras validamos su cuenta. Esto solo tardara unos segundos.</p>
+                                <div class="verification-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (verificationStatus=='success') {
+                            <div class="verification-content">
+                                <div class="verification-icon success">
+                                    <i class="fa-regular fa-circle-check" style="font-size: xxx-large; color: var(--color-green) "></i>
+                                </div>
+                                <h1 class="verification-title">Cuenta activada con éxito</h1>
+                                <p class="verification-subtitle">Bienvenido a Ruta202 Remolques. Su cuenta ha sido validada y espera ser activada por un administrador.</p>
+                                <div class="verified-email">
+                                    <i class="fa-solid fa-envelope" style="width: 1.25rem; height: 1.25rem; color: var(--color-gray-500); display: flex; align-items: center;"></i>
+                                    <span>{{email}}</span>
+                                </div>
+                                <div class="verification-actions">
+                                    <button class="btn btn-primary btn-lg" routerLink="/login">Ingresar a tu cuenta</button>
+                                    <button class="btn btn-outline btn-lg" routerLink="">Volver a Inicio</button>
+                                </div>
+                                <!-- <div class="success-features">
+                                    <div class="feature-item">
+                                        <CheckCircle style=" width: 1rem; height: 1rem; color: var(--color-green) " />
+                                        <span>24/7 Emergency Towing</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <CheckCircle style=" width: 1rem; height: 1rem; color: var(--color-green) " />
+                                        <span>Quick Service Requests</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <CheckCircle style=" width: 1rem; height: 1rem; color: var(--color-green) " />
+                                        <span>Service History Tracking</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        }
+
+                        <!-- @if (verificationStatus=='expired') {
+                            <div class="verification-content">
+                                <div class="verification-icon error">
+                                    <i class="fa-solid fa-triangle-exclamation" style="font-size: xxx-large; color: var(--color-orange)"></i>
+                                </div>
+                                <h1 class="verification-title">El link de validación ha expirado</h1>
+                                <p class="verification-subtitle">This verification link has expired. Don't worry; we can send you a new one.</p>
+                                <div class="verification-actions">
+                                    <button class="btn btn-primary btn-lg">Enviar nuevo link de validación</button>
+                                    <button class="btn btn-outline btn-lg">Create New Account</button>
+                                </div>
+                                <div class="help-text">
+                                    <p>Los links de verificación expiran luego de 72hrs. Si continua con problemas por favor contacte a soporte.</p>
+                                </div>
+                            </div>
+                        } -->
+
+                        @if (verificationStatus=='error') {
+                            <div class="verification-content">
+                                <div class="verification-icon error">
+                                    <i class="fa-solid fa-triangle-exclamation" style="font-size: xxx-large; color: var(--color-orange)"></i>
+                                </div>
+                                <h1 class="verification-title">Validación fallida</h1>
+                                <p class="verification-subtitle">No pudimos validar su cuenta. El link pudo haber expirado o ya ha sido usado.</p>
+                                <div class="verification-actions">
+                                    <button class="btn btn-primary btn-lg">Enviar nuevo link de validación</button>
+                                    <button class="btn btn-outline btn-lg" routerLink="/registro">Crear Cuenta</button>
+                                </div>
+                                <div class="help-text">
+                                    <p>Los links de verificación expiran luego de 2hrs. Si continua con problemas por favor contacte a soporte.</p>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="emergency-notice" (click)="common.openWsp()">
+                            <div class="emergency-content">
+                                <i class="fa-brands fa-whatsapp center" style="color: var(--color-red); width: 1.25rem; height: 1.25rem"></i>
+                                <div>
+                                    <p class="emergency-title">¿Tiene alguna duda?</p>
+                                    <p class="emergency-subtitle">Contáctenos aquí</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>

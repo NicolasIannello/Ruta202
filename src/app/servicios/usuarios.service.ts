@@ -30,4 +30,7 @@ export class UsuariosService {
       return false;
     }
   }
+  validarCuenta(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/validar', dato, {'headers':this.header})
+  }
 }
