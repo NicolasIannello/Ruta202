@@ -11,30 +11,85 @@
                 <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='contact'}">Contacto</span>
             </nav>
         }
-        <div class="nav header-actions">
-            <button class="btn btn-outline" routerLink="login" (click)="nav=''">
-                Ingresar
-            </button>
-            <button class="btn btn-primary" routerLink="registro" (click)="nav=''">
-                <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
-            </button>
-        </div>
+        @if (Empresa!='') {
+            <div class="nav header-actions">
+                <div class="user-menu-container">
+                    <button class="user-menu-trigger" (click)="menuOpenUser=!menuOpenUser" aria-label="User menu">
+                        <div class="user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <span class="user-name" style="color: var(--color-black);">{{Empresa}}</span>
+                    </button>
+
+                    <div class="user-dropdown" [ngClass]="{'none' : !menuOpenUser}">
+                        <div class="user-dropdown-header">
+                            <p class="user-dropdown-name">{{Empresa}}</p>
+                            <p class="user-dropdown-email">{{Email}}</p>
+                        </div>
+                        <div class="user-dropdown-divider"></div>
+                        <div class="user-dropdown-menu">
+                            <span class="user-dropdown-item">
+                                <i class="fa-solid fa-gears"></i>
+                                <span>OPCIÓN 1</span>
+                            </span>
+                            <span class="user-dropdown-item">
+                                <i class="fa-solid fa-gears"></i>
+                                <span>OPCIÓN 2</span>
+                            </span>
+                            <span class="user-dropdown-item">
+                                <i class="fa-solid fa-gears"></i>
+                                <span>OPCIÓN 3</span>
+                            </span>
+                            <div class="user-dropdown-divider"></div>
+                            <button class="user-dropdown-item logout-item" (click)="cerrarSession()">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                <span>Cerrar Session</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        } @else {
+            <div class="nav header-actions">
+                <button class="btn btn-outline" routerLink="login" (click)="nav=''">Ingresar</button>
+                <button class="btn btn-primary" routerLink="registro" (click)="nav=''">
+                    <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
+                </button>
+            </div>
+        }
         <div class="mobile-menu-button">
             <i [ngClass]="{'fa-bars' : !menuOpen, 'fa-xmark' : menuOpen}" class="fa-solid" style="color: var(--color-black); font-size: x-large;" (click)="open()"></i>    
         </div>
         <div class="mobile-menu" [ngClass]="{'none' : !menuOpen}">
             <div class="mobile-menu-content">
-                <span (click)="scroller.scrollToAnchor('services'); nav='services'" class="mobile-nav-link" (click)="open()">Servicios</span>
-                <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="mobile-nav-link" (click)="open()">Nosotros</span>
-                <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="mobile-nav-link" (click)="open()">Contacto</span>
-                <div class="mobile-menu-actions">
-                    <span routerLink="login" (click)="open()">
-                        <button class="btn btn-outline btn-full">Ingresar</button>
-                    </span>
-                    <span routerLink="registro" (click)="open()">
-                        <button class="btn btn-primary btn-full">Crear Cuenta</button>
-                    </span>
-                </div>
+                @if (pagina=='/') {
+                    <span (click)="scroller.scrollToAnchor('services'); nav='services'" class="mobile-nav-link" (click)="open()">Servicios</span>
+                    <span (click)="scroller.scrollToAnchor('about'); nav='about'" class="mobile-nav-link" (click)="open()">Nosotros</span>
+                    <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="mobile-nav-link" (click)="open()">Contacto</span>
+                } @else {
+                    <span (click)="nav=''" routerLink="/" class="mobile-nav-link" (click)="open()">Inicio</span>
+                }
+                @if (Empresa!='') {
+                    <div class="mobile-user-info" style="padding-left: 0;">
+                      <p class="mobile-user-name" style="color: var(--color-black);">{{Empresa}}</p>
+                      <p class="mobile-user-email" style="color: var(--color-black);">{{Email}}</p>
+                    </div>
+                    <div style="display: flex;">
+                        <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 1</button>
+                        <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 2</button>
+                        <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 3</button>
+                    </div>
+                    <button class="btn btn-primary btn-full" (click)="cerrarSession(); open()">Cerrar Session</button>
+                } @else{
+                    <div class="mobile-menu-actions">
+                        <span routerLink="login" (click)="open()">
+                            <button class="btn btn-outline btn-full">Ingresar</button>
+                        </span>
+                        <span routerLink="registro" (click)="open()">
+                            <button class="btn btn-primary btn-full">Crear Cuenta</button>
+                        </span>
+                    </div>
+                }
             </div>
         </div>
     </div>

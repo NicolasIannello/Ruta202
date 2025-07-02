@@ -1,7 +1,8 @@
-import { CommonModule, ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser, ViewportScroller } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { UsuariosService } from '../../servicios/usuarios.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +15,12 @@ export class NavbarComponent implements OnInit{
   pagina:string='/';
   nav:string='';
   menuOpen:boolean=false;
+  menuOpenUser:boolean=false;
+  Empresa:string='';
+  Email:string='';
 
-  constructor(public scroller: ViewportScroller, private router: Router) {
+  constructor(public scroller: ViewportScroller, private router: Router, @Inject(PLATFORM_ID) private platformId: Object,
+  private api: UsuariosService, private changeDetector: ChangeDetectorRef) {
     this.pagina=router.url    
   }
 
@@ -24,9 +29,39 @@ export class NavbarComponent implements OnInit{
       this.pagina=event.urlAfterRedirects;
       this.nav='';      
     });
+    if(isPlatformBrowser(this.platformId) && localStorage.getItem('token')){
+      let dato={
+          'token': localStorage.getItem('token'),
+          'tipo': 1
+        }
+      this.api.renewToken(dato).subscribe({
+        next: (value:any) => {
+          if (value.ok) {
+            localStorage.setItem('token',value.token);
+            this.Empresa=value.nombre;
+            this.api.setEmpresa(value.nombre)
+            this.Email=value.mail
+            this.api.setEmail(value.mail)
+            this.api.setID(value.id)
+          }else{
+            localStorage.removeItem('token')
+            this.api.logOut()
+          }
+          this.changeDetector.detectChanges();
+        },
+        error: (err:any) => {
+          localStorage.removeItem('token')
+          this.api.logOut()
+        },		
+      });
+    }
   }
 
   open(){
     this.menuOpen=!this.menuOpen;
+  }
+
+  cerrarSession(){
+    this.api.logOut();
   }
 }
