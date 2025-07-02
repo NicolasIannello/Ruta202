@@ -11,6 +11,9 @@ const base_url=environment.base_url;
 })
 export class UsuariosService {
   header:HttpHeaders;
+  Empresa:string='';
+  Email:string='';
+  ID:string='';
 
   constructor(private http: HttpClient) {
     this.header=new HttpHeaders().set('Acces-Control-Allow-Origin','*');
@@ -35,5 +38,26 @@ export class UsuariosService {
   }
   reValidarCuenta(dato:any):Observable<any>{
     return this.http.post(base_url+'/usuarios/reValidar', dato, {'headers':this.header})
+  }
+  login(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/login', dato, {'headers':this.header})
+  }
+  setEmpresa(emp:string){
+    this.Empresa=emp;
+  }
+  setEmail(mail:string){
+    this.Email=mail;
+  }
+  setID(id:string){
+    this.ID=id;
+  }
+  getEmpresa(){
+    return this.Empresa;
+  }
+  getEmail(){
+    return this.Email;
+  }
+  getID(){
+    return this.ID;
   }
 }

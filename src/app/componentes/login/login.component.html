@@ -14,7 +14,7 @@
                                 <label htmlFor="email" class="form-label">
                                     Email
                                 </label>
-                                <input id="email" type="email" class="form-input" placeholder="Ingrese su email" required />
+                                <input id="email" type="email" class="form-input" placeholder="Ingrese su email" [(ngModel)]="email"/>
                             </div>
 
                             <div class="form-field">
@@ -22,7 +22,7 @@
                                     Contraseña
                                 </label>
                                 <div class="password-input-container">
-                                    <input id="password" type="{{showPassword}}" class="form-input" placeholder="Enter your password" required/>
+                                    <input id="password" type="{{showPassword}}" class="form-input" placeholder="Enter your password" [(ngModel)]="password"/>
                                     <button type="button" class="password-toggle-btn" (click)="showPassword= showPassword=='password' ? 'text' : 'password'">
                                         @if (showPassword=='password') {
                                             <i class="fa-regular fa-eye center" style="color: var(--color-gray-500); width: 1.25rem; height: 1.25rem"></i>
@@ -35,7 +35,7 @@
 
                             <div class="form-options">
                                 <label class="checkbox-label">
-                                    <input type="checkbox" class="checkbox" />
+                                    <input type="checkbox" class="checkbox" [(ngModel)]="rememberMe"/>
                                     <span class="checkbox-text">Recordarme</span>
                                 </label>
                                 <span class="forgot-link">
@@ -43,7 +43,7 @@
                                 </span>
                             </div>
 
-                            <button class="btn btn-primary btn-full btn-lg">Ingresar</button>
+                            <button class="btn btn-primary btn-full btn-lg" (click)="login()">Ingresar</button>
                         </div>
 
                         <div class="login-footer">
