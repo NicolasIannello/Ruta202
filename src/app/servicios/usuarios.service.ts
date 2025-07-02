@@ -60,4 +60,10 @@ export class UsuariosService {
   getID(){
     return this.ID;
   }
+  logOut(){
+    this.Empresa='';
+    this.Email='';
+    this.ID='';
+    localStorage.removeItem('token');
+  }
 }
