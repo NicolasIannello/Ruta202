@@ -13,7 +13,7 @@ export class loggedOutGuard implements CanActivate {
       //   this.router.navigate(['/']);    
       //   return false;
       // }
-      this.api.logOut()
+      if(localStorage.getItem('token')) this.api.logOut()
     }
   }
 }
