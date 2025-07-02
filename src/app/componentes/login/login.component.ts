@@ -17,10 +17,17 @@ export class LoginComponent {
   email:string = '';
   password:string = '';
   rememberMe:boolean = false;
+  texto:string='Ingresar'
 
   constructor(public common: CommonService, private api:UsuariosService, private router: Router) {}
 
   login(){
+    if(this.email==''  || this.password==''){
+      Swal.fire({title:'Complete todos los campo', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      return;
+    }
+    this.texto='Iniciando session';
+
     let dato = {
       'email' : this.email,
       'password' : this.password,
@@ -42,8 +49,10 @@ export class LoginComponent {
         }else{
           Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }
+        this.texto='Ingresar'
       },
-      error(err) {
+      error: (err) => {
+        this.texto='Ingresar'
         Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
       },
     })

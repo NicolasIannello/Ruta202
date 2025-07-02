@@ -43,7 +43,7 @@
                                 </span>
                             </div>
 
-                            <button class="btn btn-primary btn-full btn-lg" (click)="login()">Ingresar</button>
+                            <button class="btn btn-primary btn-full btn-lg" (click)="login()" [disabled]="texto!='Ingresar'">{{texto}}</button>
                         </div>
 
                         <div class="login-footer">
