@@ -4,12 +4,13 @@ import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { InicioComponent } from './componentes/landing/inicio/inicio.component';
 import { ValidacionComponent } from './componentes/validacion/validacion.component';
+import { loggedOutGuard } from './guards/logged-out.guard';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
         { path: '', component: InicioComponent },
-        { path: 'login', component: LoginComponent },
-        { path: 'registro', component: RegistroComponent },
+        { path: 'login', component: LoginComponent, canActivate: [loggedOutGuard] },
+        { path: 'registro', component: RegistroComponent, canActivate: [loggedOutGuard] },
         { path: 'validacion/:token', component: ValidacionComponent },
     ] },
     // { path: 'panelAdmin', component: PanelAdminComponent , children: [

@@ -35,7 +35,7 @@ export class LoginComponent {
             this.api.setEmail(value.mail);
             this.api.setEmpresa(value.nombre);
             this.api.setID(value.id);
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/']);
           }
           if(!value.validado) Swal.fire({title:'Se requiere validación', text: 'Se ha enviado un mail de confirmación al Email: '+this.email, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
           if(value.validado && !value.habilitado) Swal.fire({title:'Su cuenta espera ser habilitada por un Administrador', text: 'Este proceso puede demorar unas horas', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
