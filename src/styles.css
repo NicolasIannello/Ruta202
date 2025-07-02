@@ -383,6 +383,11 @@ a {
   .verification-title {
     font-size: 1.5rem;
   }
+
+  /* .user-name {
+    font-weight: 500;
+    font-size: 0.875rem;
+  } */
 }
 
 @media (min-width: 768px) {

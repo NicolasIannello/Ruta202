@@ -129,3 +129,125 @@
     visibility: hidden;
     opacity: 0;
 }
+
+/* User Menu */
+.user-menu-container {
+  position: relative;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius-md);
+  transition: background-color 0.2s;
+  color: var(--color-white);
+}
+
+.user-menu-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--color-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-2);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-gray-200);
+  min-width: 200px;
+  z-index: 60;
+}
+
+.user-dropdown-header {
+  padding: var(--spacing-4);
+}
+
+.user-dropdown-name {
+  font-weight: 600;
+  color: var(--color-gray-900);
+  font-size: 0.875rem;
+}
+
+.user-dropdown-email {
+  color: var(--color-gray-500);
+  font-size: 0.75rem;
+  margin-top: var(--spacing-1);
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background-color: var(--color-gray-200);
+}
+
+.user-dropdown-menu {
+  padding: var(--spacing-2);
+}
+
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: none;
+  background: none;
+  color: var(--color-gray-700);
+  font-size: 0.875rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+}
+
+.user-dropdown-item:hover {
+  background-color: var(--color-gray-50);
+}
+
+.logout-item {
+  color: var(--color-red);
+}
+
+.logout-item:hover {
+  background-color: rgba(225, 29, 72, 0.05);
+}
+
+/* Mobile User Info */
+.mobile-user-info {
+  padding: var(--spacing-3);
+  border-bottom: 1px solid var(--color-gray-800);
+  margin-bottom: var(--spacing-4);
+}
+
+.mobile-user-name {
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.mobile-user-email {
+  color: var(--color-gray-400);
+  font-size: 0.75rem;
+  margin-top: var(--spacing-1);
+}
