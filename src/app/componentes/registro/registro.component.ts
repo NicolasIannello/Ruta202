@@ -67,8 +67,14 @@ export class RegistroComponent {
     if (int==1) this.frente={id: '', link:'', name: ''};
     if (int==2) this.dorso={id: '', link:'', name: ''};
 
-    const element = event.currentTarget as HTMLInputElement;
-		let cantidad = element.files?.length || 0;    
+    let element = event.currentTarget as HTMLInputElement;
+		let cantidad = element.files?.length || 0;
+
+    if(cantidad>4 && int==0) {
+      element.value = '';
+      this.img=[];
+      return;
+    }
     if (int==0) this.img=element.files;
     if (int==1) this.imgFrente=element.files;
     if (int==2) this.imgDorso=element.files;
@@ -146,10 +152,10 @@ export class RegistroComponent {
     if(type==0) this.checkCampos(this.cliente)
     if(type==1) {
       this.checkCampos(this.prestador)
-      if(this.img.length>4) this.flag = false;
+      if(this.img.length==0) this.flag = false;
       if(this.imgFrente.length==0) this.flag = false;
       if(this.imgDorso.length==0) this.flag = false;
-      this.imgAlerta= this.img.length>4 ? '*Campo Obligatorio' : '';
+      this.imgAlerta= this.img.length==0 ? '*Campo Obligatorio' : '';
       this.imgFrenteAlerta= this.imgFrente.length==0 ? '*Campo Obligatorio' : '';
       this.imgDorsoAlerta= this.imgDorso.length==0 ? '*Campo Obligatorio' : '';      
     }
