@@ -77,7 +77,7 @@
                                 <h1 class="verification-title">Validación fallida</h1>
                                 <p class="verification-subtitle">No pudimos validar su cuenta. El link pudo haber expirado o ya ha sido usado.</p>
                                 <div class="verification-actions">
-                                    <button class="btn btn-primary btn-lg">Enviar nuevo link de validación</button>
+                                    <button class="btn btn-primary btn-lg" (click)="reValidar()">Enviar nuevo link de validación</button>
                                     <button class="btn btn-outline btn-lg" routerLink="/registro">Crear Cuenta</button>
                                 </div>
                                 <div class="help-text">

@@ -33,4 +33,7 @@ export class UsuariosService {
   validarCuenta(dato:any):Observable<any>{
     return this.http.post(base_url+'/usuarios/validar', dato, {'headers':this.header})
   }
+  reValidarCuenta(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/reValidar', dato, {'headers':this.header})
+  }
 }
