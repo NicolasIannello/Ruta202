@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonService } from '../../servicios/common.service';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import Swal from 'sweetalert2';
+import { EmergencyNoticeComponent } from "../things/emergency-notice/emergency-notice.component";
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, EmergencyNoticeComponent],
   templateUrl: './registro.component.html',
   styleUrl: '../login/login.component.css'
 })
@@ -60,7 +60,7 @@ export class RegistroComponent {
   showPassword: string = 'password';
   flag:boolean=true;
 
-  constructor(public common: CommonService, private api:UsuariosService) {}
+  constructor(private api:UsuariosService) {}
 
   showImg(event: Event, int:number){
     if (int==0) this.sources=[];

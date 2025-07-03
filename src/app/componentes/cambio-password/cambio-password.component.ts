@@ -3,11 +3,12 @@ import { UsuariosService } from '../../servicios/usuarios.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { EmergencyNoticeComponent } from "../things/emergency-notice/emergency-notice.component";
 
 @Component({
   selector: 'app-cambio-password',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, EmergencyNoticeComponent],
   templateUrl: './cambio-password.component.html',
   styleUrls: ['./cambio-password.component.css', '../login/login.component.css']
 })

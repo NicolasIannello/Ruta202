@@ -4,11 +4,12 @@ import { CommonService } from '../../servicios/common.service';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import Swal from 'sweetalert2';
+import { EmergencyNoticeComponent } from "../things/emergency-notice/emergency-notice.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule, EmergencyNoticeComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
