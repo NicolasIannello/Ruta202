@@ -70,4 +70,10 @@ export class UsuariosService {
   renewToken(dato:any):Observable<any>{
     return this.http.post(base_url+'/usuarios/renew', dato, {'headers':this.header})
   }
+  forgotPassword(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/forgotPassword', dato, {'headers':this.header})
+  }
+  changePassword(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/changePassword', dato, {'headers':this.header})
+  }
 }

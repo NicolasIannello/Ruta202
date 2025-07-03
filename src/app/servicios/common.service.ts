@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import Swal from 'sweetalert2';
+import { UsuariosService } from './usuarios.service';
 
 const numero=environment.numero;
 
@@ -8,9 +10,53 @@ const numero=environment.numero;
 })
 export class CommonService {
 
-  constructor() { }
+  constructor(private api: UsuariosService) { }
 
   openWsp(){
     window.open('https://wa.me/'+numero);
+  }
+  forgotPassword(){
+    let email='';
+
+    Swal.fire({
+      title: "¿Olvido su contraseña?",
+      text: "Ingrese su E-mail y le enviaremos un correo de recuperación",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off"
+      },
+      showCancelButton: true,
+      confirmButtonText: "Enviar E-mail",
+      confirmButtonColor:'#ea580c',
+      showLoaderOnConfirm: true,
+      preConfirm: async (mail) => {
+        email=mail;
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          let dato={
+            'tipo': 3,
+            'email': email
+          }
+
+          this.api.forgotPassword(dato).subscribe({
+            next: (value:any) => {
+              if(value.ok){
+                Swal.fire({title:'Email enviado con éxito', text: 'Se ha enviado un mail para el cambio de contraseña al Email: '+email, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }else{
+                Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }
+            },
+            error: (err:any) => {
+              Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+            },
+          })
+        } catch (error) {
+          Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }
+    });
   }
 }
