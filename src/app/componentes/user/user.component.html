@@ -1,0 +1,323 @@
+<div class="flex-col min-h-screen">
+    <main class="flex-1">
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar">
+                                <!-- <User style= width: "3rem", height: "3rem", color: "var(--color-white)" }} /> -->
+                                <button class="avatar-upload-btn">
+                                <!-- <Camera style= width: "1rem", height: "1rem" }} /> -->
+                                </button>
+                            </div>
+                            <div class="profile-info">
+                                <h1 class="profile-name">
+                                formData.firstName formData.lastName
+                                </h1>
+                                <p class="profile-email">formData.email</p>
+                                <p class="profile-member-since">Member since January 2024</p>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                        <!-- {!isEditing ? (
+                            <button class="btn btn-primary" (click)={() => setIsEditing(true)}>
+                            <Edit3 style= width: "1rem", height: "1rem" }} class="btn-icon" />
+                            Edit Profile
+                            </button>
+                        ) : (
+                            <div class="edit-actions">
+                            <button class="btn btn-primary" (click)={handleSave}>
+                                <Save style= width: "1rem", height: "1rem" }} class="btn-icon" />
+                                Save Changes
+                            </button>
+                            <button class="btn btn-outline" (click)={handleCancel}>
+                                <XCircle style= width: "1rem", height: "1rem" }} class="btn-icon" />
+                                Cancel
+                            </button>
+                            </div>
+                        )} -->
+                        </div>
+                    </div>
+
+                    <div class="profile-tabs">
+                        <button class="profile-tab active">
+                            <!-- <User style= width: "1.25rem", height: "1.25rem" }} /> -->
+                            <span>Personal Info</span>
+                        </button>
+                        <button class="profile-tab">
+                            <!-- <Settings style= width: "1.25rem", height: "1.25rem" }} /> -->   
+                            <span>Preferences</span>
+                        </button>
+                        <button class="profile-tab">
+                            <!-- <Shield style= width: "1.25rem", height: "1.25rem" }} /> -->
+                            <span>Security</span>
+                        </button>
+                    </div>
+
+                    <div class="profile-content">
+                        <div class="profile-tab-content">
+                            <div class="profile-section-header">
+                                <h2 class="section-title" style="color: var(--color-black);">Personal Information</h2>
+                                <p class="section-description" style="color: var(--color-black);">Update your personal details and contact information.</p>
+                            </div>
+
+                            <form class="profile-form">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Basic Information</h3>
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label htmlFor="firstName" class="form-label">
+                                                <!-- <User style= width: "1rem", height: "1rem" }} /> -->
+                                                First Name
+                                            </label>
+                                            <input id="firstName" name="firstName" type="text" class="form-input"/>
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="lastName" class="form-label">
+                                                <!-- <User style= width: "1rem", height: "1rem" }} /> -->
+                                                Last Name
+                                            </label>
+                                            <input id="lastName" name="lastName" type="text" class="form-input"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label htmlFor="email" class="form-label">
+                                                <!-- <Mail style= width: "1rem", height: "1rem" }} /> -->
+                                                Email Address
+                                            </label>
+                                            <input id="email" name="email" type="email" class="form-input"/>
+                                            <p class="form-help">Changing your email will require verification</p>
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="phone" class="form-label">
+                                                <!-- <Phone style= width: "1rem", height: "1rem" }} /> -->
+                                                Phone Number
+                                            </label>
+                                            <input id="phone" name="phone" type="tel" class="form-input" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label htmlFor="dateOfBirth" class="form-label">
+                                            <!-- <Calendar style= width: "1rem", height: "1rem" }} /> -->
+                                            Date of Birth
+                                        </label>
+                                        <input id="dateOfBirth" name="dateOfBirth" type="date" class="form-input" />
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Address Information</h3>
+                                    <div class="form-field">
+                                        <label htmlFor="address" class="form-label">
+                                            <!-- <MapPin style= width: "1rem", height: "1rem" }} /> -->
+                                            Street Address
+                                        </label>
+                                        <input id="address" name="address" type="text" class="form-input" />
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-field">
+                                            <label htmlFor="city" class="form-label">City</label>
+                                            <input id="city" name="city" type="text" class="form-input"/>
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="state" class="form-label">State</label>
+                                            <select id="state" name="state" class="form-input">
+                                                <option value="NY">New York</option>
+                                                <option value="CA">California</option>
+                                                <option value="TX">Texas</option>
+                                                <option value="FL">Florida</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-field">
+                                            <label htmlFor="zipCode" class="form-label">ZIP Code</label>
+                                            <input id="zipCode" name="zipCode" type="text" class="form-input"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- <div class="profile-tab-content">
+                            <div class="profile-section-header">
+                            <h2 class="section-title">Preferences & Settings</h2>
+                            <p class="section-description">Customize your experience and notification preferences.</p>
+                            </div>
+
+                            <form class="profile-form">
+                            <div class="form-section">
+                                <h3 class="form-section-title">
+                                <Bell style= width: "1.25rem", height: "1.25rem" }} />
+                                Notification Preferences
+                                </h3>
+
+                                <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4 class="preference-title">Email Notifications</h4>
+                                    <p class="preference-description">
+                                    Receive updates about your service requests via email
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input
+                                    type="checkbox"
+                                    name="emailNotifications"
+                                    checked={preferences.emailNotifications}
+                                    onChange={handlePreferenceChange}
+                                    disabled={!isEditing}
+                                    />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                </div>
+
+                                <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4 class="preference-title">SMS Notifications</h4>
+                                    <p class="preference-description">
+                                    Get text messages for urgent updates and arrival notifications
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input
+                                    type="checkbox"
+                                    name="smsNotifications"
+                                    checked={preferences.smsNotifications}
+                                    onChange={handlePreferenceChange}
+                                    disabled={!isEditing}
+                                    />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                </div>
+
+                                <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4 class="preference-title">Marketing Emails</h4>
+                                    <p class="preference-description">Receive promotional offers and service updates</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input
+                                    type="checkbox"
+                                    name="marketingEmails"
+                                    checked={preferences.marketingEmails}
+                                    onChange={handlePreferenceChange}
+                                    disabled={!isEditing}
+                                    />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                </div>
+
+                                <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4 class="preference-title">Service Reminders</h4>
+                                    <p class="preference-description">
+                                    Get reminders for scheduled maintenance and follow-ups
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input
+                                    type="checkbox"
+                                    name="serviceReminders"
+                                    checked={preferences.serviceReminders}
+                                    onChange={handlePreferenceChange}
+                                    disabled={!isEditing}
+                                    />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3 class="form-section-title">Language & Region</h3>
+                                <div class="form-row">
+                                <div class="form-field">
+                                    <label htmlFor="language" class="form-label">
+                                    Language
+                                    </label>
+                                    <select
+                                    id="language"
+                                    name="language"
+                                    class="form-input"
+                                    value={preferences.language}
+                                    onChange={handlePreferenceChange}
+                                    disabled={!isEditing}
+                                    >
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label htmlFor="timezone" class="form-label">
+                                    Timezone
+                                    </label>
+                                    <select
+                                    id="timezone"
+                                    name="timezone"
+                                    class="form-input"
+                                    value={preferences.timezone}
+                                    onChange={handlePreferenceChange}
+                                    disabled={!isEditing}
+                                    >
+                                    <option value="EST">Eastern Time (EST)</option>
+                                    <option value="CST">Central Time (CST)</option>
+                                    <option value="MST">Mountain Time (MST)</option>
+                                    <option value="PST">Pacific Time (PST)</option>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div> -->
+
+                        <!-- <div class="profile-tab-content">
+                            <div class="profile-section-header">
+                                <h2 class="section-title">Security Settings</h2>
+                                <p class="section-description">Manage your account security and privacy settings.</p>
+                            </div>
+
+                            <div class="security-section">
+                                <div class="security-item">
+                                    <div class="security-info">
+                                    <h3 class="security-title">Password</h3>
+                                    <p class="security-description">Last changed 30 days ago</p>
+                                    </div>
+                                    <Link href="/reset-password">
+                                    <button class="btn btn-outline">Change Password</button>
+                                    </Link>
+                                </div>
+
+                                <div class="security-item">
+                                    <div class="security-info">
+                                    <h3 class="security-title">Two-Factor Authentication</h3>
+                                    <p class="security-description">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <button class="btn btn-primary">Enable 2FA</button>
+                                </div>
+
+                                <div class="security-item">
+                                    <div class="security-info">
+                                    <h3 class="security-title">Login Sessions</h3>
+                                    <p class="security-description">Manage your active login sessions</p>
+                                    </div>
+                                    <button class="btn btn-outline">View Sessions</button>
+                                </div>
+
+                                <div class="security-item">
+                                    <div class="security-info">
+                                    <h3 class="security-title">Account Deletion</h3>
+                                    <p class="security-description">Permanently delete your account and all data</p>
+                                    </div>
+                                    <button class="btn btn-outline btn-danger">Delete Account</button>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
