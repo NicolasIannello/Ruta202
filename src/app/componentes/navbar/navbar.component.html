@@ -28,9 +28,9 @@
                         </div>
                         <div class="user-dropdown-divider"></div>
                         <div class="user-dropdown-menu">
-                            <span class="user-dropdown-item">
-                                <i class="fa-solid fa-gears"></i>
-                                <span>OPCIÓN 1</span>
+                            <span class="user-dropdown-item" routerLink="/perfil">
+                                <i class="fa-regular fa-circle-user"></i>
+                                <span>Mi Perfil</span>
                             </span>
                             <span class="user-dropdown-item">
                                 <i class="fa-solid fa-gears"></i>
@@ -75,7 +75,7 @@
                       <p class="mobile-user-email" style="color: var(--color-black);">{{Email}}</p>
                     </div>
                     <div style="display: flex;">
-                        <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 1</button>
+                        <button class="btn btn-outline btn-full" (click)="open()" routerLink="/perfil">Mi Perfil</button>
                         <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 2</button>
                         <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 3</button>
                     </div>

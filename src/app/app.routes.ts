@@ -6,6 +6,8 @@ import { InicioComponent } from './componentes/landing/inicio/inicio.component';
 import { ValidacionComponent } from './componentes/validacion/validacion.component';
 import { loggedOutGuard } from './guards/logged-out.guard';
 import { CambioPasswordComponent } from './componentes/cambio-password/cambio-password.component';
+import { loggedGuard } from './guards/logged.guard';
+import { UserComponent } from './componentes/user/user.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -14,6 +16,7 @@ export const routes: Routes = [
         { path: 'registro', component: RegistroComponent, canActivate: [loggedOutGuard] },
         { path: 'validacion/:token', component: ValidacionComponent, canActivate: [loggedOutGuard] },
         { path: 'cambioPassword/:token', component: CambioPasswordComponent, canActivate: [loggedOutGuard] },
+        { path: 'perfil', component: UserComponent, canActivate: [loggedGuard] },
     ] },
     // { path: 'panelAdmin', component: PanelAdminComponent , children: [
     //     { path: '', component: LoginComponent },
