@@ -11,7 +11,7 @@ export const routes: Routes = [
         { path: '', component: InicioComponent },
         { path: 'login', component: LoginComponent, canActivate: [loggedOutGuard] },
         { path: 'registro', component: RegistroComponent, canActivate: [loggedOutGuard] },
-        { path: 'validacion/:token', component: ValidacionComponent },
+        { path: 'validacion/:token', component: ValidacionComponent, canActivate: [loggedOutGuard] },
     ] },
     // { path: 'panelAdmin', component: PanelAdminComponent , children: [
     //     { path: '', component: LoginComponent },
