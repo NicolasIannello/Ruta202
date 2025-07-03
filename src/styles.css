@@ -388,6 +388,21 @@ a {
     font-weight: 500;
     font-size: 0.875rem;
   } */
+
+  .reset-password-card {
+    padding: var(--spacing-6);
+    margin: var(--spacing-4);
+  }
+
+  .password-strength {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .strength-text {
+    min-width: auto;
+  }
 }
 
 @media (min-width: 768px) {
