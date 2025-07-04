@@ -15,8 +15,8 @@ export class MiPerfilComponent {
   @Input() dato:{[key: string]: string}={};
   @Input() dato2:{[key: string]: string}={};
   @Input() otro:{[key: string]: string}={
-    CondiciónFiscalOtro: '',
+    CondicioFiscalOtro: '',
     RubroOtro: '',
-    VehículoOtro: '',
+    VehiculoOtro: '',
   };
 }
