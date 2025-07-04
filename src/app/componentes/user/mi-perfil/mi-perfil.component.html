@@ -1,0 +1,124 @@
+<div class="profile-tab-content">
+    <div class="profile-section-header">
+        <h2 class="section-title" style="color: var(--color-black);">Información del Perfil</h2>
+        <p class="section-description" style="color: var(--color-black); margin: 0;">Visualize y edite la información del Perfil.</p>
+    </div>
+
+    <span class="profile-form">
+        <div class="form-section">
+            <h3 class="form-section-title">Información General</h3>
+            <div class="form-row">
+                <div class="form-field">
+                    <label htmlFor="firstName" class="form-label">Nombre</label>
+                    <input id="firstName" name="firstName" type="text" class="form-input" [(ngModel)]="Usuario['Nombre']" [disabled]="edit"/>
+                </div>
+                <div class="form-field">
+                    <label htmlFor="lastName" class="form-label">Apellido</label>
+                    <input id="lastName" name="lastName" type="text" class="form-input" [(ngModel)]="Usuario['Apellido']" [disabled]="edit"/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label htmlFor="email" class="form-label">Email</label>
+                    <input id="email" name="email" type="text" class="form-input" [(ngModel)]="Usuario['EmailResponsable']" [disabled]="edit"/>
+                    <p class="form-help">Cambiar el Email requerirá una verificación via Email</p>
+                </div>
+                <div class="form-field">
+                    <label htmlFor="phone" class="form-label">Celular</label>
+                    <input id="phone" name="phone" type="text" class="form-input" [(ngModel)]="Usuario['Celular']" [disabled]="edit"/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label htmlFor="empresa" class="form-label">Empresa</label>
+                    <input id="empresa" name="empresa" type="text" class="form-input" [(ngModel)]="Usuario['Empresa']" [disabled]="edit"/>
+                </div>
+                <div class="form-field">
+                    <label htmlFor="direccion" class="form-label">Dirección</label>
+                    <input id="direccion" name="direccion" type="text" class="form-input" [(ngModel)]="Usuario['Direccion']" [disabled]="edit"/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label htmlFor="CUIT" class="form-label">CUIT</label>
+                    <input id="CUIT" name="CUIT" type="text" class="form-input" [(ngModel)]="Usuario['CUIT']" [disabled]="edit"/>
+                </div>
+                <div class="form-field">
+                    <label htmlFor="CondicionFiscal" class="form-label">Condición Fiscal</label>
+                    <select class="form-input" name="CondicionFiscal" id="CondicionFiscal" [(ngModel)]="Usuario['CondicionFiscal']" [disabled]="edit">
+                        @if(Usuario2['CondicionFiscal']!='Monotributista' && Usuario2['CondicionFiscal']!='Responsable inscripto'){
+                            <option value="{{Usuario2['CondicionFiscal']}}">{{Usuario2['CondicionFiscal']}}</option>
+                        }
+                        <option value="Monotributista">Monotributista</option>
+                        <option value="Responsable inscripto">Responsable inscripto</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    @if (Usuario['CondicionFiscal']=='Otro') {
+                        <div class="form-field">
+                            <input id="condfiscalOtro" type="text" class="form-input" placeholder="Ingrese su condición fiscal" [(ngModel)]="otro['CondicionFiscalOtro']" [disabled]="edit"/>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (Usuario['Tipo']=='1') {
+            <div class="form-section">
+                <h3 class="form-section-title">Información Prestador</h3>
+                <div class="form-field">
+                    <label htmlFor="emailOperativo" class="form-label">Email Operativo</label>
+                    <input id="emailOperativo" name="emailOperativo" type="text" class="form-input" [(ngModel)]="dato['EmailOperativo']" [disabled]="edit"/>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label htmlFor="vehiculo" class="form-label">Vehículo</label>
+                        <select id="vehiculo" name="vehiculo" class="form-input" [(ngModel)]="dato['Vehiculo']" [disabled]="edit">
+                            @if(dato2['Vehiculo']!='Camion' && dato2['Vehiculo']!='Pick up' && dato2['Vehiculo']!='Trailer'){
+                                <option value="{{dato2['Vehiculo']}}">{{dato2['Vehiculo']}}</option>
+                            }
+                            <option value="Camion">Camion</option>
+                            <option value="Pick up">Pick up</option>
+                            <option value="Trailer">Trailer</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        @if (dato['Vehiculo']=='Otro') {
+                            <div class="form-field">
+                                <input id="vehiculoOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['VehículoOtro']" [disabled]="edit"/>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="marca" class="form-label">Marca</label>
+                        <input id="marca" name="marca" type="text" class="form-input" [(ngModel)]="dato['Marca']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="modelo" class="form-label">Modelo</label>
+                        <input id="modelo" name="modelo" type="text" class="form-input" [(ngModel)]="dato['Modelo']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="ano" class="form-label">Año</label>
+                        <input id="ano" name="ano" type="text" class="form-input" [(ngModel)]="dato['Ano']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="ejes" class="form-label">Ejes</label>
+                        <input id="ejes" name="ejes" type="text" class="form-input" [(ngModel)]="dato['Ejes']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="patente" class="form-label">Patente</label>
+                        <input id="patente" name="patente" type="text" class="form-input" [(ngModel)]="dato['Patente']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="capacidadCarga" class="form-label">Capacidad de Carga</label>
+                        <input id="capacidadCarga" name="capacidadCarga" type="text" class="form-input" [(ngModel)]="dato['CapacidadCarga']" [disabled]="edit"/>
+                    </div>
+                </div>
+            </div>
+        }@else {
+            
+        }
+    </span>
+</div>
