@@ -25,8 +25,9 @@
                                     </button>
                                 }@else{
                                     <div class="edit-actions">
-                                    <button class="btn btn-primary" (click)="guardarCambios()">
-                                        <i class="fa-regular fa-floppy-disk" style="width: 2rem;"></i>Guardar Cambios
+                                    <button class="btn btn-primary" (click)="guardarCambios()" [disabled]="loading">
+                                        <i class="fa-regular fa-floppy-disk" style="width: 2rem;"></i>
+                                        {{loading ? 'Guardando Espere' : 'Guardar Cambios'}}
                                     </button>
                                     <button class="btn btn-outline" (click)="cancelarEdit()">
                                         <i class="fa-regular fa-circle-xmark" style="width: 2rem;"></i>Cancelar
