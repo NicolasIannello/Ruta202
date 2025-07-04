@@ -10,8 +10,9 @@ export class loggedGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     if (isPlatformBrowser(this.platformId)) {
       if(!localStorage.getItem('token')) {
-        this.router.navigate(['/']); 
-        this.api.logOut()
+        this.router.navigate(['/']).then(() => {
+          this.api.logOut()
+        });
       }
     }
   }
