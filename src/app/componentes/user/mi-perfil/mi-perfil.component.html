@@ -16,9 +16,6 @@
                     <label htmlFor="lastName" class="form-label">Apellido</label>
                     <input id="lastName" name="lastName" type="text" class="form-input" [(ngModel)]="Usuario['Apellido']" [disabled]="edit"/>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-field">
                     <label htmlFor="email" class="form-label">Email</label>
                     <input id="email" name="email" type="text" class="form-input" [(ngModel)]="Usuario['EmailResponsable']" [disabled]="edit"/>
@@ -28,9 +25,6 @@
                     <label htmlFor="phone" class="form-label">Celular</label>
                     <input id="phone" name="phone" type="text" class="form-input" [(ngModel)]="Usuario['Celular']" [disabled]="edit"/>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-field">
                     <label htmlFor="empresa" class="form-label">Empresa</label>
                     <input id="empresa" name="empresa" type="text" class="form-input" [(ngModel)]="Usuario['Empresa']" [disabled]="edit"/>
@@ -39,9 +33,6 @@
                     <label htmlFor="direccion" class="form-label">Dirección</label>
                     <input id="direccion" name="direccion" type="text" class="form-input" [(ngModel)]="Usuario['Direccion']" [disabled]="edit"/>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-field">
                     <label htmlFor="CUIT" class="form-label">CUIT</label>
                     <input id="CUIT" name="CUIT" type="text" class="form-input" [(ngModel)]="Usuario['CUIT']" [disabled]="edit"/>
@@ -118,7 +109,43 @@
                 </div>
             </div>
         }@else {
-            
+            <div class="form-section">
+                <h3 class="form-section-title">Información Cliente</h3>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label htmlFor="DNI" class="form-label">DNI</label>
+                        <input id="DNI" name="DNI" type="text" class="form-input" [(ngModel)]="dato['DNI']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="rubro" class="form-label">Rubro</label>
+                        <select id="rubro" name="rubro" class="form-input" [(ngModel)]="dato['Rubro']" [disabled]="edit">
+                            @if(dato2['Rubro']!='Aseguradora' && dato2['Rubro']!='Productor' && dato2['Rubro']!='Broker' &&
+                            dato2['Rubro']!='Taller' && dato2['Rubro']!='Mecánica' && dato2['Rubro']!='Concesionario' &&
+                            dato2['Rubro']!='Agencia' && dato2['Rubro']!='Desarmadero'){
+                                <option value="{{dato2['Rubro']}}">{{dato2['Rubro']}}</option>
+                            }
+                            <option value="Aseguradora">Aseguradora</option>
+                            <option value="Productor">Productor</option>
+                            <option value="Broker">Broker</option>
+                            <option value="Taller">Taller</option>
+                            <option value="Mecánica">Mecánica</option>
+                            <option value="Concesionario">Concesionario</option>
+                            <option value="Agencia">Agencia</option>
+                            <option value="Desarmadero">Desarmadero</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        @if (dato['Rubro']=='Otro') {
+                            <div class="form-field">
+                                <input id="rubroOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['Rubro']" [disabled]="edit"/>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="Cargo" class="form-label">Cargo</label>
+                        <input id="Cargo" name="Cargo" type="text" class="form-input" [(ngModel)]="dato['Cargo']" [disabled]="edit"/>
+                    </div>
+                </div>
+            </div>
         }
     </span>
 </div>
