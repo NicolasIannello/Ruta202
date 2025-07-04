@@ -76,4 +76,7 @@ export class UsuariosService {
   changePassword(dato:any):Observable<any>{
     return this.http.post(base_url+'/usuarios/changePassword', dato, {'headers':this.header})
   }
+  getUserData(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/getUserData', dato, {'headers':this.header})
+  }
 }
