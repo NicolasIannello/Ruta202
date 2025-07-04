@@ -22,7 +22,7 @@ export class UserComponent {
     RubroOtro: '',
     VehículoOtro: '',
   };
-  tab:number=0;
+  tab:string='perfil';
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: UsuariosService) {}
   

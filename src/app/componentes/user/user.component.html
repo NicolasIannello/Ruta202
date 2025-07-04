@@ -17,7 +17,7 @@
                                 <p class="profile-member-since">Cuenta: {{Usuario['Tipo']=='1' ? 'Prestador' : 'Cliente'}}</p>
                             </div>
                         </div>
-                        @if(tab==0){
+                        @if(tab=='perfil'){
                             <div class="profile-actions">
                                 @if(edit){
                                     <button class="btn btn-primary" (click)="edit=!edit">
@@ -38,21 +38,21 @@
                     </div>
 
                     <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab==0 ? 'active' : ''" (click)="tab=0">
+                        <button class="profile-tab" [class]="tab=='perfil' ? 'active' : ''" (click)="tab='perfil'">
                             <i class="fa-solid fa-user" [class]="Usuario['Tipo']=='1' ? 'fa-truck' : 'fa-user'" style="width: 2rem;"></i>
                             <span>Información del Perfil</span>
+                        </button>
+                        <button class="profile-tab" [class]="tab=='seguridad' ? 'active' : ''" (click)="tab='seguridad'; cancelarEdit()">
+                            <i class="fa-solid fa-shield-halved" style="width: 2rem;"></i>
+                            <span>Seguridad</span>
                         </button>
                         <button class="profile-tab">
                             <span>Preferences</span>
                         </button>
-                        <button class="profile-tab" [class]="tab==2 ? 'active' : ''" (click)="tab=2; cancelarEdit()">
-                            <i class="fa-solid fa-shield-halved" style="width: 2rem;"></i>
-                            <span>Seguridad</span>
-                        </button>
                     </div>
 
                     <div class="profile-content">
-                        @if(tab==0){
+                        @if(tab=='perfil'){
                             <app-mi-perfil [edit]="edit" [Usuario]="Usuario" [Usuario2]="Usuario2" [dato]="dato" [dato2]="dato2" [otro]="otro"></app-mi-perfil>
                         }
 
