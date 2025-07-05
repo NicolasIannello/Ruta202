@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 const base_url=environment.base_url;
@@ -9,11 +9,12 @@ const base_url=environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class UsuariosService {
+export class UsuariosService{
   header:HttpHeaders;
   Empresa:string='';
   Email:string='';
   ID:string='';
+  ready$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
     this.header=new HttpHeaders().set('Acces-Control-Allow-Origin','*');
