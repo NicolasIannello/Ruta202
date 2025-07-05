@@ -11,52 +11,52 @@
                 <span (click)="scroller.scrollToAnchor('contact'); nav='contact'" class="nav-link" [ngClass]="{'nav-link-selected': nav=='contact'}">Contacto</span>
             </nav>
         }
-        @if (Empresa!='') {
-            <div class="nav header-actions">
-                <div class="user-menu-container">
-                    <button class="user-menu-trigger" (click)="menuOpenUser=!menuOpenUser" aria-label="User menu">
-                        <div class="user-avatar">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <span class="user-name" style="color: var(--color-black);">{{Empresa}}</span>
-                    </button>
+        <div class="nav header-actions">
+            @if((ready$ | async)){
+                @if (Empresa!='') {
+                    <div class="user-menu-container">
+                        <button class="user-menu-trigger" (click)="menuOpenUser=!menuOpenUser" aria-label="User menu">
+                            <div class="user-avatar">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span class="user-name" style="color: var(--color-black);">{{Empresa}}</span>
+                        </button>
 
-                    <div class="user-dropdown" [ngClass]="{'none' : !menuOpenUser}">
-                        <div class="user-dropdown-header">
-                            <p class="user-dropdown-name">{{Empresa}}</p>
-                            <p class="user-dropdown-email">{{Email}}</p>
-                        </div>
-                        <div class="user-dropdown-divider"></div>
-                        <div class="user-dropdown-menu">
-                            <span class="user-dropdown-item" routerLink="/perfil" (click)="menuOpenUser=false">
-                                <i class="fa-regular fa-circle-user"></i>
-                                <span>Mi Perfil</span>
-                            </span>
-                            <span class="user-dropdown-item">
-                                <i class="fa-solid fa-gears"></i>
-                                <span>OPCIÓN 2</span>
-                            </span>
-                            <span class="user-dropdown-item">
-                                <i class="fa-solid fa-gears"></i>
-                                <span>OPCIÓN 3</span>
-                            </span>
+                        <div class="user-dropdown" [ngClass]="{'none' : !menuOpenUser}">
+                            <div class="user-dropdown-header">
+                                <p class="user-dropdown-name">{{Empresa}}</p>
+                                <p class="user-dropdown-email">{{Email}}</p>
+                            </div>
                             <div class="user-dropdown-divider"></div>
-                            <button class="user-dropdown-item logout-item" (click)="cerrarSession()">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                <span>Cerrar Session</span>
-                            </button>
+                            <div class="user-dropdown-menu">
+                                <span class="user-dropdown-item" routerLink="/perfil" (click)="menuOpenUser=false">
+                                    <i class="fa-regular fa-circle-user"></i>
+                                    <span>Mi Perfil</span>
+                                </span>
+                                <span class="user-dropdown-item">
+                                    <i class="fa-solid fa-gears"></i>
+                                    <span>OPCIÓN 2</span>
+                                </span>
+                                <span class="user-dropdown-item">
+                                    <i class="fa-solid fa-gears"></i>
+                                    <span>OPCIÓN 3</span>
+                                </span>
+                                <div class="user-dropdown-divider"></div>
+                                <button class="user-dropdown-item logout-item" (click)="cerrarSession()">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    <span>Cerrar Session</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        } @else {
-            <div class="nav header-actions">
-                <button class="btn btn-outline" routerLink="login" (click)="nav=''">Ingresar</button>
-                <button class="btn btn-primary" routerLink="registro" (click)="nav=''">
-                    <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
-                </button>
-            </div>
-        }
+                } @else {
+                    <button class="btn btn-outline" routerLink="login" (click)="nav=''">Ingresar</button>
+                    <button class="btn btn-primary" routerLink="registro" (click)="nav=''">
+                        <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
+                    </button>
+                }
+            }
+        </div>
         <div class="mobile-menu-button">
             <i [ngClass]="{'fa-bars' : !menuOpen, 'fa-xmark' : menuOpen}" class="fa-solid" style="color: var(--color-black); font-size: x-large;" (click)="open()"></i>    
         </div>
