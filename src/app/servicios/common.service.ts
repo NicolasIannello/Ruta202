@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { UsuariosService } from './usuarios.service';
 
 const numero=environment.numero;
+const base_url=environment.base_url;
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,17 @@ export class CommonService {
         }
       }
     });
+  }
+  async getImg(dato:string, dato2:string, dato3:string){    
+    try {
+      const resp = await fetch(base_url+'/imagenes/img'+dato3+'?img='+dato+'&token='+dato2+'&tipo=1',{
+        method: 'GET', 
+        headers: {'Acces-Control-Allow-Origin':'*'},
+      });
+
+      return resp;
+    } catch (error) {
+      return false;
+    }
   }
 }
