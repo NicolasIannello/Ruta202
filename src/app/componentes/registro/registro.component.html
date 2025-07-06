@@ -46,13 +46,6 @@
                                     <input id="celular" type="text" class="form-input" placeholder="Ingrese su celular" [(ngModel)]="registro['Celular'][0]"/>
                                 </div>
 
-                                @if (type==1) {
-                                    <div class="form-field">
-                                        <label htmlFor="email operativo" class="form-label">Email operativo  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['EmailOperativo'][1]}}</span></label>
-                                        <input id="email operativo" type="text" class="form-input" placeholder="Ingrese su email operativo" [(ngModel)]="prestador['EmailOperativo'][0]"/>
-                                    </div>
-                                }
-
                                 <div class="form-row">
                                     <div class="form-field">
                                         <label htmlFor="firstName" class="form-label">Nombre  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['Nombre'][1]}}</span></label>
@@ -75,6 +68,14 @@
                                     <label htmlFor="email del responsable" class="form-label">Email del responsable  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['EmailResponsable'][1]}}</span></label>
                                     <input id="email del responsable" type="text" class="form-input" placeholder="Ingrese email del responsable" [(ngModel)]="registro['EmailResponsable'][0]"/>
                                 </div>
+
+                                @if (type==1) {
+                                    <div class="form-field">
+                                        <label htmlFor="email operativo" class="form-label">Email operativo  <span class="file-input-help" style="color: var(--color-red-dark2);">{{prestador['EmailOperativo'][1]}}</span></label>
+                                        <input id="email operativo" type="text" class="form-input" placeholder="Ingrese su email operativo" [(ngModel)]="prestador['EmailOperativo'][0]"/>
+                                    </div>
+                                }
+                                
                                 <div class="form-field">
                                     <label htmlFor="condfiscal" class="form-label">Condición fiscal  <span class="file-input-help" style="color: var(--color-red-dark2);">{{registro['CondiciónFiscal'][0]=='Otro' ? otro['CondiciónFiscalOtro'][1] : registro['CondiciónFiscal'][1]}}</span></label>
                                     <select class="form-input" name="condfiscal" id="condfiscal" [(ngModel)]="registro['CondiciónFiscal'][0]">
