@@ -52,17 +52,28 @@ export class MiPerfilComponent implements AfterViewInit{
 
     this.Usuario= Object.assign( { }, this.Usuario2);
     this.dato= Object.assign( { }, this.dato2);
+    this.img={
+      vehiculo: [],
+      frente: [],
+      dorso: []
+    };
+    this.imgs=[];
+    this.imgFrente=[];
+    this.imgDorso=[];
+    this.sources=[];
+    this.frente={};
+    this.dorso={};
   }
 
   guardarCambios(){
     let flag=true;
     for (const key in this.Usuario) {
       if(this.Usuario[key]=='') flag=false;
-      if(this.Usuario[key]=='Otro' && this.otro[key+'Otro']=='') flag=false;
+      if(this.Usuario[key]=='Otro' && (this.otro[key+'Otro']=='' || this.otro[key+'Otro']==undefined)) flag=false;
     }
     for (const key in this.dato) {
       if(this.dato[key]=='') flag=false;
-      if(this.dato[key]=='Otro' && this.otro[key+'Otro']=='') flag=false;
+      if(this.dato[key]=='Otro' && (this.otro[key+'Otro']=='' || this.otro[key+'Otro']==undefined)) flag=false;
     }
 
     if(!flag){
@@ -70,10 +81,46 @@ export class MiPerfilComponent implements AfterViewInit{
     }else{
       this.messageEvent.emit({data: true, tipo: 'loading'});
 
-      TODO
+      const formData=new FormData();
+      formData.append('token', localStorage.getItem('token')!);
+      formData.append('tipo', '1');
 
-      this.messageEvent.emit({data: true, tipo: 'edit'});
-      this.messageEvent.emit({data: false, tipo: 'loading'});
+      const changes: Record<string,string> = {};
+      for (const key in this.Usuario) {
+        if(this.Usuario[key]!=this.Usuario2[key]) changes[key] = this.Usuario[key] == 'Otro' ? this.otro[`${key}Otro`] : this.Usuario[key];
+      }
+      const json = JSON.stringify(changes);
+      const blob = new Blob([ json ], { type: 'application/json' });
+      formData.append('userPayload', blob, 'userPayload.json');
+
+      const changes2: Record<string,string> = {};
+      for (const key in this.dato) {
+        if(this.dato[key]!=this.dato2[key]) changes2[key] = this.dato[key] == 'Otro' ? this.otro[`${key}Otro`] : this.dato[key];
+      }
+      const json2 = JSON.stringify(changes2);
+      const blob2 = new Blob([ json2 ], { type: 'application/json' });
+      formData.append('datoPayload', blob2, 'datoPayload.json');
+
+      for (let i = 0; i < this.imgs.length; i++) {
+        formData.append('img', this.imgs[i]);        
+      }
+      if(this.imgFrente.length!=0) formData.append('imgFrente', this.imgFrente[0]);
+      if(this.imgDorso.length!=0) formData.append('imgDorso', this.imgDorso[0]);
+
+      this.api.changeData(formData).then(resp =>{
+        if(resp.ok){
+          Swal.fire({title:'Datos cambiados con éxito', confirmButtonText:'Aceptar', confirmButtonColor:'#ea580c'})
+          this.getUserData();
+        }else{
+          Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+        this.cancelarEdit();
+        this.messageEvent.emit({data: false, tipo: 'loading'});
+      }, (err)=>{				
+        Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+        this.cancelarEdit();
+        this.messageEvent.emit({data: false, tipo: 'loading'});
+      });
     }
   }
 
@@ -117,8 +164,8 @@ export class MiPerfilComponent implements AfterViewInit{
 
   showImg(event: Event, int:number){
     if (int==0) this.sources=[];
-    if (int==1) this.frente={id: '', link:'', name: ''};
-    if (int==2) this.dorso={id: '', link:'', name: ''};
+    if (int==1) this.frente={};
+    if (int==2) this.dorso={};
 
     let element = event.currentTarget as HTMLInputElement;
 		let cantidad = element.files?.length || 0;
@@ -134,8 +181,8 @@ export class MiPerfilComponent implements AfterViewInit{
 
 		if(cantidad==0) {
       if (int==0) this.sources=[];
-      if (int==1) this.frente={id: '', link: '', name: ''};
-      if (int==2) this.dorso={id: '', link: '', name: ''};
+      if (int==1) this.frente={};
+      if (int==2) this.dorso={};
 		}else{
 			for (let index = 0; index < cantidad; index++) {
 				var nombreCortado=element.files![index].name.split('.');

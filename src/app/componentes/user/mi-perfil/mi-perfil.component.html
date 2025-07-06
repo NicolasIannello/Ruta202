@@ -110,14 +110,14 @@
             </div>
             <div class="form-section">
                 <h3 class="form-section-title">Imágenes del vehículo</h3>
-                <div class="form-field" style="display: flex; justify-content: space-evenly;">
+                <div class="form-field" style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
                     @for (src of img['vehiculo']; track src) {
                         <img src="{{src}}" alt="" style="width: 100px;">
                     }
                 </div>
                 @if (!edit) {
-                    <label htmlFor="imagen" class="form-label">Cambiar imágenes del vehículo</label>
-                    <div style="display: flex; justify-content: space-evenly;" [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                    <label htmlFor="imagen" class="form-label">Nuevas imágenes del vehículo</label>
+                    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;" [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
                         @for (src of sources; track src) {
                             <img src="{{src}}" alt="" style="width: 100px;">
                         }
@@ -131,11 +131,29 @@
                 <div class="form-row">
                     <div class="form-field">
                         <label htmlFor="frente" class="form-label">Frente</label>
-                        <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
+                        <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                            <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
+                        </div>
+                        @if (!edit) {
+                            <label htmlFor="frenteNueva" class="form-label">Nueva imagen del frente</label>
+                            <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                <img src="{{frente}}" alt="" style="width: 100px;">
+                            </div>
+                            <input type="file" class="form-input" name="frenteNueva" id="frenteNueva" #frenteNueva accept="image/*," (change)="showImg($event, 1)">
+                        }
                     </div>
                     <div class="form-field">
                         <label htmlFor="dorso" class="form-label">Dorso</label>
-                        <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
+                        <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                            <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
+                        </div>
+                        @if (!edit) {
+                            <label htmlFor="dorsoNueva" class="form-label">Nueva imagen del dorso</label>
+                            <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                <img src="{{dorso}}" alt="" style="width: 100px;">
+                            </div>
+                            <input type="file" class="form-input" name="dorsoNueva" id="dorsoNueva" #dorsoNueva accept="image/*," (change)="showImg($event, 2)">
+                        }
                     </div>
                 </div>
             </div>
