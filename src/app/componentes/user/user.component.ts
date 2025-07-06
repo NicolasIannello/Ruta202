@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,96 +14,30 @@ import { filter, first } from 'rxjs/operators';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
-export class UserComponent implements AfterViewInit{
+export class UserComponent{
   edit:boolean=true;
-  Usuario:{[key: string]: string}={};
-  Usuario2:{[key: string]: string}={};
-  dato:{[key: string]: string}={};
-  dato2:{[key: string]: string}={};
-  otro:{[key: string]: string}={
-    CondicionFiscalOtro: '',
-    RubroOtro: '',
-    VehiculoOtro: '',
-  };
-  img:{[key: string]: Array<string>}={
-    vehiculo: [],
-    frente: [],
-    dorso: []
-  };
   tab:string='perfil';
+  tipoUser:string='';
+  empresa:string='';
+  mail:string='';
   loading:boolean=false;
+  @ViewChild('miPerfil', { static: false }) miPerfil!: MiPerfilComponent;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: UsuariosService, private api2:CommonService) {}
-  
-  ngAfterViewInit(): void {
-    this.api.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
-      if(isPlatformBrowser(this.platformId) && localStorage.getItem('token')){
-        this.getUserData();
-      }
-    });
-  }
+  constructor() {}
 
-  cancelarEdit(){
-    this.edit=true;
-    this.Usuario= Object.assign( { }, this.Usuario2);
-    this.dato= Object.assign( { }, this.dato2);
-  }
-
-  guardarCambios(){
-    let flag=true;
-    for (const key in this.Usuario) {
-      if(this.Usuario[key]=='') flag=false;
-      if(this.Usuario[key]=='Otro' && this.otro[key+'Otro']=='') flag=false;
+  handleMessage(message: any) {        
+    switch (message.tipo) {
+      case 'perfil': 
+        this.tipoUser=message.data[0]; 
+        this.empresa=message.data[1]; 
+        this.mail=message.data[2]; 
+      break;
+      case 'edit': 
+        this.edit=message.data; 
+      break;
+      case 'loading': 
+        this.loading=message.data; 
+      break;
     }
-    for (const key in this.dato) {
-      if(this.dato[key]=='') flag=false;
-      if(this.dato[key]=='Otro' && this.otro[key+'Otro']=='') flag=false;
-    }
-
-    if(!flag){
-      Swal.fire({title:'Complete todos los campos',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
-    }else{
-      this.loading=true;
-
-      TODO
-
-      this.edit=true;
-      this.loading=false;
-    }
-  }
-
-  getUserData(){
-    let dato={
-      'token': localStorage.getItem('token'),
-      'tipo': 1
-    }
-    this.api.getUserData(dato).subscribe({
-      next: (value:any) => {
-        if (value.ok) {
-          this.Usuario= Object.assign( { }, value.usuarioDB);
-          this.Usuario2= Object.assign( { }, value.usuarioDB);
-          this.dato= Object.assign( { }, value.datoDB);
-          this.dato2= Object.assign( { }, value.datoDB);
-          for (let i = 0; i < value.imgs.length; i++) {
-            if(value.imgs[i].tipo=='vehiculo'){
-              this.api2.getImg(value.imgs[i].img, '', '').then(resp=>{
-                if(resp!=false){
-                  this.img['vehiculo'].push(resp.url)
-                }
-              })
-            }else{
-              this.api2.getImg(value.imgs[i].img, localStorage.getItem('token')!, 'Carnet').then(resp=>{
-                if(resp!=false){
-                  this.img[value.imgs[i].tipo].push(resp.url)
-                }
-              })
-            }
-          }
-        }
-      },
-      error: (err:any) => {
-        this.api.logOut()
-      },		
-    });
   }
 }

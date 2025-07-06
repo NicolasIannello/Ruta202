@@ -6,15 +6,15 @@
                     <div class="profile-header">
                         <div class="profile-avatar-section">
                             <div class="profile-avatar">
-                                <i class="fa-solid" [class]="Usuario['Tipo']=='1' ? 'fa-truck' : 'fa-user'" style="font-size: xx-large; color: var(--color-white)"></i>
+                                <i class="fa-solid" [class]="tipoUser=='1' ? 'fa-truck' : 'fa-user'" style="font-size: xx-large; color: var(--color-white)"></i>
                                 <!-- <button class="avatar-upload-btn">
                                     <Camera style= width: "1rem", height: "1rem" }} />
                                 </button> -->
                             </div>
                             <div class="profile-info">
-                                <h1 class="profile-name">{{Usuario['Empresa']}}</h1>
-                                <p class="profile-email">{{Usuario['EmailResponsable']}}</p>
-                                <p class="profile-member-since">Cuenta: {{Usuario['Tipo']=='1' ? 'Prestador' : 'Cliente'}}</p>
+                                <h1 class="profile-name">{{empresa}}</h1>
+                                <p class="profile-email">{{mail}}</p>
+                                <p class="profile-member-since">Cuenta: {{tipoUser=='1' ? 'Prestador' : 'Cliente'}}</p>
                             </div>
                         </div>
                         @if(tab=='perfil'){
@@ -25,11 +25,11 @@
                                     </button>
                                 }@else{
                                     <div class="edit-actions">
-                                    <button class="btn btn-primary" (click)="guardarCambios()" [disabled]="loading">
+                                    <button class="btn btn-primary" (click)="miPerfil.guardarCambios()" [disabled]="loading">
                                         <i class="fa-regular fa-floppy-disk" style="width: 2rem;"></i>
                                         {{loading ? 'Guardando Espere' : 'Guardar Cambios'}}
                                     </button>
-                                    <button class="btn btn-outline" (click)="cancelarEdit()">
+                                    <button class="btn btn-outline" (click)="miPerfil.cancelarEdit()">
                                         <i class="fa-regular fa-circle-xmark" style="width: 2rem;"></i>Cancelar
                                     </button>
                                     </div>
@@ -40,10 +40,10 @@
 
                     <div class="profile-tabs">
                         <button class="profile-tab" [class]="tab=='perfil' ? 'active' : ''" (click)="tab='perfil'">
-                            <i class="fa-solid fa-user" [class]="Usuario['Tipo']=='1' ? 'fa-truck' : 'fa-user'" style="width: 2rem;"></i>
+                            <i class="fa-solid fa-user" [class]="tipoUser=='1' ? 'fa-truck' : 'fa-user'" style="width: 2rem;"></i>
                             <span>Información del Perfil</span>
                         </button>
-                        <button class="profile-tab" [class]="tab=='seguridad' ? 'active' : ''" (click)="tab='seguridad'; cancelarEdit()">
+                        <button class="profile-tab" [class]="tab=='seguridad' ? 'active' : ''" (click)="tab='seguridad'; miPerfil.cancelarEdit()">
                             <i class="fa-solid fa-shield-halved" style="width: 2rem;"></i>
                             <span>Seguridad</span>
                         </button>
@@ -54,7 +54,7 @@
 
                     <div class="profile-content">
                         @if(tab=='perfil'){
-                            <app-mi-perfil [edit]="edit" [Usuario]="Usuario" [Usuario2]="Usuario2" [dato]="dato" [dato2]="dato2" [otro]="otro" [img]="img"></app-mi-perfil>
+                            <app-mi-perfil #miPerfil (messageEvent)="handleMessage($event)" [edit]="edit"></app-mi-perfil>
                         }
 
                         <!-- <div class="profile-tab-content">

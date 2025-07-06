@@ -115,6 +115,16 @@
                         <img src="{{src}}" alt="" style="width: 100px;">
                     }
                 </div>
+                @if (!edit) {
+                    <label htmlFor="imagen" class="form-label">Cambiar imágenes del vehículo</label>
+                    <div style="display: flex; justify-content: space-evenly;" [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                        @for (src of sources; track src) {
+                            <img src="{{src}}" alt="" style="width: 100px;">
+                        }
+                    </div>
+                    <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event, 0)">
+                    <p class="file-input-help">Máximo de imágenes 4.</p>
+                }
             </div>
             <div class="form-section">
                 <h3 class="form-section-title">Imágenes del Carnet</h3>
