@@ -2,7 +2,7 @@
 .about {
   padding: var(--spacing-16) 0;
   /* background-color: var(--color-gray-100); */
-  background-image: url("../../../../../public/tow.jpg");
+  background-image: url("../../../../../public/tow.webp");
   background-size: 100% 100%;
   background-position: top;
   background-repeat: no-repeat;
