@@ -19,4 +19,9 @@ export class MiPerfilComponent {
     RubroOtro: '',
     VehiculoOtro: '',
   };
+  @Input() img:{[key: string]: Array<string>}={
+    vehiculo: [],
+    frente: [],
+    dorso: []
+  };
 }

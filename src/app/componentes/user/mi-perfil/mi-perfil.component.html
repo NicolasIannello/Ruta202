@@ -108,6 +108,27 @@
                     </div>
                 </div>
             </div>
+            <div class="form-section">
+                <h3 class="form-section-title">Imágenes del vehículo</h3>
+                <div class="form-field" style="display: flex; justify-content: space-evenly;">
+                    @for (src of img['vehiculo']; track src) {
+                        <img src="{{src}}" alt="" style="width: 100px;">
+                    }
+                </div>
+            </div>
+            <div class="form-section">
+                <h3 class="form-section-title">Imágenes del Carnet</h3>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label htmlFor="frente" class="form-label">Frente</label>
+                        <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="dorso" class="form-label">Dorso</label>
+                        <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
+                    </div>
+                </div>
+            </div>
         }@else {
             <div class="form-section">
                 <h3 class="form-section-title">Información Cliente</h3>

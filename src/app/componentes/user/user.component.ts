@@ -26,8 +26,9 @@ export class UserComponent implements AfterViewInit{
     VehiculoOtro: '',
   };
   img:{[key: string]: Array<string>}={
-    Vehiculo: [],
-    Carnet: []
+    vehiculo: [],
+    frente: [],
+    dorso: []
   };
   tab:string='perfil';
   loading:boolean=false;
@@ -64,7 +65,7 @@ export class UserComponent implements AfterViewInit{
     }else{
       this.loading=true;
 
-
+      TODO
 
       this.edit=true;
       this.loading=false;
@@ -87,14 +88,13 @@ export class UserComponent implements AfterViewInit{
             if(value.imgs[i].tipo=='vehiculo'){
               this.api2.getImg(value.imgs[i].img, '', '').then(resp=>{
                 if(resp!=false){
-                  console.log(resp.url);
+                  this.img['vehiculo'].push(resp.url)
                 }
               })
             }else{
               this.api2.getImg(value.imgs[i].img, localStorage.getItem('token')!, 'Carnet').then(resp=>{
                 if(resp!=false){
-                  console.log(value.imgs[i].tipo);
-                  console.log(resp.url);
+                  this.img[value.imgs[i].tipo].push(resp.url)
                 }
               })
             }
