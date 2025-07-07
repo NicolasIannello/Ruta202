@@ -26,6 +26,7 @@ export class CommonService {
       inputAttributes: {
         autocapitalize: "off"
       },
+      inputValue: this.api.getEmail(),
       showCancelButton: true,
       confirmButtonText: "Enviar E-mail",
       confirmButtonColor:'#ea580c',
