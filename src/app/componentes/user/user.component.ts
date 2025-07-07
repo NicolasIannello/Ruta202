@@ -1,11 +1,6 @@
-import { AfterViewInit, Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
-import { UsuariosService } from '../../servicios/usuarios.service';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MiPerfilComponent } from "./mi-perfil/mi-perfil.component";
-import Swal from 'sweetalert2';
-import { CommonService } from '../../servicios/common.service';
-import { filter, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
