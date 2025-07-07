@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './mi-perfil.component.html',
-  styleUrls: ['../user.component.css','../../login/login.component.css']
+  styleUrls: ['../user.component.css','../../login/login.component.css','../../validacion/validacion.component.css']
 })
 export class MiPerfilComponent implements AfterViewInit{
   @Input() edit:boolean=true;
@@ -36,6 +36,7 @@ export class MiPerfilComponent implements AfterViewInit{
   dorso: any = {};
   imgDorso: any = [];
   @Output() messageEvent = new EventEmitter<{ data: any; tipo: string }>();
+  loading:boolean=false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: UsuariosService, private api2:CommonService) {}
 
@@ -125,6 +126,7 @@ export class MiPerfilComponent implements AfterViewInit{
   }
 
   getUserData(){
+    this.loading=false;
     let dato={
       'token': localStorage.getItem('token'),
       'tipo': 1
@@ -138,7 +140,7 @@ export class MiPerfilComponent implements AfterViewInit{
           this.Usuario2= Object.assign( { }, value.usuarioDB);
           this.dato= Object.assign( { }, value.datoDB);
           this.dato2= Object.assign( { }, value.datoDB);
-
+          this.loading=true;
           for (let i = 0; i < value.imgs.length; i++) {
             if(value.imgs[i].tipo=='vehiculo'){
               this.api2.getImg(value.imgs[i].img, '', '').then(resp=>{

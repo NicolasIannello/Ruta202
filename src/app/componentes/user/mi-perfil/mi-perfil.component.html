@@ -4,197 +4,203 @@
         <p class="section-description" style="color: var(--color-black); margin: 0;">Visualize y edite la información del Perfil.</p>
     </div>
 
-    <span class="profile-form">
-        <div class="form-section">
-            <h3 class="form-section-title">Información General</h3>
-            <div class="form-row">
-                <div class="form-field">
-                    <label htmlFor="firstName" class="form-label">Nombre</label>
-                    <input id="firstName" name="firstName" type="text" class="form-input" [(ngModel)]="Usuario['Nombre']" [disabled]="edit"/>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="lastName" class="form-label">Apellido</label>
-                    <input id="lastName" name="lastName" type="text" class="form-input" [(ngModel)]="Usuario['Apellido']" [disabled]="edit"/>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="email" class="form-label">Email</label>
-                    <input id="email" name="email" type="text" class="form-input" [(ngModel)]="Usuario['EmailResponsable']" [disabled]="edit"/>
-                    <p class="form-help">Cambiar el Email requerirá una verificación via Email</p>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="phone" class="form-label">Celular</label>
-                    <input id="phone" name="phone" type="text" class="form-input" [(ngModel)]="Usuario['Celular']" [disabled]="edit"/>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="empresa" class="form-label">Empresa</label>
-                    <input id="empresa" name="empresa" type="text" class="form-input" [(ngModel)]="Usuario['Empresa']" [disabled]="edit"/>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="direccion" class="form-label">Dirección</label>
-                    <input id="direccion" name="direccion" type="text" class="form-input" [(ngModel)]="Usuario['Direccion']" [disabled]="edit"/>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="CUIT" class="form-label">CUIT</label>
-                    <input id="CUIT" name="CUIT" type="text" class="form-input" [(ngModel)]="Usuario['CUIT']" [disabled]="edit"/>
-                </div>
-                <div class="form-field">
-                    <label htmlFor="CondicionFiscal" class="form-label">Condición Fiscal</label>
-                    <select class="form-input" name="CondicionFiscal" id="CondicionFiscal" [(ngModel)]="Usuario['CondicionFiscal']" [disabled]="edit">
-                        @if(Usuario2['CondicionFiscal']!='Monotributista' && Usuario2['CondicionFiscal']!='Responsable inscripto'){
-                            <option value="{{Usuario2['CondicionFiscal']}}">{{Usuario2['CondicionFiscal']}}</option>
-                        }
-                        <option value="Monotributista">Monotributista</option>
-                        <option value="Responsable inscripto">Responsable inscripto</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-                    @if (Usuario['CondicionFiscal']=='Otro') {
-                        <div class="form-field">
-                            <input id="condfiscalOtro" type="text" class="form-input" placeholder="Ingrese su condición fiscal" [(ngModel)]="otro['CondicionFiscalOtro']" [disabled]="edit"/>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        @if (Usuario['Tipo']=='1') {
+    @if(loading){
+        <span class="profile-form">
             <div class="form-section">
-                <h3 class="form-section-title">Información Prestador</h3>
-                <div class="form-field">
-                    <label htmlFor="emailOperativo" class="form-label">Email Operativo</label>
-                    <input id="emailOperativo" name="emailOperativo" type="text" class="form-input" [(ngModel)]="dato['EmailOperativo']" [disabled]="edit"/>
-                </div>
-
+                <h3 class="form-section-title">Información General</h3>
                 <div class="form-row">
                     <div class="form-field">
-                        <label htmlFor="vehiculo" class="form-label">Vehículo</label>
-                        <select id="vehiculo" name="vehiculo" class="form-input" [(ngModel)]="dato['Vehiculo']" [disabled]="edit">
-                            @if(dato2['Vehiculo']!='Camion' && dato2['Vehiculo']!='Pick up' && dato2['Vehiculo']!='Trailer'){
-                                <option value="{{dato2['Vehiculo']}}">{{dato2['Vehiculo']}}</option>
+                        <label htmlFor="firstName" class="form-label">Nombre</label>
+                        <input id="firstName" name="firstName" type="text" class="form-input" [(ngModel)]="Usuario['Nombre']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="lastName" class="form-label">Apellido</label>
+                        <input id="lastName" name="lastName" type="text" class="form-input" [(ngModel)]="Usuario['Apellido']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="email" class="form-label">Email</label>
+                        <input id="email" name="email" type="text" class="form-input" [(ngModel)]="Usuario['EmailResponsable']" [disabled]="edit"/>
+                        <p class="form-help">Cambiar el Email requerirá una verificación via Email</p>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="phone" class="form-label">Celular</label>
+                        <input id="phone" name="phone" type="text" class="form-input" [(ngModel)]="Usuario['Celular']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="empresa" class="form-label">Empresa</label>
+                        <input id="empresa" name="empresa" type="text" class="form-input" [(ngModel)]="Usuario['Empresa']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="direccion" class="form-label">Dirección</label>
+                        <input id="direccion" name="direccion" type="text" class="form-input" [(ngModel)]="Usuario['Direccion']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="CUIT" class="form-label">CUIT</label>
+                        <input id="CUIT" name="CUIT" type="text" class="form-input" [(ngModel)]="Usuario['CUIT']" [disabled]="edit"/>
+                    </div>
+                    <div class="form-field">
+                        <label htmlFor="CondicionFiscal" class="form-label">Condición Fiscal</label>
+                        <select class="form-input" name="CondicionFiscal" id="CondicionFiscal" [(ngModel)]="Usuario['CondicionFiscal']" [disabled]="edit">
+                            @if(Usuario2['CondicionFiscal']!='Monotributista' && Usuario2['CondicionFiscal']!='Responsable inscripto'){
+                                <option value="{{Usuario2['CondicionFiscal']}}">{{Usuario2['CondicionFiscal']}}</option>
                             }
-                            <option value="Camion">Camion</option>
-                            <option value="Pick up">Pick up</option>
-                            <option value="Trailer">Trailer</option>
+                            <option value="Monotributista">Monotributista</option>
+                            <option value="Responsable inscripto">Responsable inscripto</option>
                             <option value="Otro">Otro</option>
                         </select>
-                        @if (dato['Vehiculo']=='Otro') {
+                        @if (Usuario['CondicionFiscal']=='Otro') {
                             <div class="form-field">
-                                <input id="vehiculoOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['VehiculoOtro']" [disabled]="edit"/>
+                                <input id="condfiscalOtro" type="text" class="form-input" placeholder="Ingrese su condición fiscal" [(ngModel)]="otro['CondicionFiscalOtro']" [disabled]="edit"/>
                             </div>
                         }
                     </div>
-                    <div class="form-field">
-                        <label htmlFor="marca" class="form-label">Marca</label>
-                        <input id="marca" name="marca" type="text" class="form-input" [(ngModel)]="dato['Marca']" [disabled]="edit"/>
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="modelo" class="form-label">Modelo</label>
-                        <input id="modelo" name="modelo" type="text" class="form-input" [(ngModel)]="dato['Modelo']" [disabled]="edit"/>
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="ano" class="form-label">Año</label>
-                        <input id="ano" name="ano" type="text" class="form-input" [(ngModel)]="dato['Ano']" [disabled]="edit"/>
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="ejes" class="form-label">Ejes</label>
-                        <input id="ejes" name="ejes" type="text" class="form-input" [(ngModel)]="dato['Ejes']" [disabled]="edit"/>
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="patente" class="form-label">Patente</label>
-                        <input id="patente" name="patente" type="text" class="form-input" [(ngModel)]="dato['Patente']" [disabled]="edit"/>
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="capacidadCarga" class="form-label">Capacidad de Carga</label>
-                        <input id="capacidadCarga" name="capacidadCarga" type="text" class="form-input" [(ngModel)]="dato['CapacidadCarga']" [disabled]="edit"/>
-                    </div>
                 </div>
             </div>
-            <div class="form-section">
-                <h3 class="form-section-title">Imágenes del vehículo</h3>
-                <div class="form-field" style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-                    @for (src of img['vehiculo']; track src) {
-                        <img src="{{src}}" alt="" style="width: 100px;">
-                    }
+
+            @if (Usuario['Tipo']=='1') {
+                <div class="form-section">
+                    <h3 class="form-section-title">Información Prestador</h3>
+                    <div class="form-field">
+                        <label htmlFor="emailOperativo" class="form-label">Email Operativo</label>
+                        <input id="emailOperativo" name="emailOperativo" type="text" class="form-input" [(ngModel)]="dato['EmailOperativo']" [disabled]="edit"/>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label htmlFor="vehiculo" class="form-label">Vehículo</label>
+                            <select id="vehiculo" name="vehiculo" class="form-input" [(ngModel)]="dato['Vehiculo']" [disabled]="edit">
+                                @if(dato2['Vehiculo']!='Camion' && dato2['Vehiculo']!='Pick up' && dato2['Vehiculo']!='Trailer'){
+                                    <option value="{{dato2['Vehiculo']}}">{{dato2['Vehiculo']}}</option>
+                                }
+                                <option value="Camion">Camion</option>
+                                <option value="Pick up">Pick up</option>
+                                <option value="Trailer">Trailer</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            @if (dato['Vehiculo']=='Otro') {
+                                <div class="form-field">
+                                    <input id="vehiculoOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['VehiculoOtro']" [disabled]="edit"/>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="marca" class="form-label">Marca</label>
+                            <input id="marca" name="marca" type="text" class="form-input" [(ngModel)]="dato['Marca']" [disabled]="edit"/>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="modelo" class="form-label">Modelo</label>
+                            <input id="modelo" name="modelo" type="text" class="form-input" [(ngModel)]="dato['Modelo']" [disabled]="edit"/>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="ano" class="form-label">Año</label>
+                            <input id="ano" name="ano" type="text" class="form-input" [(ngModel)]="dato['Ano']" [disabled]="edit"/>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="ejes" class="form-label">Ejes</label>
+                            <input id="ejes" name="ejes" type="text" class="form-input" [(ngModel)]="dato['Ejes']" [disabled]="edit"/>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="patente" class="form-label">Patente</label>
+                            <input id="patente" name="patente" type="text" class="form-input" [(ngModel)]="dato['Patente']" [disabled]="edit"/>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="capacidadCarga" class="form-label">Capacidad de Carga</label>
+                            <input id="capacidadCarga" name="capacidadCarga" type="text" class="form-input" [(ngModel)]="dato['CapacidadCarga']" [disabled]="edit"/>
+                        </div>
+                    </div>
                 </div>
-                @if (!edit) {
-                    <label htmlFor="imagen" class="form-label">Nuevas imágenes del vehículo</label>
-                    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;" [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
-                        @for (src of sources; track src) {
+                <div class="form-section">
+                    <h3 class="form-section-title">Imágenes del vehículo</h3>
+                    <div class="form-field" style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+                        @for (src of img['vehiculo']; track src) {
                             <img src="{{src}}" alt="" style="width: 100px;">
                         }
                     </div>
-                    <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event, 0)">
-                    <p class="file-input-help">Máximo de imágenes 4.</p>
-                }
-            </div>
-            <div class="form-section">
-                <h3 class="form-section-title">Imágenes del Carnet</h3>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label htmlFor="frente" class="form-label">Frente</label>
-                        <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
-                            <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
-                        </div>
-                        @if (!edit) {
-                            <label htmlFor="frenteNueva" class="form-label">Nueva imagen del frente</label>
-                            <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
-                                <img src="{{frente}}" alt="" style="width: 100px;">
-                            </div>
-                            <input type="file" class="form-input" name="frenteNueva" id="frenteNueva" #frenteNueva accept="image/*," (change)="showImg($event, 1)">
-                        }
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="dorso" class="form-label">Dorso</label>
-                        <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
-                            <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
-                        </div>
-                        @if (!edit) {
-                            <label htmlFor="dorsoNueva" class="form-label">Nueva imagen del dorso</label>
-                            <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
-                                <img src="{{dorso}}" alt="" style="width: 100px;">
-                            </div>
-                            <input type="file" class="form-input" name="dorsoNueva" id="dorsoNueva" #dorsoNueva accept="image/*," (change)="showImg($event, 2)">
-                        }
-                    </div>
-                </div>
-            </div>
-        }@else {
-            <div class="form-section">
-                <h3 class="form-section-title">Información Cliente</h3>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label htmlFor="DNI" class="form-label">DNI</label>
-                        <input id="DNI" name="DNI" type="text" class="form-input" [(ngModel)]="dato['DNI']" [disabled]="edit"/>
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="rubro" class="form-label">Rubro</label>
-                        <select id="rubro" name="rubro" class="form-input" [(ngModel)]="dato['Rubro']" [disabled]="edit">
-                            @if(dato2['Rubro']!='Aseguradora' && dato2['Rubro']!='Productor' && dato2['Rubro']!='Broker' &&
-                            dato2['Rubro']!='Taller' && dato2['Rubro']!='Mecánica' && dato2['Rubro']!='Concesionario' &&
-                            dato2['Rubro']!='Agencia' && dato2['Rubro']!='Desarmadero'){
-                                <option value="{{dato2['Rubro']}}">{{dato2['Rubro']}}</option>
+                    @if (!edit) {
+                        <label htmlFor="imagen" class="form-label">Nuevas imágenes del vehículo</label>
+                        <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;" [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                            @for (src of sources; track src) {
+                                <img src="{{src}}" alt="" style="width: 100px;">
                             }
-                            <option value="Aseguradora">Aseguradora</option>
-                            <option value="Productor">Productor</option>
-                            <option value="Broker">Broker</option>
-                            <option value="Taller">Taller</option>
-                            <option value="Mecánica">Mecánica</option>
-                            <option value="Concesionario">Concesionario</option>
-                            <option value="Agencia">Agencia</option>
-                            <option value="Desarmadero">Desarmadero</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                        @if (dato['Rubro']=='Otro') {
-                            <div class="form-field">
-                                <input id="rubroOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['RubroOtro']" [disabled]="edit"/>
+                        </div>
+                        <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event, 0)">
+                        <p class="file-input-help">Máximo de imágenes 4.</p>
+                    }
+                </div>
+                <div class="form-section">
+                    <h3 class="form-section-title">Imágenes del Carnet</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label htmlFor="frente" class="form-label">Frente</label>
+                            <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
                             </div>
-                        }
-                    </div>
-                    <div class="form-field">
-                        <label htmlFor="Cargo" class="form-label">Cargo</label>
-                        <input id="Cargo" name="Cargo" type="text" class="form-input" [(ngModel)]="dato['Cargo']" [disabled]="edit"/>
+                            @if (!edit) {
+                                <label htmlFor="frenteNueva" class="form-label">Nueva imagen del frente</label>
+                                <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                    <img src="{{frente}}" alt="" style="width: 100px;">
+                                </div>
+                                <input type="file" class="form-input" name="frenteNueva" id="frenteNueva" #frenteNueva accept="image/*," (change)="showImg($event, 1)">
+                            }
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="dorso" class="form-label">Dorso</label>
+                            <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
+                            </div>
+                            @if (!edit) {
+                                <label htmlFor="dorsoNueva" class="form-label">Nueva imagen del dorso</label>
+                                <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                    <img src="{{dorso}}" alt="" style="width: 100px;">
+                                </div>
+                                <input type="file" class="form-input" name="dorsoNueva" id="dorsoNueva" #dorsoNueva accept="image/*," (change)="showImg($event, 2)">
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </span>
+            }@else {
+                <div class="form-section">
+                    <h3 class="form-section-title">Información Cliente</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label htmlFor="DNI" class="form-label">DNI</label>
+                            <input id="DNI" name="DNI" type="text" class="form-input" [(ngModel)]="dato['DNI']" [disabled]="edit"/>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="rubro" class="form-label">Rubro</label>
+                            <select id="rubro" name="rubro" class="form-input" [(ngModel)]="dato['Rubro']" [disabled]="edit">
+                                @if(dato2['Rubro']!='Aseguradora' && dato2['Rubro']!='Productor' && dato2['Rubro']!='Broker' &&
+                                dato2['Rubro']!='Taller' && dato2['Rubro']!='Mecánica' && dato2['Rubro']!='Concesionario' &&
+                                dato2['Rubro']!='Agencia' && dato2['Rubro']!='Desarmadero'){
+                                    <option value="{{dato2['Rubro']}}">{{dato2['Rubro']}}</option>
+                                }
+                                <option value="Aseguradora">Aseguradora</option>
+                                <option value="Productor">Productor</option>
+                                <option value="Broker">Broker</option>
+                                <option value="Taller">Taller</option>
+                                <option value="Mecánica">Mecánica</option>
+                                <option value="Concesionario">Concesionario</option>
+                                <option value="Agencia">Agencia</option>
+                                <option value="Desarmadero">Desarmadero</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            @if (dato['Rubro']=='Otro') {
+                                <div class="form-field">
+                                    <input id="rubroOtro" type="text" class="form-input" placeholder="Ingrese vehículo" [(ngModel)]="otro['RubroOtro']" [disabled]="edit"/>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="Cargo" class="form-label">Cargo</label>
+                            <input id="Cargo" name="Cargo" type="text" class="form-input" [(ngModel)]="dato['Cargo']" [disabled]="edit"/>
+                        </div>
+                    </div>
+                </div>
+            }
+        </span>
+    }@else {
+        <div class="verification-icon loading">
+            <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+        </div>
+    }
 </div>
