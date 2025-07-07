@@ -1,0 +1,48 @@
+<div class="profile-tab-content">
+    <div class="profile-section-header">
+        <h2 class="section-title" style="color: var(--color-black);">Opciones de seguridad</h2>
+        <p class="section-description" style="color: var(--color-black); margin: 0;">Manage your account security and privacy settings.</p>
+    </div>
+
+    <div class="security-section">
+        <div class="security-item">
+            <div class="security-info">
+                <h3 class="security-title">Contraseña</h3>
+                <p class="security-description">Cambiar la contraseña requerirá una verificación via Email</p>
+            </div>
+            <button class="btn btn-outline" (click)="api.forgotPassword()">Cambiar Contraseña</button>
+        </div>
+
+        <div class="security-item">
+            <div class="security-info">
+                <h3 class="security-title">Email</h3>
+                <p class="security-description">Cambiar el Email requerirá una verificación via Email</p>
+            </div>
+            <button class="btn btn-outline">Cambiar Email</button>
+        </div>
+
+        <!-- <div class="security-item">
+            <div class="security-info">
+                <h3 class="security-title">Two-Factor Authentication</h3>
+                <p class="security-description">Add an extra layer of security to your account</p>
+            </div>
+            <button class="btn btn-primary">Enable 2FA</button>
+        </div> -->
+
+        <!-- <div class="security-item">
+            <div class="security-info">
+                <h3 class="security-title">Login Sessions</h3>
+                <p class="security-description">Manage your active login sessions</p>
+            </div>
+            <button class="btn btn-outline">View Sessions</button>
+        </div> -->
+
+        <div class="security-item">
+            <div class="security-info">
+                <h3 class="security-title">Borrar Cuenta</h3>
+                <p class="security-description">Permanentemente borra tu cuenta y los datos asociados</p>
+            </div>
+            <button class="btn btn-outline btn-danger">Borrar Cuenta</button>
+        </div>
+    </div>
+</div>

@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MiPerfilComponent } from "./mi-perfil/mi-perfil.component";
+import { SecurityComponent } from "./security/security.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [FormsModule, MiPerfilComponent],
+  imports: [FormsModule, MiPerfilComponent, SecurityComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })

@@ -47,14 +47,17 @@
                             <i class="fa-solid fa-shield-halved" style="width: 2rem;"></i>
                             <span>Seguridad</span>
                         </button>
-                        <button class="profile-tab">
-                            <span>Preferences</span>
+                        <button class="profile-tab" [class]="tab=='historial' ? 'active' : ''" (click)="tab='historial'; miPerfil.cancelarEdit()">
+                            <i class="fa-regular fa-rectangle-list" style="width: 2rem;"></i>
+                            <span>Historial</span>
                         </button>
                     </div>
 
                     <div class="profile-content">
                         @if(tab=='perfil'){
                             <app-mi-perfil #miPerfil (messageEvent)="handleMessage($event)" [edit]="edit"></app-mi-perfil>
+                        }@else if (tab=='seguridad') {
+                            <app-security></app-security>
                         }
 
                         <!-- <div class="profile-tab-content">
