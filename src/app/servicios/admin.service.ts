@@ -48,4 +48,19 @@ export class AdminService {
   getUsers(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/getUsers', dato, {'headers':this.header})
   }
+  getUserExtra(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/getUserExtra', dato, {'headers':this.header})
+  }
+  async getImgAdmin(dato:string, dato2:string){    
+    try {
+      const resp = await fetch(base_url+'/imagenes/imgCarnetAdmin?img='+dato+'&token='+dato2+'&tipo=1',{
+        method: 'GET', 
+        headers: {'Acces-Control-Allow-Origin':'*'},
+      });
+
+      return resp;
+    } catch (error) {
+      return false;
+    }
+  }
 }
