@@ -1,0 +1,64 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Información del Usuario</h3>
+            <button class="modal-close" (click)="this.messageEvent.emit();">
+                <i class="fa-solid fa-xmark" style="font-size: xx-large; color: var(--color-red);"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="user-details">
+                @for (entry of userModal | keyvalue; track entry.key) {
+                    <div class="detail-row">
+                        <span class="detail-label">{{entry.key}}</span>
+                        @if(entry.key=='Tipo'){ 
+                            <span class="detail-value">{{entry.value=='1' ? 'Prestador' : 'Cliente'}}</span> 
+                        }@else if (entry.key=='Habilitado' || entry.key=='Validado') {
+                            <span class="detail-value">{{entry.value=='0' ? 'No '+entry.key : entry.key}}</span> 
+                        }@else {
+                            <span class="detail-value">{{entry.value}}</span> 
+                        }
+                    </div>
+                }
+                <div class="modal-header">
+                    <h3 class="modal-title">Información {{userModal['Tipo']=='1' ? 'Prestador' : 'Cliente'}}</h3>
+                </div>
+                @for (entry of dato | keyvalue; track entry.key) {
+                    @if(entry.key!='_id'){ 
+                        <div class="detail-row">
+                            <span class="detail-label">{{entry.key}}</span>
+                            <span class="detail-value">{{entry.value}}</span> 
+                        </div>
+                    }
+                }
+                @if (userModal['Tipo']=='1') {
+                    <h3 class="modal-title">Imágenes del vehículo</h3>
+                    <div class="form-field" style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+                        @for (src of img['vehiculo']; track src) {
+                            <img src="{{src}}" alt="" style="width: 100px;">
+                        }
+                    </div>
+                    <h3 class="modal-title">Imágenes del Carnet</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label htmlFor="frente" class="form-label">Frente</label>
+                            <div style="display: flex; justify-content: space-evenly; margin-top: 2%; margin-bottom: 2%;">
+                                <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label htmlFor="dorso" class="form-label">Dorso</label>
+                            <div style="display: flex; justify-content: space-evenly; margin-top: 2%; margin-bottom: 2%;">
+                                <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" (click)="this.messageEvent.emit();">Cerrar</button>
+            <button class="btn btn-primary">Editar Usuario</button>
+        </div>
+    </div>
+</div>

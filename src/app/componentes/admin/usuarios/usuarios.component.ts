@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AdminService } from '../../../servicios/admin.service';
 import { isPlatformBrowser } from '@angular/common';
+import { UserModalComponent } from "./user-modal/user-modal.component";
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [],
+  imports: [UserModalComponent],
   templateUrl: './usuarios.component.html',
   styleUrl: '../admin.component.css'
 })
@@ -13,6 +14,8 @@ export class UsuariosComponent implements OnInit{
   loading:boolean=true;
   Usuarios:any=[]
   total:number=0
+  menuOpen:boolean=false;
+  userModal:any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: AdminService) {}
   
@@ -22,6 +25,10 @@ export class UsuariosComponent implements OnInit{
         this.getUsuarios(0, 20, 1);
       }
     }
+  }
+
+  handleMessage() {        
+    this.menuOpen=false;
   }
 
   getUsuarios(desde:number, limit:number, order:number){

@@ -69,10 +69,10 @@
                         <div class="table-cell">{{u.Nombre+' '+u.Apellido}}</div>
                         <div class="table-cell">
                             <div class="action-buttons">
-                                <button class="action-btn">
+                                <button class="action-btn" (click)="menuOpen=true; userModal=u">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="action-btn">
+                                <button class="action-btn" (click)="menuOpen=true; userModal=u">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 <button class="action-btn danger">
@@ -88,3 +88,6 @@
         </div>
     }
 </div>
+@if (menuOpen){
+    <app-user-modal (messageEvent)="handleMessage()" [userModal]="userModal"></app-user-modal>
+}
