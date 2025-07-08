@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../../servicios/admin.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-admin',
@@ -16,7 +17,7 @@ export class LoginAdminComponent {
   showPassword:string='password';
   texto:string='Ingresar'
 
-  constructor(private api:AdminService) {}
+  constructor(private api:AdminService, private router: Router) {}
 
   login(){
     if(this.email==''  || this.password==''){
@@ -36,7 +37,7 @@ export class LoginAdminComponent {
           localStorage.setItem('token',value.token);
           this.api.setAdmin(value.nombre);
           this.api.setID(value.id);
-          window.location.reload();
+          this.router.navigate(['/panelAdmin/inicio'])
         }else{
           Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }
