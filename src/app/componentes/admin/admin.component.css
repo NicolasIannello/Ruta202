@@ -222,7 +222,7 @@
   width: 250px;
 }
 
-.search-box svg {
+.search-box i {
   position: absolute;
   left: var(--spacing-3);
   z-index: 1;
