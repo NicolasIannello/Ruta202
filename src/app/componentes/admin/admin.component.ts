@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LoginAdminComponent } from "./login-admin/login-admin.component";
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -10,5 +10,15 @@ import { LoginAdminComponent } from "./login-admin/login-admin.component";
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
+  tab:string='';
 
+  constructor(private router: Router) {
+    this.tab=router.url    
+  }
+
+  ngOnInit() {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      this.tab=event.urlAfterRedirects;
+    });
+  }
 }
