@@ -10,6 +10,8 @@ import { loggedGuard } from './guards/logged.guard';
 import { UserComponent } from './componentes/user/user.component';
 import { AdminComponent } from './componentes/admin/admin.component';
 import { LoginAdminComponent } from './componentes/admin/login-admin/login-admin.component';
+import { loggedOutAdminGuard } from './guards/logged-out-admin.guard';
+import { InicioAdminComponent } from './componentes/admin/inicio-admin/inicio-admin.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -21,8 +23,9 @@ export const routes: Routes = [
         { path: 'perfil', component: UserComponent, canActivate: [loggedGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
-        { path: '', component: LoginAdminComponent },
-        { path: '**',   redirectTo: '', pathMatch: 'full' },
+        { path: '', component: LoginAdminComponent, canActivate: [loggedOutAdminGuard] },
+        { path: 'inicio', component: InicioAdminComponent, canActivate: [loggedGuard] },
+        { path: '**',   redirectTo: 'inicio', pathMatch: 'full' },
     ]},
     { path: '**',   redirectTo: '', pathMatch: 'full' },
 ];
