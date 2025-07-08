@@ -8,6 +8,8 @@ import { loggedOutGuard } from './guards/logged-out.guard';
 import { CambioPasswordComponent } from './componentes/cambio-password/cambio-password.component';
 import { loggedGuard } from './guards/logged.guard';
 import { UserComponent } from './componentes/user/user.component';
+import { AdminComponent } from './componentes/admin/admin.component';
+import { LoginAdminComponent } from './componentes/admin/login-admin/login-admin.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -18,12 +20,9 @@ export const routes: Routes = [
         { path: 'cambioPassword/:token', component: CambioPasswordComponent, canActivate: [loggedOutGuard] },
         { path: 'perfil', component: UserComponent, canActivate: [loggedGuard] },
     ] },
-    // { path: 'panelAdmin', component: PanelAdminComponent , children: [
-    //     { path: '', component: LoginComponent },
-    //     { path: 'usuarios', component: UsuariosComponent, canActivate:[authGuard] },
-    //     { path: 'autos', component: AutosComponent, canActivate:[authGuard] },
-    //     { path: 'Term&Cond', component: TycComponent, canActivate:[authGuard] },
-    //     { path: '**',   redirectTo: '', pathMatch: 'full' },
-    // ]},
+    { path: 'panelAdmin', component: AdminComponent , children: [
+        { path: '', component: LoginAdminComponent },
+        { path: '**',   redirectTo: '', pathMatch: 'full' },
+    ]},
     { path: '**',   redirectTo: '', pathMatch: 'full' },
 ];
