@@ -12,25 +12,6 @@
   text-align: center;
 }
 
-.verification-icon {
-  display: flex;
-  justify-content: center;
-  margin-bottom: var(--spacing-6);
-}
-
-.verification-icon.loading .spinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .verification-title {
   font-size: 1.75rem;
   font-weight: bold;

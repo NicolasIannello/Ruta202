@@ -176,7 +176,7 @@ a {
 }
 
 .btn-black:hover {
-  background-color: var(--color-gray-900);
+  background-color: var(--color-gray-600);
 }
 
 .btn-lg {
@@ -247,6 +247,25 @@ a {
   font-size: 1rem;
 }
 /* Utilities */
+.verification-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.verification-icon.loading .spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .emergency-notice {
   background-color: var(--color-gray-50);
   border: 1px solid var(--color-gray-200);
