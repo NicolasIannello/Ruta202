@@ -11,6 +11,10 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class InicioAdminComponent implements OnInit{
   Admin:string=''
+  clientes:number=0
+  clientesListos:number=0
+  prestadores:number=0
+  prestadoresListos:number=0
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: AdminService) {}
 
@@ -27,6 +31,19 @@ export class InicioAdminComponent implements OnInit{
               this.Admin=value.nombre;
               this.api.setAdmin(value.nombre)
               this.api.setID(value.id)
+              let dato={
+                'token': localStorage.getItem('token'),
+              }
+              this.api.inicioData(dato).subscribe({
+                next: (value:any) => {
+                  if (value.ok) {              
+                    this.clientes=value.stats.totalUsers
+                    this.prestadores=value.stats.totalPrestadores
+                    this.clientesListos = this.clientes > 0 ? (value.stats.totalUsersV / this.clientes) * 100 : 0;  
+                    this.prestadoresListos = this.prestadores > 0 ? (value.stats.totalPrestadoresV / this.prestadores) * 100 : 0;  
+                  }
+                }	
+              });
             }else{              
               localStorage.removeItem('token')
               this.api.logOut()
