@@ -4,11 +4,11 @@
       <div class="admin-container" style="min-height: 100vh;">
         <div class="admin-sidebar">
           <div class="admin-nav">
-            <button class="admin-nav-item" [class]="tab=='/panelAdmin/inicio' ? 'active' : ''">
+            <button class="admin-nav-item" routerLink="/panelAdmin/inicio" [class]="tab=='/panelAdmin/inicio' ? 'active' : ''">
               <i class="fa-solid fa-chart-column"></i>
               <span>Inicio</span>
             </button>
-            <button class="admin-nav-item ">
+            <button class="admin-nav-item " routerLink="/panelAdmin/usuarios" [class]="tab=='/panelAdmin/usuarios' ? 'active' : ''">
               <i class="fa-solid fa-user"></i>
               <span>Usuarios</span>
             </button>
@@ -18,99 +18,7 @@
         <div class="admin-content" style="padding: 0;">
           <router-outlet/>
 
-          <!-- activeTab === "users" && (
-            <div class="admin-tab-content">
-              <div class="admin-header">
-                <h1 class="admin-title">User Management</h1>
-                <p class="admin-subtitle">Manage customer accounts and information</p>
-              </div>
-
-              * Users Controls *
-              <div class="admin-controls">
-                <div class="search-filter-group">
-                  <div class="search-box">
-                    < style=" width: "1rem", height: "1rem", color: var(--color-gray-500)" " />
-                    <input
-                      type="text"
-                      placeholder="Search users..."
-                      value=searchTerm
-                      onChange=(e) => setSearchTerm(e.target.value)
-                      class="search-input"
-                    />
-                  </div>
-                  <select
-                    value=filterStatus
-                    onChange=(e) => setFilterStatus(e.target.value)
-                    class="filter-select"
-                  >
-                    <option value="all">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                  </select>
-                </div>
-                <div class="action-group">
-                  <button class="btn btn-outline">
-                    <Download style=" width: "1rem", height: "1rem" " class="btn-icon" />
-                    Export
-                  </button>
-                  <button class="btn btn-primary">
-                    <Plus style=" width: "1rem", height: "1rem" " class="btn-icon" />
-                    Add User
-                  </button>
-                </div>
-              </div>
-
-              * Users Table *
-              <div class="admin-section-card">
-                <div class="users-table">
-                  <div class="table-header">
-                    <div class="table-cell">Name</div>
-                    <div class="table-cell">Email</div>
-                    <div class="table-cell">Type</div>
-                    <div class="table-cell">Joined</div>
-                    <div class="table-cell">Status</div>
-                    <div class="table-cell">Requests</div>
-                    <div class="table-cell">Actions</div>
-                  </div>
-                  mockUsers.map((user) => (
-                    <div key=user.id class="table-row">
-                      <div class="table-cell">
-                        <div class="user-info">
-                          <div class="user-avatar-small">
-                            <User style=" width: "1rem", height: "1rem" " />
-                          </div>
-                          <span class="user-name">user.name</span>
-                        </div>
-                      </div>
-                      <div class="table-cell">user.email</div>
-                      <div class="table-cell">
-                        <span class=`type-badge $user.type.toLowerCase()`>user.type</span>
-                      </div>
-                      <div class="table-cell">user.joined</div>
-                      <div class="table-cell">
-                        <span class=`status-badge $user.status`>user.status</span>
-                      </div>
-                      <div class="table-cell">user.requests</div>
-                      <div class="table-cell">
-                        <div class="action-buttons">
-                          <button class="action-btn">
-                            <Eye style=" width: "1rem", height: "1rem" " />
-                          </button>
-                          <button class="action-btn">
-                            <Edit style=" width: "1rem", height: "1rem" " />
-                          </button>
-                          <button class="action-btn danger">
-                            <Trash2 style=" width: "1rem", height: "1rem" " />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                </div>
-              </div>
-            </div>
-          )
-
+         <!-- 
           activeTab === "requests" && (
             <div class="admin-tab-content">
               <div class="admin-header">
