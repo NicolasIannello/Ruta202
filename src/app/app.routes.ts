@@ -12,6 +12,7 @@ import { AdminComponent } from './componentes/admin/admin.component';
 import { LoginAdminComponent } from './componentes/admin/login-admin/login-admin.component';
 import { loggedOutAdminGuard } from './guards/logged-out-admin.guard';
 import { InicioAdminComponent } from './componentes/admin/inicio-admin/inicio-admin.component';
+import { UsuariosComponent } from './componentes/admin/usuarios/usuarios.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -25,6 +26,7 @@ export const routes: Routes = [
     { path: 'panelAdmin', component: AdminComponent , children: [
         { path: '', component: LoginAdminComponent, canActivate: [loggedOutAdminGuard] },
         { path: 'inicio', component: InicioAdminComponent, canActivate: [loggedGuard] },
+        { path: 'usuarios', component: UsuariosComponent, canActivate: [loggedGuard] },
         { path: '**',   redirectTo: 'inicio', pathMatch: 'full' },
     ]},
     { path: '**',   redirectTo: '', pathMatch: 'full' },
