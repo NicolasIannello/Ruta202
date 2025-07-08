@@ -1,0 +1,222 @@
+<div class="flex-col min-h-screen">
+  <main class="flex-1">
+    <section class="admin-section">
+      <div class="admin-container" style="min-height: 100vh;">
+        <div class="admin-sidebar">
+          <div class="admin-nav">
+            <button class="admin-nav-item active">
+              <i class="fa-solid fa-chart-column"></i>
+              <span>Inicio</span>
+            </button>
+            <button class="admin-nav-item ">
+              <i class="fa-solid fa-user"></i>
+              <span>Usuarios</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-content" style="padding: 0;">
+          <router-outlet/>
+
+          <!-- activeTab === "users" && (
+            <div class="admin-tab-content">
+              <div class="admin-header">
+                <h1 class="admin-title">User Management</h1>
+                <p class="admin-subtitle">Manage customer accounts and information</p>
+              </div>
+
+              * Users Controls *
+              <div class="admin-controls">
+                <div class="search-filter-group">
+                  <div class="search-box">
+                    < style=" width: "1rem", height: "1rem", color: var(--color-gray-500)" " />
+                    <input
+                      type="text"
+                      placeholder="Search users..."
+                      value=searchTerm
+                      onChange=(e) => setSearchTerm(e.target.value)
+                      class="search-input"
+                    />
+                  </div>
+                  <select
+                    value=filterStatus
+                    onChange=(e) => setFilterStatus(e.target.value)
+                    class="filter-select"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                </div>
+                <div class="action-group">
+                  <button class="btn btn-outline">
+                    <Download style=" width: "1rem", height: "1rem" " class="btn-icon" />
+                    Export
+                  </button>
+                  <button class="btn btn-primary">
+                    <Plus style=" width: "1rem", height: "1rem" " class="btn-icon" />
+                    Add User
+                  </button>
+                </div>
+              </div>
+
+              * Users Table *
+              <div class="admin-section-card">
+                <div class="users-table">
+                  <div class="table-header">
+                    <div class="table-cell">Name</div>
+                    <div class="table-cell">Email</div>
+                    <div class="table-cell">Type</div>
+                    <div class="table-cell">Joined</div>
+                    <div class="table-cell">Status</div>
+                    <div class="table-cell">Requests</div>
+                    <div class="table-cell">Actions</div>
+                  </div>
+                  mockUsers.map((user) => (
+                    <div key=user.id class="table-row">
+                      <div class="table-cell">
+                        <div class="user-info">
+                          <div class="user-avatar-small">
+                            <User style=" width: "1rem", height: "1rem" " />
+                          </div>
+                          <span class="user-name">user.name</span>
+                        </div>
+                      </div>
+                      <div class="table-cell">user.email</div>
+                      <div class="table-cell">
+                        <span class=`type-badge $user.type.toLowerCase()`>user.type</span>
+                      </div>
+                      <div class="table-cell">user.joined</div>
+                      <div class="table-cell">
+                        <span class=`status-badge $user.status`>user.status</span>
+                      </div>
+                      <div class="table-cell">user.requests</div>
+                      <div class="table-cell">
+                        <div class="action-buttons">
+                          <button class="action-btn">
+                            <Eye style=" width: "1rem", height: "1rem" " />
+                          </button>
+                          <button class="action-btn">
+                            <Edit style=" width: "1rem", height: "1rem" " />
+                          </button>
+                          <button class="action-btn danger">
+                            <Trash2 style=" width: "1rem", height: "1rem" " />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                </div>
+              </div>
+            </div>
+          )
+
+          activeTab === "requests" && (
+            <div class="admin-tab-content">
+              <div class="admin-header">
+                <h1 class="admin-title">Service Requests</h1>
+                <p class="admin-subtitle">Monitor and manage all towing service requests</p>
+              </div>
+
+              <div class="admin-section-card">
+                <div class="section-header">
+                  <h2 class="section-title">All Requests</h2>
+                  <div class="header-actions">
+                    <button class="btn btn-outline btn-sm">
+                      <Filter style=" width: "1rem", height: "1rem" " class="btn-icon" />
+                      Filter
+                    </button>
+                    <button class="btn btn-primary btn-sm">
+                      <Plus style=" width: "1rem", height: "1rem" " class="btn-icon" />
+                      New Request
+                    </button>
+                  </div>
+                </div>
+                <div class="requests-table">
+                  <div class="table-header">
+                    <div class="table-cell">Request ID</div>
+                    <div class="table-cell">Customer</div>
+                    <div class="table-cell">Service</div>
+                    <div class="table-cell">Status</div>
+                    <div class="table-cell">Driver</div>
+                    <div class="table-cell">Time</div>
+                    <div class="table-cell">Actions</div>
+                  </div>
+                  mockRecentRequests.map((request) => (
+                    <div key=request.id class="table-row">
+                      <div class="table-cell">
+                        <span class="request-id">request.id</span>
+                        <span
+                          class="priority-badge"
+                          style=" backgroundColor: getPriorityColor(request.priority) "
+                        >
+                          request.priority
+                        </span>
+                      </div>
+                      <div class="table-cell">
+                        <div class="customer-info">
+                          <span class="customer-name">request.customer</span>
+                          <span class="customer-location">request.location</span>
+                        </div>
+                      </div>
+                      <div class="table-cell">request.service</div>
+                      <div class="table-cell">
+                        <span class="status-badge" style=" backgroundColor: getStatusColor(request.status) ">
+                          request.status.replace("-", " ")
+                        </span>
+                      </div>
+                      <div class="table-cell">request.driver</div>
+                      <div class="table-cell">request.time</div>
+                      <div class="table-cell">
+                        <div class="action-buttons">
+                          <button class="action-btn">
+                            <Eye style=" width: "1rem", height: "1rem" " />
+                          </button>
+                          <button class="action-btn">
+                            <Edit style=" width: "1rem", height: "1rem" " />
+                          </button>
+                          <button class="action-btn">
+                            <Phone style=" width: "1rem", height: "1rem" " />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                </div>
+              </div>
+            </div>
+          ) -->
+
+          <!-- (activeTab === "drivers" || activeTab === "reports" || activeTab === "settings") && (
+                <div class="admin-tab-content">
+                  <div class="admin-header">
+                    <h1 class="admin-title">
+                      activeTab === "drivers" && "Driver Management"
+                      activeTab === "reports" && "Reports & Analytics"
+                      activeTab === "settings" && "System Settings"
+                    </h1>
+                    <p class="admin-subtitle">
+                      activeTab === "drivers" && "Manage drivers, vehicles, and assignments"
+                      activeTab === "reports" && "View detailed reports and analytics"
+                      activeTab === "settings" && "Configure system settings and preferences"
+                    </p>
+                  </div>
+
+                  <div class="admin-section-card">
+                    <div class="coming-soon">
+                      <div class="coming-soon-icon">
+                        <Settings style=" width: 4rem; height: 4rem; color: var(--color-gray-400)" />
+                      </div>
+                      <h3 class="coming-soon-title">Coming Soon</h3>
+                      <p class="coming-soon-description">
+                        This section is currently under development. Check back soon for updates!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) -->
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
