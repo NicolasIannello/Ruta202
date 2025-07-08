@@ -39,4 +39,7 @@ export class AdminService {
   login(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/login', dato, {'headers':this.header})
   }
+  renewToken(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/renew', dato, {'headers':this.header})
+  }
 }
