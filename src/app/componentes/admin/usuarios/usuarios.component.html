@@ -1,0 +1,90 @@
+<div class="admin-tab-content">
+    <div class="admin-header">
+        <h1 class="admin-title">Tabla Usuarios</h1>
+        <p class="admin-subtitle">Gestione la información de los usuarios</p>
+    </div>
+
+    <div class="admin-controls">
+        <div class="search-filter-group">
+            <select class="filter-select">
+                <option value="Empresa">Empresa</option>
+                <option value="Email">Email</option>
+                <option value="CUIT">CUIT</option>
+                <option value="Celular">Teléfono</option>
+                <option value="Nombre">Nombre Apellido</option>
+                <option value="Apellido">Apellido</option>
+                <option value="Habilitado">Habilitado</option>
+                <option value="Validado">Validado</option>
+            </select>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="search-input" type="text" placeholder="Buscar dato..."/>
+            </div>
+            <button class="btn btn-black">Buscar</button>
+        </div>
+        <div class="action-group">
+            <!-- <button class="btn btn-outline">
+            <Download style=" width: "1rem", height: "1rem" " class="btn-icon" />
+            Export
+            </button> -->
+            <!-- <button class="btn btn-primary">
+                <i class="fa-solid fa-plus" style="width: 1.5rem;"></i>Agregar Usuario
+            </button> -->
+        </div>
+    </div>
+
+    @if(loading){
+        <div class="verification-icon loading">
+            <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+        </div>
+    }@else{
+        <div class="admin-section-card">
+            <div class="users-table">
+                <div class="table-header">
+                    <div class="table-cell">Empresa</div>
+                    <div class="table-cell">Email</div>
+                    <div class="table-cell">CUIT</div>
+                    <div class="table-cell">Estado</div>
+                    <div class="table-cell">Teléfono</div>
+                    <div class="table-cell">Nombre Apellido</div>
+                    <div class="table-cell">Actions</div>
+                </div>
+                @for (u of Usuarios; track u) {
+                    <div class="table-row">
+                        <div class="table-cell">
+                            <div class="user-info">
+                                <div class="user-avatar-small">
+                                    <i class="fa-solid" [class]="u.Tipo=='0' ? 'fa-user' : 'fa-truck'"></i>
+                                </div>
+                                <span class="user-name">{{u.Empresa}}</span>
+                            </div>
+                        </div>
+                        <div class="table-cell">{{u.EmailResponsable}}</div>
+                        <div class="table-cell">{{u.CUIT}}</div>
+                        <div class="table-cell">
+                            <span class="status-badge" [class]="u.Habilitado ? 'active' : 'inactive'">Habilitado</span>
+                            <span class="status-badge" [class]="u.Validado ? 'active' : 'inactive'">Validado</span> 
+                        </div>
+                        <div class="table-cell">{{u.Celular}}</div>
+                        <div class="table-cell">{{u.Nombre+' '+u.Apellido}}</div>
+                        <div class="table-cell">
+                            <div class="action-buttons">
+                                <button class="action-btn">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button class="action-btn danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                }
+            </div>
+            <p class="admin-subtitle">Usuarios totales: {{total}}</p>
+        </div>
+    }
+</div>

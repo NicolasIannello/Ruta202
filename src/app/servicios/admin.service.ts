@@ -45,4 +45,7 @@ export class AdminService {
   inicioData(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/inicioData', dato, {'headers':this.header})
   }
+  getUsers(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/getUsers', dato, {'headers':this.header})
+  }
 }
