@@ -28,8 +28,10 @@ export class UsuariosComponent implements OnInit{
     }
   }
 
-  handleMessage() {        
+  handleMessage(message:string) {        
     this.menuOpen=false;
+    this.userModal=[];
+    if(message=='reload') this.getUsuarios(0, 20, 1);
   }
 
   getUsuarios(desde:number, limit:number, order:number){
