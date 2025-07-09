@@ -174,13 +174,6 @@
   font-size: 0.875rem;
 }
 
-.file-input-help {
-  font-size: 0.75rem;
-  color: var(--color-gray-500);
-  margin-top: var(--spacing-1);
-  line-height: 1.4;
-}
-
 .password-toggle-btn {
   position: absolute;
   right: var(--spacing-3);

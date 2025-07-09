@@ -247,6 +247,13 @@ a {
   font-size: 1rem;
 }
 /* Utilities */
+.file-input-help {
+  font-size: 0.75rem;
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-1);
+  line-height: 1.4;
+}
+
 .verification-icon {
   display: flex;
   justify-content: center;
