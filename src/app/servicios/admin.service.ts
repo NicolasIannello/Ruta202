@@ -77,4 +77,7 @@ export class AdminService {
       return false;
     }
   }
+  borrarUser(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/borrarUser', dato, {'headers':this.header})
+  }
 }

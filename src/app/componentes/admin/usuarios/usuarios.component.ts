@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AdminService } from '../../../servicios/admin.service';
 import { isPlatformBrowser } from '@angular/common';
 import { UserModalComponent } from "./user-modal/user-modal.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -54,4 +55,41 @@ export class UsuariosComponent implements OnInit{
     });
   }
 
+  borrarUsuario(name:string,mail:string,id:string){
+    Swal.fire({
+      title: "Esta por borrar un Usuario",
+      html: "Usuario: "+name+"<br>Email: "+mail,
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      confirmButtonColor:'#ea580c',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          let dato={
+            'token': localStorage.getItem('token'),
+            'id': id,
+          }
+
+          this.api.borrarUser(dato).subscribe({
+            next: (value) => {
+              if(value.ok){
+                Swal.fire({title:'Usuario eliminado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                this.getUsuarios(0, 20, 1);
+              }else{
+                Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }
+            },
+            error: (err) => {
+              Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+            },
+          })
+          
+        } catch (error) {
+          Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }
+    });
+  }
 }
