@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Información del Usuario</h3>
-            <button class="modal-close" (click)="this.messageEvent.emit();">
+            <button class="modal-close" (click)="cancelar(); this.messageEvent.emit();">
                 <i class="fa-solid fa-xmark" style="font-size: xx-large; color: var(--color-red);"></i>
             </button>
         </div>
@@ -11,12 +11,29 @@
                 @for (entry of userModal | keyvalue; track entry.key) {
                     <div class="detail-row">
                         <span class="detail-label">{{entry.key}}</span>
-                        @if(entry.key=='Tipo'){ 
-                            <span class="detail-value">{{entry.value=='1' ? 'Prestador' : 'Cliente'}}</span> 
-                        }@else if (entry.key=='Habilitado' || entry.key=='Validado') {
-                            <span class="detail-value">{{entry.value=='0' ? 'No '+entry.key : entry.key}}</span> 
+                        @if (!edit) {
+                            @if(entry.key=='Tipo'){ 
+                                <span class="detail-value">{{entry.value=='1' ? 'Prestador' : 'Cliente'}}</span> 
+                            }@else if (entry.key=='Habilitado' || entry.key=='Validado') {
+                                <span class="detail-value">{{entry.value=='0' ? 'No '+entry.key : entry.key}}</span> 
+                            }@else {
+                                <span class="detail-value">{{entry.value}}</span> 
+                            }
                         }@else {
-                            <span class="detail-value">{{entry.value}}</span> 
+                            @if(entry.key=='Tipo'){ 
+                                <span class="detail-value">{{entry.value=='1' ? 'Prestador' : 'Cliente'}}</span> 
+                            }@else if (entry.key=='UltimaConexion'){ 
+                                <span class="detail-value">{{entry.value}}</span>
+                            }@else if (entry.key=='Validado') {
+                                <span class="detail-value">{{entry.value=='0' ? 'No '+entry.key : entry.key}}</span> 
+                            }@else if(entry.key=='Habilitado'){
+                            <select class="form-input" style="max-width: 25rem;" [(ngModel)]="user2[entry.key]">
+                                    <option value="{{entry.value=='false' ? 'false' : 'true'}}" selected>{{entry.value=='false' ? 'No Habilitado' : 'Habilitado'}}</option>
+                                    <option value="{{!(entry.value=='false') ? 'false' : 'true'}}">{{!(entry.value=='false') ? 'No Habilitado' : 'Habilitado'}}</option>
+                                </select>
+                            }@else{
+                                <input id="{{entry.key}}" name="{{entry.key}}" type="text" class="form-input" style="max-width: 25rem;" [(ngModel)]="user2[entry.key]"/>
+                            }
                         }
                     </div>
                 }
@@ -27,7 +44,11 @@
                     @if(entry.key!='_id'){ 
                         <div class="detail-row">
                             <span class="detail-label">{{entry.key}}</span>
-                            <span class="detail-value">{{entry.value}}</span> 
+                            @if (!edit) {
+                                <span class="detail-value">{{entry.value}}</span> 
+                            }@else {
+                                <input id="{{entry.key}}" name="{{entry.key}}" type="text" class="form-input" style="max-width: 25rem;" [(ngModel)]="dato2[entry.key]"/>
+                            }
                         </div>
                     }
                 }
@@ -57,8 +78,13 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline" (click)="this.messageEvent.emit();">Cerrar</button>
-            <button class="btn btn-primary">Editar Usuario</button>
+            <button class="btn btn-outline" (click)="cancelar(); this.messageEvent.emit();">Cerrar</button>
+            @if (edit) {
+                <button class="btn btn-outline" (click)="cancelar()">Cancelar</button>
+                <button class="btn btn-primary" (click)="edit=true">Guardar</button>
+            }@else{
+                <button class="btn btn-primary" (click)="edit=true">Editar Usuario</button>
+            }
         </div>
     </div>
 </div>
