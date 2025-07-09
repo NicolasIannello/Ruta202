@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Información del Usuario</h3>
-            <button class="modal-close" (click)="cancelar(); this.messageEvent.emit();">
+            <button class="modal-close" (click)="cancelar(); this.messageEvent.emit('menu');">
                 <i class="fa-solid fa-xmark" style="font-size: xx-large; color: var(--color-red);"></i>
             </button>
         </div>
@@ -22,17 +22,17 @@
                         }@else {
                             @if(entry.key=='Tipo'){ 
                                 <span class="detail-value">{{entry.value=='1' ? 'Prestador' : 'Cliente'}}</span> 
-                            }@else if (entry.key=='UltimaConexion'){ 
+                            }@else if (entry.key=='UltimaConexion' || entry.key=='_id' || entry.key=='UUID'){ 
                                 <span class="detail-value">{{entry.value}}</span>
                             }@else if (entry.key=='Validado') {
                                 <span class="detail-value">{{entry.value=='0' ? 'No '+entry.key : entry.key}}</span> 
                             }@else if(entry.key=='Habilitado'){
-                            <select class="form-input" style="max-width: 25rem;" [(ngModel)]="user2[entry.key]">
+                                <select class="form-input" style="max-width: 25rem;" [(ngModel)]="user2[entry.key]" [disabled]="loading">
                                     <option value="{{entry.value=='false' ? 'false' : 'true'}}" selected>{{entry.value=='false' ? 'No Habilitado' : 'Habilitado'}}</option>
                                     <option value="{{!(entry.value=='false') ? 'false' : 'true'}}">{{!(entry.value=='false') ? 'No Habilitado' : 'Habilitado'}}</option>
                                 </select>
                             }@else{
-                                <input id="{{entry.key}}" name="{{entry.key}}" type="text" class="form-input" style="max-width: 25rem;" [(ngModel)]="user2[entry.key]"/>
+                                <input id="{{entry.key}}" name="{{entry.key}}" type="text" class="form-input" style="max-width: 25rem;" [(ngModel)]="user2[entry.key]" [disabled]="loading"/>
                             }
                         }
                     </div>
@@ -47,7 +47,7 @@
                             @if (!edit) {
                                 <span class="detail-value">{{entry.value}}</span> 
                             }@else {
-                                <input id="{{entry.key}}" name="{{entry.key}}" type="text" class="form-input" style="max-width: 25rem;" [(ngModel)]="dato2[entry.key]"/>
+                                <input id="{{entry.key}}" name="{{entry.key}}" type="text" class="form-input" style="max-width: 25rem;" [(ngModel)]="dato2[entry.key]" [disabled]="loading"/>
                             }
                         </div>
                     }
@@ -59,6 +59,16 @@
                             <img src="{{src}}" alt="" style="width: 100px;">
                         }
                     </div>
+                    @if (edit) {
+                        <label htmlFor="imagen" class="form-label">Nuevas imágenes del vehículo</label>
+                        <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;" [style]="sources.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                            @for (src of sources; track src) {
+                                <img src="{{src}}" alt="" style="width: 100px;">
+                            }
+                        </div>
+                        <input type="file" class="form-input" name="imagen" id="imagen" #imagen accept="image/*," multiple (change)="showImg($event, 0)" [disabled]="loading">
+                        <p class="file-input-help">Máximo de imágenes 4.</p>
+                    }
                     <h3 class="modal-title">Imágenes del Carnet</h3>
                     <div class="form-row">
                         <div class="form-field">
@@ -67,23 +77,41 @@
                                 <img src="{{img['frente'][0]}}" alt="" style="width: 100px;">
                             </div>
                         </div>
+                        @if (edit) {
+                            <div class="form-field">
+                                <label htmlFor="frenteNueva" class="form-label">Nueva imagen del frente</label>
+                                <div style="display: flex; justify-content: space-evenly;" [style]="frente.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                    <img src="{{frente}}" alt="" style="width: 100px;">
+                                </div>
+                                <input type="file" class="form-input" name="frenteNueva" id="frenteNueva" #frenteNueva accept="image/*," (change)="showImg($event, 1)" [disabled]="loading">
+                            </div>
+                        }
                         <div class="form-field">
                             <label htmlFor="dorso" class="form-label">Dorso</label>
                             <div style="display: flex; justify-content: space-evenly; margin-top: 2%; margin-bottom: 2%;">
                                 <img src="{{img['dorso'][0]}}" alt="" style="width: 100px;">
                             </div>
                         </div>
+                        @if (edit) {
+                            <div class="form-field">
+                                <label htmlFor="dorsoNueva" class="form-label">Nueva imagen del dorso</label>
+                                <div style="display: flex; justify-content: space-evenly;" [style]="dorso.length!=0 ? 'margin-top: 2%; margin-bottom: 2%;' : ''">
+                                    <img src="{{dorso}}" alt="" style="width: 100px;">
+                                </div>
+                                <input type="file" class="form-input" name="dorsoNueva" id="dorsoNueva" #dorsoNueva accept="image/*," (change)="showImg($event, 2)" [disabled]="loading">
+                            </div>
+                        }
                     </div>
                 }
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline" (click)="cancelar(); this.messageEvent.emit();">Cerrar</button>
+            <button class="btn btn-outline" (click)="cancelar(); this.messageEvent.emit('menu');">Cerrar</button>
             @if (edit) {
-                <button class="btn btn-outline" (click)="cancelar()">Cancelar</button>
-                <button class="btn btn-primary" (click)="edit=true">Guardar</button>
+                <button class="btn btn-outline" (click)="cancelar()" [disabled]="loading">Cancelar</button>
+                <button class="btn btn-primary" (click)="guardarCambios()" [disabled]="loading">Guardar</button>
             }@else{
-                <button class="btn btn-primary" (click)="edit=true">Editar Usuario</button>
+                <button class="btn btn-primary" (click)="edit=true" [disabled]="loading">Editar Usuario</button>
             }
         </div>
     </div>

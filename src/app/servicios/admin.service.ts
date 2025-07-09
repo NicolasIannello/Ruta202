@@ -12,7 +12,7 @@ export class AdminService {
   header:HttpHeaders;
   Admin:string='';
   ID:string='';
-  ready$ = new BehaviorSubject<boolean>(false);
+  //ready$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
     this.header=new HttpHeaders().set('Acces-Control-Allow-Origin','*');
@@ -59,6 +59,20 @@ export class AdminService {
       });
 
       return resp;
+    } catch (error) {
+      return false;
+    }
+  }
+  async changeData(dato:any){
+    try {      
+      const resp = await fetch(base_url+'/admins/changeData',{
+        method: 'POST', 
+        headers: {'Acces-Control-Allow-Origin':'*'},
+        body: dato
+      });
+
+      const data = await resp.json();
+      return data;
     } catch (error) {
       return false;
     }
