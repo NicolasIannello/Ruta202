@@ -16,6 +16,7 @@ export class UsuariosComponent implements OnInit{
   total:number=0
   menuOpen:boolean=false;
   userModal:any;
+  edit:boolean=false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: AdminService) {}
   
