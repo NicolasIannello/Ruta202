@@ -3,11 +3,12 @@ import { AdminService } from '../../../servicios/admin.service';
 import { isPlatformBrowser } from '@angular/common';
 import { UserModalComponent } from "./user-modal/user-modal.component";
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [UserModalComponent],
+  imports: [UserModalComponent, FormsModule],
   templateUrl: './usuarios.component.html',
   styleUrl: '../admin.component.css'
 })
@@ -24,6 +25,10 @@ export class UsuariosComponent implements OnInit{
   asc:number=1;
   pages:Array<number>=[]
   iterator:Array<number>=[1,2,3]
+  preDatoTipo:string='Empresa'
+  preDatoBuscar:string='';
+  datoTipo:string='_id'
+  datoBuscar:string='';
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: AdminService) {}
   
@@ -43,8 +48,6 @@ export class UsuariosComponent implements OnInit{
 
   paginacion(int:number){
     this.pagina=int;        
-    console.log(this.pagina);
-    
     this.getUsuarios(this.pagina, 10, this.asc, this.order);
   }
 
@@ -54,7 +57,9 @@ export class UsuariosComponent implements OnInit{
       'desde': desde,
       'limit': limit,
       'orden': orden,
-      'order': order
+      'order': order,
+      'datoTipo': this.datoTipo,
+      'datoBuscar': this.datoBuscar
     }
     this.api.getUsers(dato).subscribe({
       next: (value:any) => {
@@ -107,5 +112,16 @@ export class UsuariosComponent implements OnInit{
         }
       }
     });
+  }
+
+  buscarDato(){
+    if(this.preDatoBuscar==''){
+      Swal.fire({title:'Complete el dato a buscar',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      return;
+    }
+    this.pagina=0
+    this.datoBuscar=this.preDatoBuscar
+    this.datoTipo=this.preDatoTipo
+    this.getUsuarios(this.pagina, 10, this.asc, this.order);
   }
 }
