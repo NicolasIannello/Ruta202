@@ -19,6 +19,7 @@ export class UsuariosComponent implements OnInit{
   userModal:any;
   edit:boolean=false;
   pagina:number=0;
+  lastPage:number=0
   order:string='_id'
   asc:number=1;
   pages:Array<number>=[]
@@ -60,6 +61,7 @@ export class UsuariosComponent implements OnInit{
         if (value.ok) {      
           this.Usuarios=value.users      
           this.total=value.total  
+          this.lastPage=Math.trunc(this.total/10)
           this.loading=false;
           this.pages=Array.from({ length: this.total/10 }, (_, i) => i + 1)
         }

@@ -96,28 +96,27 @@
                     <button class="pagination-btn" (click)="paginacion(pagina-10)" [disabled]="pagina==0">
                         <i class="fa-solid fa-left-long"></i>
                     </button>
-                    <!-- @if (pagina>40) {
+                    @if (pagina>10) {
                         <div class="pagination-numbers">
                             <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(0)">1</button>
                         </div>
                         ...
-                    } -->
-                    <!-- @for (p of iterator; track p) {
-                        <div class="pagination-numbers">
-                            <button class="pagination-number" [class]="(pagina+10)==(p+1)*10 ? 'active' : ''" (click)="paginacion(10*p)">{{p+1}}</button>
-                        </div>
-                    } -->
-                    @for (p of iterator; track p) {
-                            <div class="pagination-numbers">
-                                <button class="pagination-number" [class]="pagina==p*10-10 ? 'active' : ''" (click)="paginacion(p*10-10)">{{p}}</button>
-                            </div>
                     }
-                    <!-- @if (total>pagina+50) {
+                    <div class="pagination-numbers">
+                        <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 0 : pagina/10==lastPage ? 10*(pagina/10-2) : 10*(pagina/10-1))">{{pagina/10==0 ? 1 : pagina/10==lastPage ? lastPage-1 : pagina/10}}</button>
+                    </div>
+                    <div class="pagination-numbers">
+                        <button class="pagination-number" [class]="pagina/10!=0 && pagina!=lastPage*10 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 10 : pagina==lastPage*10 ? (lastPage*10)-10 : pagina)">{{pagina/10==0 ? 2 : pagina/10<(lastPage) ? 1+pagina/10 : lastPage}}</button>
+                    </div>
+                    <div class="pagination-numbers">
+                        <button class="pagination-number" [class]="pagina==lastPage*10 ? 'active' : ''" (click)="paginacion(pagina+1==lastPage*10 ? 10*(pagina/10+1) : lastPage*10)">{{pagina/10<(lastPage) ? pagina/10+(pagina/10==0 ? 3 : 2) : lastPage+1}}</button>
+                    </div>
+                    @if (lastPage*10>pagina+10) {
                         ...
                         <div class="pagination-numbers">
                             <button class="pagination-number" [class]="pagina==(total%10)*10+20 ? 'active' : ''" (click)="paginacion((total%10)*10+20)">{{(total%10)+3}}</button>
                         </div>
-                    } -->
+                    }
                     <button class="pagination-btn" (click)="paginacion(pagina+10)" [disabled]="(pagina+10)>total">
                         <i class="fa-solid fa-right-long"></i>
                     </button>
