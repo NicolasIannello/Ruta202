@@ -18,13 +18,18 @@ export class UsuariosComponent implements OnInit{
   menuOpen:boolean=false;
   userModal:any;
   edit:boolean=false;
+  pagina:number=0;
+  order:string='_id'
+  asc:number=1;
+  pages:Array<number>=[]
+  iterator:Array<number>=[1,2,3]
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: AdminService) {}
   
   ngOnInit(): void {
     if(isPlatformBrowser(this.platformId)){
       if(localStorage.getItem('token')){
-        this.getUsuarios(0, 20, 1);
+        this.getUsuarios(this.pagina, 10, this.asc, this.order);
       }
     }
   }
@@ -32,14 +37,22 @@ export class UsuariosComponent implements OnInit{
   handleMessage(message:string) {        
     this.menuOpen=false;
     this.userModal=[];
-    if(message=='reload') this.getUsuarios(0, 20, 1);
+    if(message=='reload') this.getUsuarios(this.pagina, 10, this.asc, this.order);
   }
 
-  getUsuarios(desde:number, limit:number, order:number){
+  paginacion(int:number){
+    this.pagina=int;        
+    console.log(this.pagina);
+    
+    this.getUsuarios(this.pagina, 10, this.asc, this.order);
+  }
+
+  getUsuarios(desde:number, limit:number, orden:number, order:string){
     let dato={
       'token': localStorage.getItem('token'),
       'desde': desde,
       'limit': limit,
+      'orden': orden,
       'order': order
     }
     this.api.getUsers(dato).subscribe({
@@ -48,6 +61,7 @@ export class UsuariosComponent implements OnInit{
           this.Usuarios=value.users      
           this.total=value.total  
           this.loading=false;
+          this.pages=Array.from({ length: this.total/10 }, (_, i) => i + 1)
         }
       },
       error: (err:any) => {
@@ -76,7 +90,7 @@ export class UsuariosComponent implements OnInit{
             next: (value) => {
               if(value.ok){
                 Swal.fire({title:'Usuario eliminado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
-                this.getUsuarios(0, 20, 1);
+                this.getUsuarios(this.pagina, 10, this.asc, this.order);
               }else{
                 Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
               }

@@ -15,6 +15,7 @@
                 <option value="Apellido">Apellido</option>
                 <option value="Habilitado">Habilitado</option>
                 <option value="Validado">Validado</option>
+                <option value="Tipo">Tipo</option>
             </select>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -84,7 +85,44 @@
                     </div>
                 }
             </div>
-            <p class="admin-subtitle">Usuarios totales: {{total}}</p>
+            <!-- <p class="admin-subtitle">Usuarios totales: {{total}}</p> -->
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando 10 de {{total}} Usuarios totales
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" (click)="paginacion(pagina-10)" [disabled]="pagina==0">
+                        <i class="fa-solid fa-left-long"></i>
+                    </button>
+                    <!-- @if (pagina>40) {
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(0)">1</button>
+                        </div>
+                        ...
+                    } -->
+                    <!-- @for (p of iterator; track p) {
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="(pagina+10)==(p+1)*10 ? 'active' : ''" (click)="paginacion(10*p)">{{p+1}}</button>
+                        </div>
+                    } -->
+                    @for (p of iterator; track p) {
+                            <div class="pagination-numbers">
+                                <button class="pagination-number" [class]="pagina==p*10-10 ? 'active' : ''" (click)="paginacion(p*10-10)">{{p}}</button>
+                            </div>
+                    }
+                    <!-- @if (total>pagina+50) {
+                        ...
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina==(total%10)*10+20 ? 'active' : ''" (click)="paginacion((total%10)*10+20)">{{(total%10)+3}}</button>
+                        </div>
+                    } -->
+                    <button class="pagination-btn" (click)="paginacion(pagina+10)" [disabled]="(pagina+10)>total">
+                        <i class="fa-solid fa-right-long"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     }
 </div>
