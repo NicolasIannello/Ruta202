@@ -39,8 +39,8 @@ export class InicioAdminComponent implements OnInit{
                   if (value.ok) {              
                     this.clientes=value.stats.totalUsers
                     this.prestadores=value.stats.totalPrestadores
-                    this.clientesListos = this.clientes > 0 ? (value.stats.totalUsersV / this.clientes) * 100 : 0;  
-                    this.prestadoresListos = this.prestadores > 0 ? (value.stats.totalPrestadoresV / this.prestadores) * 100 : 0;  
+                    this.clientesListos = this.clientes > 0 ? Math.trunc((value.stats.totalUsersV / this.clientes) * 100) : 0;  
+                    this.prestadoresListos = this.prestadores > 0 ? Math.trunc((value.stats.totalPrestadoresV / this.prestadores) * 100) : 0;  
                   }
                 }	
               });
