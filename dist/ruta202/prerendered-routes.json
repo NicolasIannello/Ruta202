@@ -2,6 +2,10 @@
   "routes": [
     "/",
     "/login",
+    "/panelAdmin",
+    "/panelAdmin/inicio",
+    "/panelAdmin/usuarios",
+    "/perfil",
     "/registro"
   ]
 }
