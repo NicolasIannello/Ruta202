@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import Swal from 'sweetalert2';
@@ -60,7 +60,7 @@ export class RegistroComponent {
   showPassword: string = 'password';
   flag:boolean=true;
 
-  constructor(private api:UsuariosService) {}
+  constructor(private api:UsuariosService, private router: Router) {}
 
   showImg(event: Event, int:number){
     if (int==0) this.sources=[];
@@ -216,7 +216,10 @@ export class RegistroComponent {
 
       this.api.crearUsuario(formData).then(resp =>{
         if(resp.ok){
-          Swal.fire({title:'Cuenta creada con éxito', text: 'Se ha enviado un mail de confirmación al Email: '+resp.EmailResponsable,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          Swal.fire({title:'Cuenta creada con éxito', text: 'Se ha enviado un mail de confirmación al Email: '+resp.EmailResponsable,
+            confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then((result) => {
+              this.router.navigate(['/'])
+            })
         }else{
           Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }
