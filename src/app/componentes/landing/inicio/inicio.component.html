@@ -22,19 +22,20 @@
                         <button class="btn btn-primary btn-lg" (click)="common.openWsp()">
                             <i class="fa-brands fa-whatsapp btn-icon center" style="width: 1rem; height: 1rem"></i>Contacto
                         </button>
-                        @if (flag==1) {
+                        @if (flag=='2') {
                             <button class="btn btn-primary btn-lg" routerLink="/login">
                                 <i class="fa-solid fa-arrow-right-to-bracket btn-icon center" style="width: 1rem; height: 1rem"></i>Ingresar
                             </button>
                             <button class="btn btn-primary btn-lg" routerLink="/registro">
                                 <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Cuenta
                             </button>
-                        }@else if(flag==2){
+                        }@else if(flag=='0'){
                             <button class="btn btn-primary btn-lg" routerLink="/login">
-                                <i class="fa-solid fa-arrow-right-to-bracket btn-icon center" style="width: 1rem; height: 1rem"></i>IDK
+                                <i class="fa-solid fa-newspaper btn-icon center" style="width: 1rem; height: 1rem"></i>Crear Pedido
                             </button>
-                            <button class="btn btn-primary btn-lg" routerLink="/registro">
-                                <i class="fa-solid fa-user btn-icon center" style="width: 1rem; height: 1rem"></i>IDK
+                        }@else if(flag=='1'){
+                            <button class="btn btn-primary btn-lg" routerLink="/login">
+                                <i class="fa-solid fa-clipboard-list btn-icon center" style="width: 1rem; height: 1rem"></i>Ver Pedidos Disponibles
                             </button>
                         }
                         <!-- <button (click)="scroller.scrollToAnchor('services');" class="btn btn-outline btn-lg">Nuestros Servicios</button> -->

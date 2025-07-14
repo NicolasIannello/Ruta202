@@ -16,13 +16,13 @@ import { filter, first } from 'rxjs';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent implements AfterViewInit{
-  flag:number=0;
+  flag:string='2';
 
   constructor(public scroller: ViewportScroller, public common: CommonService, private api: UsuariosService) {}
 
   ngAfterViewInit(): void {
     this.api.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
-      this.flag=this.api.getEmpresa()=='' ? 1 : 2;
+      this.flag=this.api.getTipo()=='' ? '2' : this.api.getTipo();
     });
   }
 }

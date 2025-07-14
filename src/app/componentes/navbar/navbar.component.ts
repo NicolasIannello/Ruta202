@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit{
               this.Email=value.mail
               this.api.setEmail(value.mail)
               this.api.setID(value.id)
+              this.api.setTipo(value.tipo)
               this.api.ready$.next(true);
             }else{
               localStorage.removeItem('token')

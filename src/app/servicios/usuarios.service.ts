@@ -14,6 +14,7 @@ export class UsuariosService{
   Empresa:string='';
   Email:string='';
   ID:string='';
+  Tipo:string='';
   ready$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
@@ -52,6 +53,9 @@ export class UsuariosService{
   setID(id:string){
     this.ID=id;
   }
+  setTipo(tipo:string){
+    this.Tipo=tipo
+  }
   getEmpresa(){
     return this.Empresa;
   }
@@ -60,6 +64,9 @@ export class UsuariosService{
   }
   getID(){
     return this.ID;
+  }
+  getTipo(){
+    return this.Tipo;
   }
   logOut(){
     this.Empresa='';
