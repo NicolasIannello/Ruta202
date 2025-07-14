@@ -13,6 +13,8 @@ import { LoginAdminComponent } from './componentes/admin/login-admin/login-admin
 import { loggedOutAdminGuard } from './guards/logged-out-admin.guard';
 import { InicioAdminComponent } from './componentes/admin/inicio-admin/inicio-admin.component';
 import { UsuariosComponent } from './componentes/admin/usuarios/usuarios.component';
+import { PedidoComponent } from './componentes/pedido/pedido.component';
+import { loggedClienteGuard } from './guards/logged-cliente.guard';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -22,6 +24,7 @@ export const routes: Routes = [
         { path: 'validacion/:token', component: ValidacionComponent, canActivate: [loggedOutGuard] },
         { path: 'cambioPassword/:token', component: CambioPasswordComponent, canActivate: [loggedOutGuard] },
         { path: 'perfil', component: UserComponent, canActivate: [loggedGuard] },
+        { path: 'crearPedido', component: PedidoComponent, canActivate: [loggedClienteGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
         { path: '', component: LoginAdminComponent, canActivate: [loggedOutAdminGuard] },
