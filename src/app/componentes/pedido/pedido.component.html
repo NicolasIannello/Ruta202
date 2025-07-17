@@ -1,0 +1,88 @@
+<div class="flex-col min-h-screen">
+    <main class="flex-1">
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar">
+                                <i class="fa-solid fa-truck" style="font-size: xx-large; color: var(--color-white)"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h1 class="profile-name">Crear Pedido</h1>
+                                <p class="profile-email">Los usuarios prestadores verán su pedido y crearan una oferta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-content">
+                        <span class="profile-form">
+                            <div class="form-section">
+                                <h3 class="form-section-title">Información del pedido</h3>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label htmlFor="tipo" class="form-label">Tipo de vehículo</label>
+                                        <select class="form-input" name="tipo" id="tipo" [(ngModel)]="datosPedido.tipo">
+                                            @for (item of tipos; track $index) {
+                                                @if (item=='') {
+                                                    <option value="{{item}}" selected hidden>Seleccione tipo de vehículo</option>
+                                                }@else {
+                                                    <option value="{{item}}">{{item}}</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="funcionalidad" class="form-label">Funcionalidad</label>
+                                        <select class="form-input" name="funcionalidad" id="funcionalidad" [(ngModel)]="datosPedido.funcionalidad">
+                                            @for (item of funcionalidad; track $index) {
+                                                @if (item=='') {
+                                                    <option value="{{item}}" selected hidden>Seleccione funcionalidad del vehículo</option>
+                                                }@else {
+                                                    <option value="{{item}}">{{item}}</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label htmlFor="lugarRetiro" class="form-label">Lugar de retiro</label>
+                                        <input id="lugarRetiro" name="lugarRetiro" type="text" class="form-input" [(ngModel)]="datosPedido.lugarRetiro"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="tipoLugarRetiro" class="form-label">Tipo de lugar de retiro</label>
+                                        <select class="form-input" name="tipoLugarRetiro" id="tipoLugarRetiro" [(ngModel)]="datosPedido.lugarTipo">
+                                            @for (item of lugarTipo; track $index) {
+                                                @if (item=='') {
+                                                    <option value="{{item}}" selected hidden>Seleccione tipo de lugar de retiro</option>
+                                                }@else {
+                                                    <option value="{{item}}">{{item}}</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="personaRecibe" class="form-label">Persona lugar de retiro</label>
+                                        <input id="personaRecibe" name="personaRecibe" type="text" class="form-input" [(ngModel)]="datosPedido.personaRetiro"/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label htmlFor="lugarEntrega" class="form-label">Lugar de entrega</label>
+                                        <input id="lugarEntrega" name="lugarEntrega" type="text" class="form-input" [(ngModel)]="datosPedido.lugarEntrega"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="personaEntrega" class="form-label">Persona lugar de entrega</label>
+                                        <input id="personaEntrega" name="personaEntrega" type="text" class="form-input" [(ngModel)]="datosPedido.personaEntrega"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-full btn-lg" (click)="crearPedido()" [disabled]="disabled">{{text}}</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
