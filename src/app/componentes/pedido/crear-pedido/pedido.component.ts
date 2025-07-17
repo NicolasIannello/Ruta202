@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { Pedido } from '../data/pedido';
-import { funcionalidadData, lugarTipoData, pedidosData, tipoData } from '../data/pedidoData';
+import { Pedido } from '../../data/pedido';
+import { funcionalidadData, lugarTipoData, pedidosData, tipoData } from '../../data/pedidoData';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { ClienteService } from '../../servicios/cliente.service';
+import { ClienteService } from '../../../servicios/cliente.service';
 
 @Component({
   selector: 'app-pedido',
   standalone: true,
   imports: [FormsModule],
   templateUrl: './pedido.component.html',
-  styleUrl: '../user/user.component.css'
+  styleUrl: '../../user/user.component.css'
 })
 export class PedidoComponent {
   datosPedido:Pedido= Object.assign({}, pedidosData);
