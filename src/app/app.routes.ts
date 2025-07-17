@@ -13,7 +13,7 @@ import { LoginAdminComponent } from './componentes/admin/login-admin/login-admin
 import { loggedOutAdminGuard } from './guards/logged-out-admin.guard';
 import { InicioAdminComponent } from './componentes/admin/inicio-admin/inicio-admin.component';
 import { UsuariosComponent } from './componentes/admin/usuarios/usuarios.component';
-import { PedidoComponent } from './componentes/pedido/pedido.component';
+import { PedidoComponent } from './componentes/pedido/crear-pedido/pedido.component';
 import { loggedClienteGuard } from './guards/logged-cliente.guard';
 
 export const routes: Routes = [
