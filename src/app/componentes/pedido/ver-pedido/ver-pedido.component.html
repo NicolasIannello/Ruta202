@@ -1,0 +1,122 @@
+<div class="flex-col min-h-screen">
+    <main class="flex-1">
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container" style="margin: 0; max-width: 100%;">
+                    <div class="profile-header">
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar">
+                                <i class="fa-solid fa-clipboard-list" style="font-size: xx-large; color: var(--color-white)"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h1 class="profile-name">Pedidos Disponibles</h1>
+                                <p class="profile-email">Listado de pedidos disponibles</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-tabs">
+                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="width: 50%;" (click)="tab='lista'">
+                            <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
+                            <span>Listado</span>
+                        </button>
+                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="width: 50%;" (click)="tab='pedido';">
+                            <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
+                            <span>Pedido</span>
+                        </button>
+                    </div>
+
+                    <div class="profile-content">
+                        <span class="profile-form">
+                            <div class="form-section">
+                                @if (tab=='lista') {
+                                    <h3 class="form-section-title">Pedidos:</h3>
+                                    @if(loading){
+                                        <div class="verification-icon loading">
+                                            <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+                                        </div>
+                                    }@else{
+                                        <div class="admin-section-card">
+                                            <div class="users-table">
+                                                <div class="table-header" style="grid-template-columns: 1fr 2fr 3fr 1.5fr 3fr 0.5fr;">
+                                                    <div class="table-cell">Tipo</div>
+                                                    <div class="table-cell">Funcionalidad</div>
+                                                    <div class="table-cell">Retiro</div>
+                                                    <div class="table-cell">Lugar retiro</div>
+                                                    <div class="table-cell">Entrega</div>
+                                                    <div class="table-cell">Actions</div>
+                                                </div>
+                                                @for (u of Pedidos; track u) {
+                                                    <div class="table-row" style="grid-template-columns: 1fr 2fr 3fr 1.5fr 3fr 0.5fr;">
+                                                        <div class="table-cell">{{u.tipo}}</div>
+                                                        <div class="table-cell">{{u.funcionalidad}}</div>
+                                                        <div class="table-cell">{{u.lugarRetiro}}</div>
+                                                        <div class="table-cell">{{u.lugarTipo}}</div>
+                                                        <div class="table-cell">{{u.lugarEntrega}}</div>
+                                                        <div class="table-cell">
+                                                            <div class="action-buttons">
+                                                                <button class="action-btn">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="pagination-container">
+                                                <div class="pagination-info">
+                                                    <span class="pagination-text">
+                                                        Mostrando 10 de {{total}} Pedidos totales
+                                                    </span>
+                                                </div>
+                                                <div class="pagination-controls">
+                                                    <button class="pagination-btn" (click)="paginacion(pagina-10)" [disabled]="pagina==0">
+                                                        <i class="fa-solid fa-left-long"></i>
+                                                    </button>
+                                                    @if (pagina>10) {
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(0)">1</button>
+                                                        </div>
+                                                        ...
+                                                    }
+                                                    @if (lastPage>2) {
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 0 : pagina/10==lastPage ? 10*(pagina/10-2) : 10*(pagina/10-1))">
+                                                                {{pagina/10==0 ? 1 : pagina/10==lastPage ? lastPage-1 : pagina/10}}
+                                                            </button>
+                                                        </div>
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina/10!=0 && pagina!=lastPage*10 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 10 : pagina==lastPage*10 ? (lastPage*10)-10 : pagina)">
+                                                                {{pagina/10==0 ? 2 : pagina/10<(lastPage) ? 1+pagina/10 : lastPage}}
+                                                            </button>
+                                                        </div>
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==lastPage*10 ? 'active' : ''" (click)="paginacion(pagina<20 ? 20 : pagina+10!=lastPage*10 ? 10*(pagina/10+1) : lastPage*10)">
+                                                                {{pagina/10<(lastPage) ? pagina/10+(pagina/10==0 ? 3 : 2) : lastPage+1}}
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                    @if (lastPage*10>pagina+10) {
+                                                        ...
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==(lastPage)*10+20 ? 'active' : ''" (click)="paginacion((lastPage)*10)">{{lastPage+1}}</button>
+                                                        </div>
+                                                    }
+                                                    <button class="pagination-btn" (click)="paginacion(pagina+10)" [disabled]="(pagina+10)>total">
+                                                        <i class="fa-solid fa-right-long"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }@else {
+
+                                }
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>

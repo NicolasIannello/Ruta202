@@ -15,6 +15,8 @@ import { InicioAdminComponent } from './componentes/admin/inicio-admin/inicio-ad
 import { UsuariosComponent } from './componentes/admin/usuarios/usuarios.component';
 import { PedidoComponent } from './componentes/pedido/crear-pedido/pedido.component';
 import { loggedClienteGuard } from './guards/logged-cliente.guard';
+import { loggedPrestadorGuard } from './guards/logged-prestador.guard';
+import { VerPedidoComponent } from './componentes/pedido/ver-pedido/ver-pedido.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -25,6 +27,7 @@ export const routes: Routes = [
         { path: 'cambioPassword/:token', component: CambioPasswordComponent, canActivate: [loggedOutGuard] },
         { path: 'perfil', component: UserComponent, canActivate: [loggedGuard] },
         { path: 'crearPedido', component: PedidoComponent, canActivate: [loggedClienteGuard] },
+        { path: 'verPedidos', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
         { path: '', component: LoginAdminComponent, canActivate: [loggedOutAdminGuard] },
