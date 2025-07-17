@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { ServiciosComponent } from "../servicios/servicios.component";
 import { NosotrosComponent } from "../nosotros/nosotros.component";
 import { ContactoComponent } from "../contacto/contacto.component";
@@ -18,11 +18,12 @@ import { filter, first } from 'rxjs';
 export class InicioComponent implements AfterViewInit{
   flag:string='2';
 
-  constructor(public scroller: ViewportScroller, public common: CommonService, private api: UsuariosService) {}
+  constructor(public scroller: ViewportScroller, public common: CommonService, private api: UsuariosService, private changeDetector: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.api.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
       this.flag=this.api.getTipo()=='' ? '2' : this.api.getTipo();
+      this.changeDetector.detectChanges();
     });
   }
 }
