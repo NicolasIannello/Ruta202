@@ -23,7 +23,7 @@ export class CambioPasswordComponent {
   cambiarPassword(){
     this.text='...';
     if(this.password=='' || this.password2==''){
-      Swal.fire({title:'Complete todos los campo', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      Swal.fire({title:'Complete todos los campos', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
       this.text='Cambiar Contraseña';
       return;
     }

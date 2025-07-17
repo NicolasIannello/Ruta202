@@ -21,7 +21,7 @@ export class LoginAdminComponent {
 
   login(){
     if(this.email==''  || this.password==''){
-      Swal.fire({title:'Complete todos los campo', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      Swal.fire({title:'Complete todos los campos', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
       return;
     }
     this.texto='Iniciando session';
