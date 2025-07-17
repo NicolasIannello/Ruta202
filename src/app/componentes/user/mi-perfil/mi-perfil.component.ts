@@ -141,19 +141,21 @@ export class MiPerfilComponent implements AfterViewInit{
           this.dato= Object.assign( { }, value.datoDB);
           this.dato2= Object.assign( { }, value.datoDB);
           this.loading=true;
-          for (let i = 0; i < value.imgs.length; i++) {
-            if(value.imgs[i].tipo=='vehiculo'){
-              this.api2.getImg(value.imgs[i].img, '', '').then(resp=>{
-                if(resp!=false){
-                  this.img['vehiculo'].push(resp.url)
-                }
-              })
-            }else{
-              this.api2.getImg(value.imgs[i].img, localStorage.getItem('token')!, 'Carnet').then(resp=>{
-                if(resp!=false){
-                  this.img[value.imgs[i].tipo].push(resp.url)
-                }
-              })
+          if(value.imgs){
+            for (let i = 0; i < value.imgs.length; i++) {
+              if(value.imgs[i].tipo=='vehiculo'){
+                this.api2.getImg(value.imgs[i].img, '', '').then(resp=>{
+                  if(resp!=false){
+                    this.img['vehiculo'].push(resp.url)
+                  }
+                })
+              }else{
+                this.api2.getImg(value.imgs[i].img, localStorage.getItem('token')!, 'Carnet').then(resp=>{
+                  if(resp!=false){
+                    this.img[value.imgs[i].tipo].push(resp.url)
+                  }
+                })
+              }
             }
           }
         }
