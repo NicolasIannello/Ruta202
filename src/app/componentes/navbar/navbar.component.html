@@ -33,10 +33,12 @@
                                     <i class="fa-regular fa-circle-user"></i>
                                     <span>Mi Perfil</span>
                                 </span>
-                                <span class="user-dropdown-item">
-                                    <i class="fa-solid fa-gears"></i>
-                                    <span>OPCIÓN 2</span>
-                                </span>
+                                @if (Tipo=='0') {
+                                    <span class="user-dropdown-item" routerLink="/misPedidos" (click)="menuOpenUser=false">
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                        <span>Mis Pedidos</span>
+                                    </span>
+                                }
                                 <span class="user-dropdown-item">
                                     <i class="fa-solid fa-gears"></i>
                                     <span>OPCIÓN 3</span>

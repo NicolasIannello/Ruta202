@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit{
   menuOpenUser:boolean=false;
   Empresa:string='';
   Email:string='';
+  Tipo:string='';
   ready$: Observable<boolean>;
 
   constructor(public scroller: ViewportScroller, private router: Router, @Inject(PLATFORM_ID) private platformId: Object,
@@ -47,6 +48,7 @@ export class NavbarComponent implements OnInit{
               this.Email=value.mail
               this.api.setEmail(value.mail)
               this.api.setID(value.id)
+              this.Tipo=value.tipo;
               this.api.setTipo(value.tipo)
               this.api.ready$.next(true);
             }else{
