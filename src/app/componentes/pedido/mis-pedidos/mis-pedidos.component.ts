@@ -4,11 +4,12 @@ import { filter, first } from 'rxjs';
 import { ClienteService } from '../../../servicios/cliente.service';
 import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-mis-pedidos',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './mis-pedidos.component.html',
   styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
 })
@@ -21,7 +22,7 @@ export class MisPedidosComponent implements OnInit{
   Pedido:any={}
   asc:number=1;
   order:string='_id'
-  datoTipo:string='_id'
+  datoTipo:string='tipo'
   datoBuscar:string='';
   lastPage:number=0
   total:number=0
@@ -184,5 +185,14 @@ export class MisPedidosComponent implements OnInit{
         }
       }
     });
+  }
+
+  buscarDato(){
+    if(this.datoBuscar==''){
+      Swal.fire({title:'Complete el dato a buscar',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      return;
+    }
+    this.pagina=0
+    this.getPedidos(this.pagina, 10, this.asc, this.order);
   }
 }

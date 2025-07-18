@@ -37,6 +37,21 @@
                             <div class="form-section">
                                 @if (tab=='lista') {
                                     <h3 class="form-section-title">Pedidos:</h3>
+                                    <div class="search-filter-group">
+                                        <select class="filter-select" [(ngModel)]="datoTipo" (change)="datoBuscar=''">
+                                            <option value="tipo">Tipo</option>
+                                            <option value="funcionalidad">Funcionalidad</option>
+                                            <option value="lugarRetiro">Retiro</option>
+                                            <option value="lugarTipo">Lugar Retiro</option>
+                                            <option value="lugarEntrega">Entrega</option>
+                                            <option value="estado">Estado</option>
+                                        </select>
+                                        <div class="search-box">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            <input class="search-input" type="text" placeholder="Buscar dato..." [(ngModel)]="datoBuscar"/>
+                                        </div>
+                                        <button class="btn btn-black" (click)="buscarDato()">Buscar</button>
+                                    </div>
                                     @if(loading){
                                         <div class="verification-icon loading">
                                             <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
@@ -170,7 +185,7 @@
                                                     <div class="table-cell">{{o.oferta}}</div>
                                                     <div class="table-cell">{{o.dato_prestador.Empresa}}</div>
                                                     <div class="table-cell">{{o.dato_prestador.Direccion}}</div>
-                                                    <div class="table-cell">{{o.dato_prestador.EmailResponsable}}</div>
+                                                    <div class="table-cell">{{o.dato_prestador.Funcionalidad}}</div>
                                                     <div class="table-cell">{{o.dato_prestador.Celular}}</div>
                                                     @if (Pedido.disponible){ 
                                                         <div class="table-cell">

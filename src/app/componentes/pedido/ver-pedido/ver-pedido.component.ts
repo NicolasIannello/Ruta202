@@ -16,7 +16,7 @@ export class VerPedidoComponent implements OnInit{
   pagina:number=0;
   asc:number=1;
   order:string='_id'
-  datoTipo:string='_id'
+  datoTipo:string='tipo'
   datoBuscar:string='';
   Pedidos:any=[]
   Pedido:any={}
@@ -121,5 +121,14 @@ export class VerPedidoComponent implements OnInit{
             }
           });
     }
+  }
+
+  buscarDato(){
+    if(this.datoBuscar==''){
+      Swal.fire({title:'Complete el dato a buscar',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      return;
+    }
+    this.pagina=0
+    this.getPedidos(this.pagina, 10, this.asc, this.order);
   }
 }
