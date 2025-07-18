@@ -51,9 +51,7 @@ export class VerPedidoComponent implements OnInit{
     }
     this.api.getPedidos(dato).subscribe({
       next: (value:any) => {
-        if (value.ok) {
-          console.log(value);
-          
+        if (value.ok) {          
           this.Pedidos=value.pedidos      
           this.total=value.total  
           this.lastPage=Math.trunc(this.total/10)
