@@ -39,18 +39,18 @@
                     </div>
 
                     <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab=='perfil' ? 'active' : ''" (click)="tab='perfil'">
+                        <button class="profile-tab" [class]="tab=='perfil' ? 'active' : ''" style="min-width: 50%;" (click)="tab='perfil'">
                             <i class="fa-solid fa-user" [class]="tipoUser=='1' ? 'fa-truck' : 'fa-user'" style="width: 2rem;"></i>
                             <span>Información del Perfil</span>
                         </button>
-                        <button class="profile-tab" [class]="tab=='seguridad' ? 'active' : ''" (click)="tab='seguridad'; miPerfil.cancelarEdit()">
+                        <button class="profile-tab" [class]="tab=='seguridad' ? 'active' : ''" style="min-width: 50%;" (click)="tab='seguridad'; miPerfil.cancelarEdit()">
                             <i class="fa-solid fa-shield-halved" style="width: 2rem;"></i>
                             <span>Seguridad</span>
                         </button>
-                        <button class="profile-tab" [class]="tab=='historial' ? 'active' : ''" (click)="tab='historial'; miPerfil.cancelarEdit()">
+                        <!-- <button class="profile-tab" [class]="tab=='historial' ? 'active' : ''" (click)="tab='historial'; miPerfil.cancelarEdit()">
                             <i class="fa-regular fa-rectangle-list" style="width: 2rem;"></i>
                             <span>Historial</span>
-                        </button>
+                        </button> -->
                     </div>
 
                     <div class="profile-content">
