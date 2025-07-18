@@ -1,11 +1,13 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { PrestadorService } from '../../../servicios/prestador.service';
 import { isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ver-pedido',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './ver-pedido.component.html',
   styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
 })
@@ -17,10 +19,14 @@ export class VerPedidoComponent implements OnInit{
   datoTipo:string='_id'
   datoBuscar:string='';
   Pedidos:any=[]
+  Pedido:any={}
   total:number=0
   lastPage:number=0
   loading:boolean=true;
   pages:Array<number>=[]
+  disabled:boolean=false;
+  text:string='Aceptar pedido'
+  oferta:number|null=null;
 
   constructor(private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object){}
 
@@ -63,5 +69,44 @@ export class VerPedidoComponent implements OnInit{
   paginacion(int:number){
     this.pagina=int;        
     this.getPedidos(this.pagina, 10, this.asc, this.order);
+  }
+
+  trackById(u:any) {
+    return u._id;
+  }
+
+  verPedido(u:any){
+    this.oferta=null;
+    this.tab='pedido'
+    this.Pedido=u
+  }
+
+  aceptarPedido(){
+    if(this.oferta==null || this.oferta<1){
+      Swal.fire({title:'Ingrese una oferta valida', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+    }else{
+      this.disabled=true;
+      this.text='Aceptar pedido...';
+
+      let dato={
+        'token': localStorage.getItem('token'),
+        'tipo': 1,
+        '_id': this.Pedido._id,
+        'oferta': this.oferta
+      }
+      this.api.ofertaPedido(dato).subscribe({
+        next: (value:any) => {
+          if (value.ok) Swal.fire({title:'Oferta creada con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          if (!value.ok) Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          this.disabled=false;
+          this.text='Aceptar pedido';
+        },
+        error: (err:any) => {
+          Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          this.disabled=false;
+          this.text='Aceptar pedido';
+        },		
+      });
+    }
   }
 }

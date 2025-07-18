@@ -16,11 +16,11 @@
                     </div>
 
                     <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="width: 50%;" (click)="tab='lista'">
+                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista';oferta=null">
                             <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
                             <span>Listado</span>
                         </button>
-                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="width: 50%;" (click)="tab='pedido';">
+                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido';oferta=null">
                             <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
                             <span>Pedido</span>
                         </button>
@@ -46,7 +46,7 @@
                                                     <div class="table-cell">Entrega</div>
                                                     <div class="table-cell">Actions</div>
                                                 </div>
-                                                @for (u of Pedidos; track u) {
+                                                @for (u of Pedidos; track trackById(u)) {
                                                     <div class="table-row" style="grid-template-columns: 1fr 2fr 3fr 1.5fr 3fr 0.5fr;">
                                                         <div class="table-cell">{{u.tipo}}</div>
                                                         <div class="table-cell">{{u.funcionalidad}}</div>
@@ -55,7 +55,7 @@
                                                         <div class="table-cell">{{u.lugarEntrega}}</div>
                                                         <div class="table-cell">
                                                             <div class="action-buttons">
-                                                                <button class="action-btn">
+                                                                <button class="action-btn" (click)="verPedido(u)">
                                                                     <i class="fa-solid fa-eye"></i>
                                                                 </button>
                                                             </div>
@@ -110,7 +110,43 @@
                                         </div>
                                     }
                                 }@else {
-
+                                    <div class="users-table">
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Tipo</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.tipo}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Funcionalidad</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.funcionalidad}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de retiro</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarRetiro}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de retiro</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.personaRetiro}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Tipo de lugar de retiro</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarTipo}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de entrega</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarEntrega}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de entrega</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.personaEntrega}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important; background-color: var(--color-green);">Tu Oferta</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
+                                                <input id="oferta" name="oferta" type="number" class="form-input" placeholder="Ingrese su Oferta" min="0" [(ngModel)]="oferta"/>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary btn-full btn-lg" (click)="aceptarPedido()" [disabled]="disabled">{{text}}</button>
+                                    </div>
                                 }
                             </div>
                         </span>
