@@ -18,4 +18,16 @@ export class ClienteService {
   crearPedido(dato:any):Observable<any>{
     return this.http.post(base_url+'/clientes/crearPedido', dato, {'headers':this.header})
   }
+  getPedidos(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/getPedidos', dato, {'headers':this.header})
+  }
+  getOfertas(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/getOfertas', dato, {'headers':this.header})
+  }
+  borrarOferta(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/borrarOferta', dato, {'headers':this.header})
+  }
+  aceptarOferta(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/aceptarOferta', dato, {'headers':this.header})
+  }
 }

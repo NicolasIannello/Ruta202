@@ -1,0 +1,199 @@
+<div class="flex-col min-h-screen">
+    <main class="flex-1">
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container" style="margin: 0; max-width: 100%;">
+                    <div class="profile-header">
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar">
+                                <i class="fa-solid fa-clipboard-list" style="font-size: xx-large; color: var(--color-white)"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h1 class="profile-name">Visualiza tus pedidos y su información relacionada</h1>
+                                <p class="profile-email">{{empresa}}</p>
+                                <p class="profile-member-since">{{mail}}</p>
+                            </div>
+                        </div>
+                            <div class="profile-actions">
+                                <button class="btn btn-primary" routerLink="/crearPedido">
+                                    <i class="fa-solid fa-pen-to-square" style="width: 2rem;"></i>Crear Pedido
+                                </button>
+                            </div>
+                    </div>
+
+                    <div class="profile-tabs">
+                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista'; loading2=true; Ofertas=[]; Pedido=[]">
+                            <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
+                            <span>Mis Pedidos</span>
+                        </button>
+                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'">
+                            <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
+                            <span>Información del pedido</span>
+                        </button>
+                    </div>
+
+                    <div class="profile-content">
+                        <span class="profile-form">
+                            <div class="form-section">
+                                @if (tab=='lista') {
+                                    <h3 class="form-section-title">Pedidos:</h3>
+                                    @if(loading){
+                                        <div class="verification-icon loading">
+                                            <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+                                        </div>
+                                    }@else{
+                                        <div class="admin-section-card">
+                                            <div class="users-table">
+                                                <div class="table-header" style="grid-template-columns: 1fr 3fr 2.5fr 1.5fr 2.5fr 1fr 0.5fr;">
+                                                    <div class="table-cell">Tipo</div>
+                                                    <div class="table-cell">Funcionalidad</div>
+                                                    <div class="table-cell">Retiro</div>
+                                                    <div class="table-cell">Lugar retiro</div>
+                                                    <div class="table-cell">Entrega</div>
+                                                    <div class="table-cell">Estado</div>
+                                                    <div class="table-cell">Acciones</div>
+                                                </div>
+                                                @for (u of Pedidos; track trackById(u)) {
+                                                    <div class="table-row" style="grid-template-columns: 1fr 3fr 2.5fr 1.5fr 2.5fr 1fr 0.5fr;">
+                                                        <div class="table-cell">{{u.tipo}}</div>
+                                                        <div class="table-cell">{{u.funcionalidad}}</div>
+                                                        <div class="table-cell">{{u.lugarRetiro}}</div>
+                                                        <div class="table-cell">{{u.lugarTipo}}</div>
+                                                        <div class="table-cell">{{u.lugarEntrega}}</div>
+                                                        <div class="table-cell">{{u.estado}}</div>
+                                                        <div class="table-cell">
+                                                            <div class="action-buttons">
+                                                                <button class="action-btn" (click)="verPedido(u)">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="pagination-container">
+                                                <div class="pagination-info">
+                                                    <span class="pagination-text">
+                                                        Mostrando 10 de {{total}} Pedidos totales
+                                                    </span>
+                                                </div>
+                                                <div class="pagination-controls">
+                                                    <button class="pagination-btn" (click)="paginacion(pagina-10)" [disabled]="pagina==0">
+                                                        <i class="fa-solid fa-left-long"></i>
+                                                    </button>
+                                                    @if (pagina>10) {
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(0)">1</button>
+                                                        </div>
+                                                        ...
+                                                    }
+                                                    @if (lastPage>2) {
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 0 : pagina/10==lastPage ? 10*(pagina/10-2) : 10*(pagina/10-1))">
+                                                                {{pagina/10==0 ? 1 : pagina/10==lastPage ? lastPage-1 : pagina/10}}
+                                                            </button>
+                                                        </div>
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina/10!=0 && pagina!=lastPage*10 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 10 : pagina==lastPage*10 ? (lastPage*10)-10 : pagina)">
+                                                                {{pagina/10==0 ? 2 : pagina/10<(lastPage) ? 1+pagina/10 : lastPage}}
+                                                            </button>
+                                                        </div>
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==lastPage*10 ? 'active' : ''" (click)="paginacion(pagina<20 ? 20 : pagina+10!=lastPage*10 ? 10*(pagina/10+1) : lastPage*10)">
+                                                                {{pagina/10<(lastPage) ? pagina/10+(pagina/10==0 ? 3 : 2) : lastPage+1}}
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                    @if (lastPage*10>pagina+10) {
+                                                        ...
+                                                        <div class="pagination-numbers">
+                                                            <button class="pagination-number" [class]="pagina==(lastPage)*10+20 ? 'active' : ''" (click)="paginacion((lastPage)*10)">{{lastPage+1}}</button>
+                                                        </div>
+                                                    }
+                                                    <button class="pagination-btn" (click)="paginacion(pagina+10)" [disabled]="(pagina+10)>total">
+                                                        <i class="fa-solid fa-right-long"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }@else {
+                                    <div class="users-table">
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Tipo</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.tipo}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Funcionalidad</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.funcionalidad}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de retiro</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarRetiro}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de retiro</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.personaRetiro}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Tipo de lugar de retiro</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarTipo}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de entrega</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarEntrega}}</div>
+                                        </div>
+                                        <div class="form-row" style="gap: 0 !important;">
+                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de entrega</div>
+                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.personaEntrega}}</div>
+                                        </div>
+                                    </div>
+                                    <h3 class="form-section-title">{{ Pedido.disponible ? 'Ofertas' : 'Oferta Elegida' }}:</h3>
+                                    @if (loading2) {
+                                        <div class="verification-icon loading">
+                                            <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+                                        </div>
+                                    }@else {
+                                        <div class="users-table">
+                                            <div class="table-header" style="grid-template-columns: 1fr 1.5fr 3fr 2fr 1fr 1fr;">
+                                                <div class="table-cell">Cantidad</div>
+                                                <div class="table-cell">Prestador</div>
+                                                <div class="table-cell">Dirección</div>
+                                                <div class="table-cell">Email</div>
+                                                <div class="table-cell">Celular</div>
+                                                @if (Pedido.disponible){ 
+                                                    <div class="table-cell">Acciones</div>
+                                                }
+                                            </div>
+                                            @for (o of Ofertas; track trackById(o)) {
+                                                <div class="table-row" style="grid-template-columns: 1fr 1.5fr 3fr 2fr 1fr 1fr;">
+                                                    <div class="table-cell">{{o.oferta}}</div>
+                                                    <div class="table-cell">{{o.dato_prestador.Empresa}}</div>
+                                                    <div class="table-cell">{{o.dato_prestador.Direccion}}</div>
+                                                    <div class="table-cell">{{o.dato_prestador.EmailResponsable}}</div>
+                                                    <div class="table-cell">{{o.dato_prestador.Celular}}</div>
+                                                    @if (Pedido.disponible){ 
+                                                        <div class="table-cell">
+                                                            <div class="action-buttons">
+                                                                <button class="action-btn" (click)="aceptarOferta(o)">
+                                                                    <i class="fa-solid fa-check"></i>
+                                                                </button>
+                                                                <button class="action-btn" (click)="cancelarOferta(o)">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
