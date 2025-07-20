@@ -2,8 +2,10 @@ export interface Pedido {
     tipo: Tipo
     funcionalidad: Funcionalidad
     lugarRetiro: string
+    lugarRetiroLatLng: {lat:number, lng:number}
     lugarTipo: LugarTipo
     lugarEntrega: string
+    lugarEntregaLatLng: {lat:number, lng:number}
     personaEntrega: string
     personaRetiro: string
 }

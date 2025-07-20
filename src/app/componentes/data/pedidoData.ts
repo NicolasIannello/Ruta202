@@ -5,9 +5,11 @@ export var pedidosData: Pedido = {
     funcionalidad: '',
     lugarRetiro: '',
     lugarTipo: '',
+    lugarRetiroLatLng: {lat:0, lng:0},
     lugarEntrega: '',
     personaEntrega: '',
     personaRetiro: '',
+    lugarEntregaLatLng: {lat:0, lng:0},
 }
 
 export var tipoData = ['','Auto','SUV','VAN','Pick Up','Utilitario','Mini Bus','Camion'];
