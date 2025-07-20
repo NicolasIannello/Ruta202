@@ -135,7 +135,12 @@
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de retiro</div>
-                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarRetiro}}</div>
+                                            <div class="table-row table-cell" style="display: flex; padding-right: 0%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">
+                                                {{Pedido.lugarRetiro}}
+                                                <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarRetiroLatLng.lat+','+Pedido.lugarRetiroLatLng.lng" target="_blank">
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de retiro</div>
@@ -147,7 +152,12 @@
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de entrega</div>
-                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarEntrega}}</div>
+                                            <div class="table-row table-cell" style="display: flex; padding-right: 0%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">
+                                                {{Pedido.lugarEntrega}}
+                                                <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarEntregaLatLng.lat+','+Pedido.lugarEntregaLatLng.lng" target="_blank">
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de entrega</div>

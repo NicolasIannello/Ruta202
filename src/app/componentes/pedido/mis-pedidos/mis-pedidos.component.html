@@ -59,7 +59,7 @@
                                     }@else{
                                         <div class="admin-section-card">
                                             <div class="users-table">
-                                                <div class="table-header" style="grid-template-columns: 1fr 3fr 2.5fr 1.5fr 2.5fr 1fr 0.5fr;">
+                                                <div class="table-header" style="grid-template-columns: 1fr 2fr 2.5fr 1.5fr 2.5fr 1fr 0.5fr;">
                                                     <div class="table-cell">Tipo</div>
                                                     <div class="table-cell">Funcionalidad</div>
                                                     <div class="table-cell">Retiro</div>
@@ -69,7 +69,7 @@
                                                     <div class="table-cell">Acciones</div>
                                                 </div>
                                                 @for (u of Pedidos; track trackById(u)) {
-                                                    <div class="table-row" style="grid-template-columns: 1fr 3fr 2.5fr 1.5fr 2.5fr 1fr 0.5fr;">
+                                                    <div class="table-row" style="grid-template-columns: 1fr 2fr 2.5fr 1.5fr 2.5fr 1fr 0.5fr;">
                                                         <div class="table-cell">{{u.tipo}}</div>
                                                         <div class="table-cell">{{u.funcionalidad}}</div>
                                                         <div class="table-cell">{{u.lugarRetiro}}</div>
@@ -144,7 +144,12 @@
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de retiro</div>
-                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarRetiro}}</div>
+                                            <div class="table-row table-cell" style="display: flex; padding-right: 0%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">
+                                                {{Pedido.lugarRetiro}}
+                                                <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarRetiroLatLng.lat+','+Pedido.lugarRetiroLatLng.lng" target="_blank">
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de retiro</div>
@@ -156,7 +161,12 @@
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de entrega</div>
-                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.lugarEntrega}}</div>
+                                            <div class="table-row table-cell" style="display: flex; padding-right: 0%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">
+                                                {{Pedido.lugarEntrega}}
+                                                <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarEntregaLatLng.lat+','+Pedido.lugarEntregaLatLng.lng" target="_blank">
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de entrega</div>
