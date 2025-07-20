@@ -29,6 +29,7 @@ export const routes: Routes = [
         { path: 'perfil', component: UserComponent, canActivate: [loggedGuard] },
         { path: 'crearPedido', component: PedidoComponent, canActivate: [loggedClienteGuard] },
         { path: 'verPedidos', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
+        { path: 'verPedidos/:id', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
         { path: 'misPedidos', component: MisPedidosComponent, canActivate: [loggedClienteGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
