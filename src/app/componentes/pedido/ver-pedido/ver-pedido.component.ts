@@ -87,7 +87,7 @@ export class VerPedidoComponent implements OnInit{
       this.text='Aceptar pedido...';
 
       Swal.fire({
-            title: "Esta crear una Oferta",
+            title: "Esta por crear una Oferta",
             html: "Cantidad: "+this.oferta,
             showCancelButton: true,
             confirmButtonText: "Aceptar",
