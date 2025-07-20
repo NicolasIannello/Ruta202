@@ -14,6 +14,7 @@ export class UsuariosService{
   Empresa:string='';
   Email:string='';
   ID:string='';
+  UUID:string='';
   Tipo:string='';
   ready$ = new BehaviorSubject<boolean>(false);
 
@@ -53,6 +54,9 @@ export class UsuariosService{
   setID(id:string){
     this.ID=id;
   }
+  setUUID(uuid:string){
+    this.UUID=uuid;
+  }
   setTipo(tipo:string){
     this.Tipo=tipo
   }
@@ -64,6 +68,9 @@ export class UsuariosService{
   }
   getID(){
     return this.ID;
+  }
+  getUUID(){
+    return this.UUID;
   }
   getTipo(){
     return this.Tipo;
