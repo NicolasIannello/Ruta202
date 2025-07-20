@@ -45,11 +45,21 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row" style="grid-template-columns: 1fr;">
                                     <div class="form-field">
                                         <label htmlFor="lugarRetiro" class="form-label">Lugar de retiro</label>
-                                        <input id="lugarRetiro" name="lugarRetiro" type="text" class="form-input" [(ngModel)]="datosPedido.lugarRetiro"/>
+                                        <google-map height="400px" width="100%" [center]="center" [zoom]="zoom" [options]="mapOptions" (mapClick)="onMapClick($event,'retiro')">
+                                            @if (this.datosPedido.lugarRetiroLatLng.lat!=0 && this.datosPedido.lugarRetiroLatLng.lng!=0) {
+                                                <map-marker [position]="this.datosPedido.lugarRetiroLatLng"></map-marker>
+                                            }
+                                        </google-map>
+                                        <span style="display: inline-grid; grid-template-columns: 80% 20%; width: 100%;">
+                                            <input id="lugarRetiro" name="lugarRetiro" type="text" class="form-input" placeholder="Lugar de retiro" [(ngModel)]="datosPedido.lugarRetiro"/>
+                                            <button class="btn btn-primary btn-full btn-lg" (click)="geocode('retiro')">Verificar</button>
+                                        </span>
                                     </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-field">
                                         <label htmlFor="tipoLugarRetiro" class="form-label">Tipo de lugar de retiro</label>
                                         <select class="form-input" name="tipoLugarRetiro" id="tipoLugarRetiro" [(ngModel)]="datosPedido.lugarTipo">
@@ -64,17 +74,25 @@
                                     </div>
                                     <div class="form-field">
                                         <label htmlFor="personaRecibe" class="form-label">Persona lugar de retiro</label>
-                                        <input id="personaRecibe" name="personaRecibe" type="text" class="form-input" [(ngModel)]="datosPedido.personaRetiro"/>
+                                        <input id="personaRecibe" name="personaRecibe" type="text" class="form-input" placeholder="Persona lugar de retiro" [(ngModel)]="datosPedido.personaRetiro"/>
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row" style="grid-template-columns: 1fr;">
                                     <div class="form-field">
                                         <label htmlFor="lugarEntrega" class="form-label">Lugar de entrega</label>
-                                        <input id="lugarEntrega" name="lugarEntrega" type="text" class="form-input" [(ngModel)]="datosPedido.lugarEntrega"/>
+                                        <google-map height="400px" width="100%" [center]="center2" [zoom]="zoom2" [options]="mapOptions" (mapClick)="onMapClick($event,'entrega')">
+                                            @if (this.datosPedido.lugarEntregaLatLng.lat!=0 && this.datosPedido.lugarEntregaLatLng.lng!=0) {
+                                                <map-marker [position]="this.datosPedido.lugarEntregaLatLng"></map-marker>
+                                            }
+                                        </google-map>
+                                        <span style="display: inline-grid; grid-template-columns: 80% 20%; width: 100%;">
+                                            <input id="lugarEntrega" name="lugarEntrega" type="text" class="form-input" placeholder="Lugar de entrega" [(ngModel)]="datosPedido.lugarEntrega"/>
+                                            <button class="btn btn-primary btn-full btn-lg" (click)="geocode('entrega')">Verificar</button>
+                                        </span>
                                     </div>
                                     <div class="form-field">
                                         <label htmlFor="personaEntrega" class="form-label">Persona lugar de entrega</label>
-                                        <input id="personaEntrega" name="personaEntrega" type="text" class="form-input" [(ngModel)]="datosPedido.personaEntrega"/>
+                                        <input id="personaEntrega" name="personaEntrega" type="text" class="form-input" placeholder="Persona lugar de entrega" [(ngModel)]="datosPedido.personaEntrega"/>
                                     </div>
                                 </div>
                             </div>

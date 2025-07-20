@@ -30,4 +30,10 @@ export class ClienteService {
   aceptarOferta(dato:any):Observable<any>{
     return this.http.post(base_url+'/clientes/aceptarOferta', dato, {'headers':this.header})
   }
+  geocode(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/geocode', dato, {'headers':this.header})
+  }
+  geocodeReverse(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/geocodeReverse', dato, {'headers':this.header})
+  }
 }
