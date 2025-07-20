@@ -3,6 +3,10 @@ import { PrestadorService } from '../../../servicios/prestador.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { UsuariosService } from '../../../servicios/usuarios.service';
+import { filter, first } from 'rxjs';
 
 @Component({
   selector: 'app-ver-pedido',
@@ -27,15 +31,37 @@ export class VerPedidoComponent implements OnInit{
   disabled:boolean=false;
   text:string='Aceptar pedido'
   oferta:number|null=null;
+  miOferta:any={}
 
-  constructor(private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object){}
+  constructor(private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService){}
 
   ngOnInit(): void {
-    if(isPlatformBrowser(this.platformId)){
-      if(localStorage.getItem('token')){
-        this.getPedidos(this.pagina, 10, this.asc, this.order);
+    this.api2.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
+      if(isPlatformBrowser(this.platformId)){
+        if(localStorage.getItem('token')){
+          let id = this.ruta.snapshot.paramMap.get('id')
+          if(id){
+            this.tab='pedido'
+            let dato={
+              'token': localStorage.getItem('token'),
+              'tipo': 1,
+              'id': id
+            }
+            this.api.getPedido(dato).subscribe({
+              next: (value:any) => {
+                if (value.ok) {
+                  this.Pedido=value.pedido
+                  this.getOferta();
+                }
+              },
+              error: (err:any) => {
+              },		
+            });
+          }
+          this.getPedidos(this.pagina, 10, this.asc, this.order);
+        }
       }
-    }
+    });
   }
 
   getPedidos(desde:number, limit:number, orden:number, order:string){
@@ -76,7 +102,17 @@ export class VerPedidoComponent implements OnInit{
   verPedido(u:any){
     this.oferta=null;
     this.tab='pedido'
-    this.Pedido=u
+    this.Pedido=u    
+    this.location.go('verPedidos/'+this.Pedido._id); 
+    this.getOferta();
+  }
+
+  verLista(){
+    this.oferta=null;
+    this.tab='lista';
+    this.Pedido={}
+    this.location.go('verPedidos');
+    this.miOferta={} 
   }
 
   aceptarPedido(){
@@ -130,5 +166,23 @@ export class VerPedidoComponent implements OnInit{
     }
     this.pagina=0
     this.getPedidos(this.pagina, 10, this.asc, this.order);
+  }
+
+  getOferta(){
+    let dato2={
+      'token': localStorage.getItem('token'),
+      'tipo': 1,
+      'pedido': this.Pedido.UUID,
+      'prestador': this.api2.getUUID()
+    }
+    this.api.getOfertaPedido(dato2).subscribe({
+      next: (value:any) => {
+        if (value.ok) {
+          this.miOferta=value.oferta[0]
+        }
+      },
+      error: (err:any) => {
+      },		
+    });
   }
 }

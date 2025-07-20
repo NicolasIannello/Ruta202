@@ -16,11 +16,11 @@
                     </div>
 
                     <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista';oferta=null">
+                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="verLista()">
                             <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
                             <span>Listado</span>
                         </button>
-                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido';oferta=null">
+                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'; oferta=null">
                             <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
                             <span>Pedido</span>
                         </button>
@@ -137,9 +137,11 @@
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de retiro</div>
                                             <div class="table-row table-cell" style="display: flex; padding-right: 0%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">
                                                 {{Pedido.lugarRetiro}}
-                                                <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarRetiroLatLng.lat+','+Pedido.lugarRetiroLatLng.lng" target="_blank">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                </a>
+                                                @if(Pedido.lugarRetiro){
+                                                    <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarRetiroLatLng.lat+','+Pedido.lugarRetiroLatLng.lng" target="_blank">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                    </a>
+                                                }
                                             </div>
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
@@ -154,9 +156,11 @@
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Lugar de entrega</div>
                                             <div class="table-row table-cell" style="display: flex; padding-right: 0%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">
                                                 {{Pedido.lugarEntrega}}
-                                                <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarEntregaLatLng.lat+','+Pedido.lugarEntregaLatLng.lng" target="_blank">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                </a>
+                                                @if(Pedido.lugarRetiro){
+                                                    <a class="btn btn-primary" style="height: 100%;" [href]="'https://www.google.com/maps?q='+Pedido.lugarEntregaLatLng.lat+','+Pedido.lugarEntregaLatLng.lng" target="_blank">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                    </a>
+                                                }
                                             </div>
                                         </div>
                                         <div class="form-row" style="gap: 0 !important;">
@@ -170,6 +174,15 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-primary btn-full btn-lg" (click)="aceptarPedido()" [disabled]="disabled">{{text}}</button>
+                                        @if(miOferta){
+                                            <h3 class="form-section-title">Tu oferta:</h3>
+                                            <div class="users-table">
+                                                <div class="form-row" style="gap: 0 !important;">
+                                                    <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Cantidad</div>
+                                                    <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{miOferta.oferta}}</div>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 }
                             </div>
