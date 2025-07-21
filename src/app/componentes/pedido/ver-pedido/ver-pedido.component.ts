@@ -103,7 +103,7 @@ export class VerPedidoComponent implements OnInit{
     this.oferta=null;
     this.tab='pedido'
     this.Pedido=u    
-    this.location.go('verPedidos/'+this.Pedido._id); 
+    this.location.go('verPedidos/'+this.Pedido.UUID); 
     this.getOferta();
   }
 
