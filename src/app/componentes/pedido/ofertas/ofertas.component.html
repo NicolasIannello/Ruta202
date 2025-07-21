@@ -1,0 +1,102 @@
+<div class="flex-col min-h-screen">
+    <main class="flex-1">
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container" style="margin: 0; max-width: 100%;">
+                    <div class="profile-header">
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar">
+                                <i class="fa-solid fa-clipboard-list" style="font-size: xx-large; color: var(--color-white)"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h1 class="profile-name">Visualiza tus ofertas y su pedido relacionado</h1>
+                                <p class="profile-email">{{empresa}}</p>
+                                <p class="profile-member-since">{{mail}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-content">
+                        <span class="profile-form">
+                            <div class="form-section">
+                                <h3 class="form-section-title">Ofertas:</h3>
+                                @if(loading){
+                                    <div class="verification-icon loading">
+                                        <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+                                    </div>
+                                }@else{
+                                    <div class="admin-section-card">
+                                        <div class="users-table">
+                                            <div class="table-header" style="grid-template-columns: 1fr 1fr 1fr;">
+                                                <div class="table-cell">Cantidad</div>
+                                                <div class="table-cell">Estado</div>
+                                                <div class="table-cell">Acciones</div>
+                                            </div>
+                                            @for (u of Ofertas; track trackById(u)) {
+                                                <div class="table-row" style="grid-template-columns: 1fr 1fr 1fr;">
+                                                    <div class="table-cell">{{u.oferta}}</div>
+                                                    <div class="table-cell">{{u.estado}}</div>
+                                                    <div class="table-cell">
+                                                        <div class="action-buttons">
+                                                            <button class="btn btn-primary btn-lg" [routerLink]="'/verPedidos/'+u.UUID_Pedido">
+                                                                <i class="fa-solid fa-eye"></i>Ver pedido
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="pagination-container">
+                                            <div class="pagination-info">
+                                                <span class="pagination-text">
+                                                    Mostrando 10 de {{total}} Pedidos totales
+                                                </span>
+                                            </div>
+                                            <div class="pagination-controls">
+                                                <button class="pagination-btn" (click)="paginacion(pagina-10)" [disabled]="pagina==0">
+                                                    <i class="fa-solid fa-left-long"></i>
+                                                </button>
+                                                @if (pagina>10) {
+                                                    <div class="pagination-numbers">
+                                                        <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(0)">1</button>
+                                                    </div>
+                                                    ...
+                                                }
+                                                @if (lastPage>2) {
+                                                    <div class="pagination-numbers">
+                                                        <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 0 : pagina/10==lastPage ? 10*(pagina/10-2) : 10*(pagina/10-1))">
+                                                            {{pagina/10==0 ? 1 : pagina/10==lastPage ? lastPage-1 : pagina/10}}
+                                                        </button>
+                                                    </div>
+                                                    <div class="pagination-numbers">
+                                                        <button class="pagination-number" [class]="pagina/10!=0 && pagina!=lastPage*10 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 10 : pagina==lastPage*10 ? (lastPage*10)-10 : pagina)">
+                                                            {{pagina/10==0 ? 2 : pagina/10<(lastPage) ? 1+pagina/10 : lastPage}}
+                                                        </button>
+                                                    </div>
+                                                    <div class="pagination-numbers">
+                                                        <button class="pagination-number" [class]="pagina==lastPage*10 ? 'active' : ''" (click)="paginacion(pagina<20 ? 20 : pagina+10!=lastPage*10 ? 10*(pagina/10+1) : lastPage*10)">
+                                                            {{pagina/10<(lastPage) ? pagina/10+(pagina/10==0 ? 3 : 2) : lastPage+1}}
+                                                        </button>
+                                                    </div>
+                                                }
+                                                @if (lastPage*10>pagina+10) {
+                                                    ...
+                                                    <div class="pagination-numbers">
+                                                        <button class="pagination-number" [class]="pagina==(lastPage)*10+20 ? 'active' : ''" (click)="paginacion((lastPage)*10)">{{lastPage+1}}</button>
+                                                    </div>
+                                                }
+                                                <button class="pagination-btn" (click)="paginacion(pagina+10)" [disabled]="(pagina+10)>total">
+                                                    <i class="fa-solid fa-right-long"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>

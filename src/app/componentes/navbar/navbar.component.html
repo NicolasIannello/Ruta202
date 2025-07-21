@@ -38,11 +38,12 @@
                                         <i class="fa-solid fa-clipboard-list"></i>
                                         <span>Mis Pedidos</span>
                                     </span>
+                                }@else if(Tipo=='1'){
+                                    <span class="user-dropdown-item" routerLink="/misOfertas" (click)="menuOpenUser=false">
+                                        <i class="fa-solid fa-comments-dollar"></i>
+                                        <span>Mis Ofertas</span>
+                                    </span>
                                 }
-                                <span class="user-dropdown-item">
-                                    <i class="fa-solid fa-gears"></i>
-                                    <span>OPCIÓN 3</span>
-                                </span>
                                 <div class="user-dropdown-divider"></div>
                                 <button class="user-dropdown-item logout-item" (click)="cerrarSession()">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>

@@ -27,4 +27,7 @@ export class PrestadorService {
   getOfertaPedido(dato:any):Observable<any>{
     return this.http.post(base_url+'/prestadores/getOfertaPedido', dato, {'headers':this.header})
   }
+  getOfertas(dato:any):Observable<any>{
+    return this.http.post(base_url+'/prestadores/getOfertas', dato, {'headers':this.header})
+  }
 }

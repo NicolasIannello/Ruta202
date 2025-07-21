@@ -18,6 +18,7 @@ import { loggedClienteGuard } from './guards/logged-cliente.guard';
 import { loggedPrestadorGuard } from './guards/logged-prestador.guard';
 import { VerPedidoComponent } from './componentes/pedido/ver-pedido/ver-pedido.component';
 import { MisPedidosComponent } from './componentes/pedido/mis-pedidos/mis-pedidos.component';
+import { OfertasComponent } from './componentes/pedido/ofertas/ofertas.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -31,6 +32,7 @@ export const routes: Routes = [
         { path: 'verPedidos', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
         { path: 'verPedidos/:id', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
         { path: 'misPedidos', component: MisPedidosComponent, canActivate: [loggedClienteGuard] },
+        { path: 'misOfertas', component: OfertasComponent, canActivate: [loggedPrestadorGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
         { path: '', component: LoginAdminComponent, canActivate: [loggedOutAdminGuard] },
