@@ -30,8 +30,11 @@ export class VerPedidoComponent implements OnInit{
   pages:Array<number>=[]
   disabled:boolean=false;
   text:string='Aceptar pedido'
-  oferta:number|null=null;
+  oferta:string='';
   miOferta:any={}
+  fecha:string='';
+  hora1:string=''
+  hora2:string=''
 
   constructor(private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService){}
 
@@ -100,7 +103,7 @@ export class VerPedidoComponent implements OnInit{
   }
 
   verPedido(u:any){
-    this.oferta=null;
+    this.oferta='';
     this.tab='pedido'
     this.Pedido=u    
     this.location.go('verPedidos/'+this.Pedido.UUID); 
@@ -108,7 +111,7 @@ export class VerPedidoComponent implements OnInit{
   }
 
   verLista(){
-    this.oferta=null;
+    this.oferta='';
     this.tab='lista';
     this.Pedido={}
     this.location.go('verPedidos');
@@ -116,8 +119,12 @@ export class VerPedidoComponent implements OnInit{
   }
 
   aceptarPedido(){
-    if(this.oferta==null || this.oferta<1){
-      Swal.fire({title:'Ingrese una oferta valida', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+    if(this.hora1>this.hora2){
+      Swal.fire({title:'Horarios incorrectos', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+      return;
+    }
+    if(this.oferta=='' || this.oferta=='' || this.fecha=='' || this.hora1=='' || this.hora2==''){
+      Swal.fire({title:'Complete todos los campo', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
     }else{
       this.disabled=true;
       this.text='Aceptar pedido...';
@@ -136,7 +143,10 @@ export class VerPedidoComponent implements OnInit{
                   'token': localStorage.getItem('token'),
                   'tipo': 1,
                   '_id': this.Pedido._id,
-                  'oferta': this.oferta
+                  'oferta': this.oferta,
+                  'fecha': this.fecha,
+                  'hora1': this.hora1,
+                  'hora2': this.hora2
                 }
                 this.api.ofertaPedido(dato).subscribe({
                   next: (value:any) => {
@@ -154,6 +164,9 @@ export class VerPedidoComponent implements OnInit{
               } catch (error) {
                 Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
               }
+            }else{
+              this.disabled=false;
+              this.text='Aceptar pedido';
             }
           });
     }

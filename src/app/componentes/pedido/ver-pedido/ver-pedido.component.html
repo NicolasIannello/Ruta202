@@ -20,7 +20,7 @@
                             <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
                             <span>Listado</span>
                         </button>
-                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'; oferta=null">
+                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'; oferta=''">
                             <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
                             <span>Pedido</span>
                         </button>
@@ -167,13 +167,25 @@
                                             <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important">Persona en lugar de entrega</div>
                                             <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{Pedido.personaEntrega}}</div>
                                         </div>
-                                        <div class="form-row" style="gap: 0 !important;">
-                                            <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important; background-color: var(--color-green);">Tu Oferta</div>
-                                            <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
-                                                <input id="oferta" name="oferta" type="number" class="form-input" placeholder="Ingrese su Oferta" min="0" [(ngModel)]="oferta"/>
+                                        @if(Pedido.disponible){
+                                            <h3 class="form-section-title">Tu oferta:</h3>
+                                            <div class="form-row" style="gap: 0 !important;">
+                                                <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Cantidad</div>
+                                                <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
+                                                    <input id="oferta" name="oferta" type="number" class="form-input" placeholder="Ingrese su Oferta" min="0" [(ngModel)]="oferta"/>
+                                                </div>
+                                                <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Fecha</div>
+                                                <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
+                                                    <input id="fecha" name="fecha" type="date" class="form-input" [(ngModel)]="fecha"/>
+                                                </div>
+                                                <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Horarios entre</div>
+                                                <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr 1fr; justify-content:flex-start !important; padding: 0;">
+                                                    <input id="hora1" name="hora1" type="time" class="form-input" [(ngModel)]="hora1"/>
+                                                    <input id="hora2" name="hora2" type="time" class="form-input" [(ngModel)]="hora2"/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button class="btn btn-primary btn-full btn-lg" (click)="aceptarPedido()" [disabled]="disabled">{{text}}</button>
+                                            <button class="btn btn-primary btn-full btn-lg" (click)="aceptarPedido()" [disabled]="disabled">{{text}}</button>
+                                        }
                                         @if(miOferta){
                                             <h3 class="form-section-title">Tu oferta:</h3>
                                             <div class="users-table">
@@ -182,6 +194,12 @@
                                                     <div class="table-row table-cell" style="width: 100%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{miOferta.oferta}}</div>
                                                     <div class="table-header table-cell" style="width: 100%; grid-template-columns: 1fr; justify-content:flex-start !important">Estado</div>
                                                     <div class="table-row table-cell" style="width: 100%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{miOferta.estado}}</div>
+                                                </div>
+                                                <div class="form-row" style="gap: 0 !important; display: flex; justify-content: space-between;">
+                                                    <div class="table-header table-cell" style="width: 100%; grid-template-columns: 1fr; justify-content:flex-start !important">Fecha</div>
+                                                    <div class="table-row table-cell" style="width: 100%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{miOferta.fecha}}</div>
+                                                    <div class="table-header table-cell" style="width: 100%; grid-template-columns: 1fr; justify-content:flex-start !important">Horario</div>
+                                                    <div class="table-row table-cell" style="width: 100%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{miOferta.hora1+' - '+miOferta.hora2}}</div>
                                                 </div>
                                             </div>
                                         }
