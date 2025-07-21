@@ -27,14 +27,18 @@
                                 }@else{
                                     <div class="admin-section-card">
                                         <div class="users-table">
-                                            <div class="table-header" style="grid-template-columns: 1fr 1fr 1fr;">
+                                            <div class="table-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
                                                 <div class="table-cell">Cantidad</div>
+                                                <div class="table-cell">Fecha</div>
+                                                <div class="table-cell">Horario</div>
                                                 <div class="table-cell">Estado</div>
                                                 <div class="table-cell">Acciones</div>
                                             </div>
                                             @for (u of Ofertas; track trackById(u)) {
-                                                <div class="table-row" style="grid-template-columns: 1fr 1fr 1fr;">
+                                                <div class="table-row" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
                                                     <div class="table-cell">{{u.oferta}}</div>
+                                                    <div class="table-cell">{{u.fecha}}</div>
+                                                    <div class="table-cell">{{u.hora1+' - '+u.hora2}}</div>
                                                     <div class="table-cell">{{u.estado}}</div>
                                                     <div class="table-cell">
                                                         <div class="action-buttons">

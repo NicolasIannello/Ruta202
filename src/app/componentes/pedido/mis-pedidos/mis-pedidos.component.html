@@ -180,10 +180,11 @@
                                         </div>
                                     }@else {
                                         <div class="users-table">
-                                            <div class="table-header" style="grid-template-columns: 1fr 1.5fr 3fr 2fr 1fr 1fr;">
+                                            <div class="table-header" style="grid-template-columns: 1fr 1fr 1.5fr 1.5fr 2fr 1fr 1fr;">
                                                 <div class="table-cell">Cantidad</div>
+                                                <div class="table-cell">Fecha</div>
+                                                <div class="table-cell">Horarios</div>
                                                 <div class="table-cell">Prestador</div>
-                                                <div class="table-cell">Dirección</div>
                                                 <div class="table-cell">Email</div>
                                                 <div class="table-cell">Celular</div>
                                                 @if (Pedido.disponible){ 
@@ -191,11 +192,12 @@
                                                 }
                                             </div>
                                             @for (o of Ofertas; track trackById(o)) {
-                                                <div class="table-row" style="grid-template-columns: 1fr 1.5fr 3fr 2fr 1fr 1fr;">
+                                                <div class="table-row" style="grid-template-columns: 1fr 1fr 1.5fr 1.5fr 2fr 1fr 1fr;">
                                                     <div class="table-cell">{{o.oferta}}</div>
+                                                    <div class="table-cell">{{o.fecha}}</div>
+                                                    <div class="table-cell">{{o.hora1+' - '+o.hora2}}</div>
                                                     <div class="table-cell">{{o.dato_prestador.Empresa}}</div>
-                                                    <div class="table-cell">{{o.dato_prestador.Direccion}}</div>
-                                                    <div class="table-cell">{{o.dato_prestador.Funcionalidad}}</div>
+                                                    <div class="table-cell">{{o.dato_prestador.EmailResponsable}}</div>
                                                     <div class="table-cell">{{o.dato_prestador.Celular}}</div>
                                                     @if (Pedido.disponible){ 
                                                         <div class="table-cell">
