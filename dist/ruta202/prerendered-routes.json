@@ -1,11 +1,15 @@
 {
   "routes": [
     "/",
+    "/crearPedido",
     "/login",
+    "/misOfertas",
+    "/misPedidos",
     "/panelAdmin",
     "/panelAdmin/inicio",
     "/panelAdmin/usuarios",
     "/perfil",
-    "/registro"
+    "/registro",
+    "/verPedidos"
   ]
 }
