@@ -150,7 +150,11 @@ export class VerPedidoComponent implements OnInit{
                 }
                 this.api.ofertaPedido(dato).subscribe({
                   next: (value:any) => {
-                    if (value.ok) Swal.fire({title:'Oferta creada con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                    if (value.ok) {
+                      Swal.fire({title:'Oferta creada con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then(() =>{
+                        window.location.reload()
+                      })
+                    }
                     if (!value.ok) Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
                     this.disabled=false;
                     this.text='Aceptar pedido';
