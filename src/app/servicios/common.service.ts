@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import Swal from 'sweetalert2';
 import { UsuariosService } from './usuarios.service';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const numero=environment.numero;
 const base_url=environment.base_url;
@@ -10,8 +12,11 @@ const base_url=environment.base_url;
   providedIn: 'root'
 })
 export class CommonService {
-
-  constructor(private api: UsuariosService) { }
+  header:HttpHeaders;
+  
+  constructor(private api: UsuariosService, private http: HttpClient) {
+    this.header=new HttpHeaders().set('Acces-Control-Allow-Origin','*');
+  }
 
   openWsp(){
     window.open('https://wa.me/'+numero);
@@ -72,5 +77,8 @@ export class CommonService {
     } catch (error) {
       return false;
     }
+  }
+  mensaje(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/mensaje', dato, {'headers':this.header})
   }
 }

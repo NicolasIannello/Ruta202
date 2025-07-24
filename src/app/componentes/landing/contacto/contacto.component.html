@@ -54,22 +54,22 @@
                     <div class="form-row">
                         <div class="form-field">
                             <label htmlFor="name" class="form-label">Nombre</label>
-                            <input id="name" class="form-input" placeholder="Nombre" />
+                            <input id="name" class="form-input" placeholder="Nombre" [(ngModel)]="nombre"/>
                         </div>
                         <div class="form-field">
                             <label htmlFor="phone" class="form-label">Teléfono</label>
-                            <input id="phone" class="form-input" placeholder="Teléfono" />
+                            <input id="phone" class="form-input" placeholder="Teléfono" [(ngModel)]="telefono"/>
                         </div>
                     </div>
                     <div class="form-field">
                         <label htmlFor="email" class="form-label">Email</label>
-                        <input id="email" type="email" class="form-input" placeholder="Email" />
+                        <input id="email" type="email" class="form-input" placeholder="Email" [(ngModel)]="email"/>
                     </div>
                     <div class="form-field">
                         <label htmlFor="message" class="form-label">Mensaje</label>
-                        <textarea id="message" rows={4} class="form-textarea" placeholder="Mensaje"></textarea>
+                        <textarea id="message" rows={4} class="form-textarea" placeholder="Mensaje" [(ngModel)]="mensaje"></textarea>
                     </div>
-                    <button class="btn btn-primary btn-full">Enviar Mensaje</button>
+                    <button class="btn btn-primary btn-full" (click)="enviar()" [disabled]="disable">{{text}}</button>
                 <!-- </form> -->
             </div>
         </div>
