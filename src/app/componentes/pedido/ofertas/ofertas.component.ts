@@ -3,11 +3,13 @@ import { UsuariosService } from '../../../servicios/usuarios.service';
 import { filter, first } from 'rxjs';
 import { PrestadorService } from '../../../servicios/prestador.service';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ofertas',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './ofertas.component.html',
   styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
 })
@@ -18,7 +20,7 @@ export class OfertasComponent {
   pagina:number=0;
   asc:number=1;
   order:string='_id'
-  datoTipo:string='tipo'
+  datoTipo:string='estado'
   datoBuscar:string='';
   lastPage:number=0
   total:number=0
@@ -71,4 +73,13 @@ export class OfertasComponent {
       },		
     });
   }
+
+  buscarDato(){
+      if(this.datoBuscar==''){
+        Swal.fire({title:'Complete el dato a buscar',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        return;
+      }
+      this.pagina=0
+      this.getOfertas(this.pagina, 10, this.asc, this.order);
+    }
 }

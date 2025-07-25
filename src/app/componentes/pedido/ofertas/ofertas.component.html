@@ -25,6 +25,24 @@
                                         <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
                                     </div>
                                 }@else{
+                                    <div class="search-filter-group">
+                                        <select class="filter-select" [(ngModel)]="datoTipo" (change)="datoBuscar=''">
+                                            <option value="oferta">Cantidad</option>
+                                            <option value="estado">Estado</option>
+                                        </select>
+                                        <div class="search-box">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            @if(datoTipo=='estado'){
+                                                <select class="search-input" [(ngModel)]="datoBuscar">
+                                                    <option value="Aceptada">Aceptada</option>
+                                                    <option value="Pendiente">Pendiente</option>
+                                                </select>
+                                            }@else {
+                                                <input class="search-input" type="text" placeholder="Buscar dato..." [(ngModel)]="datoBuscar"/>
+                                            }
+                                        </div>
+                                        <button class="btn btn-black" (click)="buscarDato()">Buscar</button>
+                                    </div>
                                     <div class="admin-section-card">
                                         <div class="users-table">
                                             <div class="table-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
