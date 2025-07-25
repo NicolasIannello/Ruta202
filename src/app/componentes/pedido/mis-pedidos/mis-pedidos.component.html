@@ -48,7 +48,14 @@
                                         </select>
                                         <div class="search-box">
                                             <i class="fa-solid fa-magnifying-glass"></i>
-                                            <input class="search-input" type="text" placeholder="Buscar dato..." [(ngModel)]="datoBuscar"/>
+                                            @if(datoTipo=='estado'){
+                                                <select class="search-input" [(ngModel)]="datoBuscar">
+                                                    <option value="Creado">Creado</option>
+                                                    <option value="En proceso">En proceso</option>
+                                                </select>
+                                            }@else {
+                                                <input class="search-input" type="text" placeholder="Buscar dato..." [(ngModel)]="datoBuscar"/>
+                                            }
                                         </div>
                                         <button class="btn btn-black" (click)="buscarDato()">Buscar</button>
                                     </div>
