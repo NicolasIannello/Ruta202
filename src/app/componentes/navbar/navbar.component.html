@@ -34,11 +34,19 @@
                                     <span>Mi Perfil</span>
                                 </span>
                                 @if (Tipo=='0') {
+                                    <span class="user-dropdown-item" routerLink="/crearPedido" (click)="menuOpenUser=false">
+                                        <i class="fa-solid fa-newspaper"></i>
+                                        <span>Crear Pedido</span>
+                                    </span>
                                     <span class="user-dropdown-item" routerLink="/misPedidos" (click)="menuOpenUser=false">
                                         <i class="fa-solid fa-clipboard-list"></i>
                                         <span>Mis Pedidos</span>
                                     </span>
                                 }@else if(Tipo=='1'){
+                                    <span class="user-dropdown-item" routerLink="/verPedidos" (click)="menuOpenUser=false">
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                        <span>Pedidos Disponibles</span>
+                                    </span>
                                     <span class="user-dropdown-item" routerLink="/misOfertas" (click)="menuOpenUser=false">
                                         <i class="fa-solid fa-comments-dollar"></i>
                                         <span>Mis Ofertas</span>
