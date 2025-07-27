@@ -227,7 +227,17 @@ export class VerPedidoComponent implements OnInit{
       navigator.geolocation.getCurrentPosition(
         (position) => {
           this.latlng= { lat:position.coords.latitude , lng:position.coords.longitude};
-          console.log(this.latlng);
+          let dato={
+            'token': localStorage.getItem('token'),
+            'tipo': 1,
+            'UUID': this.Pedido.UUID,
+            'lat': position.coords.latitude,
+            'lng': position.coords.longitude
+          }
+          this.api.emitCords(dato).subscribe({
+            next: (value:any) => { },
+            error: (err:any) => { },		
+          });
         },
         (err) => {
           Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})

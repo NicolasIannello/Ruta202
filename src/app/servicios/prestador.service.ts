@@ -30,4 +30,7 @@ export class PrestadorService {
   getOfertas(dato:any):Observable<any>{
     return this.http.post(base_url+'/prestadores/getOfertas', dato, {'headers':this.header})
   }
+  emitCords(dato:any):Observable<any>{
+    return this.http.post(base_url+'/prestadores/emitCords', dato, {'headers':this.header})
+  }
 }
