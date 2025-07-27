@@ -206,10 +206,10 @@
                                                 <h3 class="form-section-title">Seguimiento:</h3>
                                                 <button class="btn btn-primary btn-full btn-lg" (click)="seguimiento(!flagloop)">{{seguimientoText}}</button>
                                                 <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">
-                                                    <map-marker [position]="Pedido.lugarRetiroLatLng" title="Lugar retiro" ></map-marker>
-                                                    <map-marker [position]="Pedido.lugarEntregaLatLng" title="Lugar entrega"></map-marker>
-                                                    @if (this.latlng.lat!=-34.6468485 && this.latlng.lng!=-58.4400179) {
-                                                        <map-marker [position]="this.latlng" title="Tu"></map-marker>
+                                                    <map-marker [position]="Pedido.lugarRetiroLatLng" title="Lugar retiro" label="Ret."></map-marker>
+                                                    <map-marker [position]="Pedido.lugarEntregaLatLng" title="Lugar entrega" label="Ent."></map-marker>
+                                                    @if (this.latlng.lat!=-34.6468485 && this.latlng.lng!=-58.4400179 && flagloop) {
+                                                        <map-marker [position]="this.latlng" title="Tu" label="Tu"></map-marker>
                                                     }
                                                 </google-map>
                                             }
