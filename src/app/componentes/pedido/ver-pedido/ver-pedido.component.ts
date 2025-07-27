@@ -250,6 +250,6 @@ export class VerPedidoComponent implements OnInit{
       this.flagloop=false;
     }
 
-    if(this.flagloop) setTimeout( ()=>this.seguimiento(this.flagloop), 60000);
+    if(this.flagloop) setTimeout( ()=>this.seguimiento(this.flagloop), 30000);
   }
 }
