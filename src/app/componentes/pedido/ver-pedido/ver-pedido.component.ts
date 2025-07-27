@@ -158,7 +158,7 @@ export class VerPedidoComponent implements OnInit{
                 let dato={
                   'token': localStorage.getItem('token'),
                   'tipo': 1,
-                  '_id': this.Pedido._id,
+                  'idP': this.Pedido._id,
                   'oferta': this.oferta,
                   'fecha': this.fecha,
                   'hora1': this.hora1,
