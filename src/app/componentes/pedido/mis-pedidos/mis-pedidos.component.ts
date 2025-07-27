@@ -6,11 +6,12 @@ import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { SocketService } from '../../../servicios/socket.service';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-mis-pedidos',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule, GoogleMapsModule],
   templateUrl: './mis-pedidos.component.html',
   styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
 })
@@ -32,6 +33,12 @@ export class MisPedidosComponent implements OnInit{
   Ofertas:any=[]
   loading2:boolean=true;
   hoy:string=''
+  latlng:{lat:number, lng:number}= {lat: -34.6468485, lng: -58.4400179}
+  mapOptions: google.maps.MapOptions = {
+    streetViewControl: false,
+    mapTypeControl: false,
+  };
+  act:string='-';
 
   constructor(private api: UsuariosService, private api2: ClienteService, private socketIo:SocketService) {}
 
@@ -75,7 +82,8 @@ export class MisPedidosComponent implements OnInit{
           if(!this.Pedido.disponible && this.hoy==this.Ofertas[0].fecha && this.Ofertas[0].estado=='Aceptada'){
             this.socketIo.connect()
             this.socketIo.onMessage().subscribe((message:any) => {      
-              console.log(message);
+              this.act=message.last;
+              this.latlng= { lat:message.lat , lng: message.lng}
             });
             this.socketIo.sendMessage(this.Pedido.UUID);
           }

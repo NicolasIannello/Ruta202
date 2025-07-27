@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista'; loading2=true; Ofertas=[]; Pedido=[]">
+                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista'; loading2=true; Ofertas=[]; Pedido=[]; disconnect()">
                             <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
                             <span>Mis Pedidos</span>
                         </button>
@@ -219,6 +219,17 @@
                                                         </div>
                                                     }
                                                 </div>
+                                            }
+                                            @if(!Pedido.disponible && hoy==Ofertas[0].fecha && Ofertas[0].estado=='Aceptada'){
+                                                <h3 class="form-section-title">Seguimiento:</h3>
+                                                <p class="profile-member-since">Ultima actualizacion: {{act}}</p>
+                                                <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">
+                                                    <map-marker [position]="Pedido.lugarRetiroLatLng" title="Lugar retiro" label="Ret."></map-marker>
+                                                    <map-marker [position]="Pedido.lugarEntregaLatLng" title="Lugar entrega" label="Ent."></map-marker>
+                                                    @if (this.latlng.lat!=-34.6468485 && this.latlng.lng!=-58.4400179) {
+                                                        <map-marker [position]="this.latlng" title="Tu" label="Pres."></map-marker>
+                                                    }
+                                                </google-map>
                                             }
                                         </div>
                                     }
