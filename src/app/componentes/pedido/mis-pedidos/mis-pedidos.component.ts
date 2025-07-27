@@ -5,6 +5,7 @@ import { ClienteService } from '../../../servicios/cliente.service';
 import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
+import { SocketService } from '../../../servicios/socket.service';
 
 @Component({
   selector: 'app-mis-pedidos',
@@ -30,10 +31,17 @@ export class MisPedidosComponent implements OnInit{
   pages:Array<number>=[]
   Ofertas:any=[]
   loading2:boolean=true;
+  hoy:string=''
 
-  constructor(private api: UsuariosService, private api2: ClienteService) {}
+  constructor(private api: UsuariosService, private api2: ClienteService, private socketIo:SocketService) {}
 
   ngOnInit(): void {
+    let date_time=new Date();
+    let date=("0" + date_time.getDate()).slice(-2);
+    let month=("0" + (date_time.getMonth() + 1)).slice(-2);
+    let year=date_time.getFullYear();
+    this.hoy=year+"-"+month+"-"+date;
+
     this.api.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
       this.empresa=this.api.getEmpresa()
       this.mail=this.api.getEmail()
@@ -63,11 +71,23 @@ export class MisPedidosComponent implements OnInit{
         if (value.ok) {
           this.loading2=false;
           this.Ofertas=value.ofertasDB
+          
+          if(!this.Pedido.disponible && this.hoy==this.Ofertas[0].fecha && this.Ofertas[0].estado=='Aceptada'){
+            this.socketIo.connect()
+            this.socketIo.onMessage().subscribe((message:any) => {      
+              console.log(message);
+            });
+            this.socketIo.sendMessage(this.Pedido.UUID);
+          }
         }
       },
       error: (err:any) => {
       },		
     });
+  }
+
+  disconnect(){
+    this.socketIo.disconnect()
   }
 
   getPedidos(desde:number, limit:number, orden:number, order:string){
