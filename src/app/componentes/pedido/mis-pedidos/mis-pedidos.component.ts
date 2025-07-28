@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { UsuariosService } from '../../../servicios/usuarios.service';
 import { filter, first } from 'rxjs';
 import { ClienteService } from '../../../servicios/cliente.service';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { SocketService } from '../../../servicios/socket.service';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { isPlatformBrowser, Location } from '@angular/common';
+import { PrestadorService } from '../../../servicios/prestador.service';
 
 @Component({
   selector: 'app-mis-pedidos',
@@ -39,8 +41,9 @@ export class MisPedidosComponent implements OnInit{
     mapTypeControl: false,
   };
   act:string='-';
+  terminarText:string='Dar como terminado'
 
-  constructor(private api: UsuariosService, private api2: ClienteService, private socketIo:SocketService) {}
+  constructor(private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute) {}
 
   ngOnInit(): void {
     let date_time=new Date();
@@ -50,6 +53,28 @@ export class MisPedidosComponent implements OnInit{
     this.hoy=year+"-"+month+"-"+date;
 
     this.api.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
+      if(isPlatformBrowser(this.platformId)){
+        if(localStorage.getItem('token')){
+          let id = this.ruta.snapshot.paramMap.get('id')
+          if(id){
+            this.tab='pedido'
+            let dato={
+              'token': localStorage.getItem('token'),
+              'tipo': 1,
+              'id': id
+            }
+            this.api3.getPedido(dato).subscribe({
+              next: (value:any) => {
+                if (value.ok) {
+                  this.verPedido(value.pedido)
+                }
+              },
+              error: (err:any) => {
+              },		
+            });
+          }
+        }
+      }
       this.empresa=this.api.getEmpresa()
       this.mail=this.api.getEmail()
       this.getPedidos(this.pagina, 10, this.asc, this.order);
@@ -68,6 +93,7 @@ export class MisPedidosComponent implements OnInit{
   verPedido(u:any){
     this.tab='pedido'
     this.Pedido=u
+    this.location.go('misPedidos/'+this.Pedido.UUID); 
     let dato={
       'token': localStorage.getItem('token'),
       'tipo': 1,
@@ -95,6 +121,7 @@ export class MisPedidosComponent implements OnInit{
   }
 
   disconnect(){
+    this.location.go('misPedidos');
     this.socketIo.disconnect()
   }
 
@@ -222,5 +249,42 @@ export class MisPedidosComponent implements OnInit{
     }
     this.pagina=0
     this.getPedidos(this.pagina, 10, this.asc, this.order);
+  }
+
+  terminar(){
+    Swal.fire({
+      title: "Esta por dar por terminado el pedido",
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      confirmButtonColor:'#ea580c',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          let dato={
+            'token': localStorage.getItem('token'),
+            'tipo': 1,
+            'id': this.Pedido._id,
+          }
+
+          this.api2.terminar(dato).subscribe({
+            next: (value) => {
+              if(value.ok){
+                Swal.fire({title:'Pedido terminado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }else{
+                Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }
+            },
+            error: (err) => {
+              Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+            },
+          })
+          
+        } catch (error) {
+          Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }
+    });
   }
 }
