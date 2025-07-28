@@ -274,7 +274,9 @@ export class VerPedidoComponent implements OnInit{
           this.api.terminar(dato).subscribe({
             next: (value) => {
               if(value.ok){
-                Swal.fire({title:'Pedido terminado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                Swal.fire({title:'Pedido terminado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then( () => {
+                  window.location.reload()
+                }); 
               }else{
                 Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
               }
