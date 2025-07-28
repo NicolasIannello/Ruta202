@@ -87,8 +87,13 @@
                     </div>
                     <div style="display: flex;">
                         <button class="btn btn-outline btn-full" (click)="open()" routerLink="/perfil">Mi Perfil</button>
-                        <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 2</button>
-                        <button class="btn btn-outline btn-full" (click)="open()">OPCIÓN 3</button>
+                        @if (Tipo=='0') {
+                            <button class="btn btn-outline btn-full" (click)="open()" routerLink="/crearPedido">Crear Pedido</button>
+                            <button class="btn btn-outline btn-full" (click)="open()" routerLink="/misPedidos">Mis Pedidos</button>
+                        }@else if(Tipo=='1'){
+                            <button class="btn btn-outline btn-full" (click)="open()" routerLink="/verPedidos">Pedidos Disponibles</button>
+                            <button class="btn btn-outline btn-full" (click)="open()" routerLink="/misOfertas">Mis Ofertas</button>
+                        }
                     </div>
                     <button class="btn btn-primary btn-full" (click)="cerrarSession(); open()">Cerrar Session</button>
                 } @else{
