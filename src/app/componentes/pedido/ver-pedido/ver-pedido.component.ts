@@ -45,6 +45,7 @@ export class VerPedidoComponent implements OnInit{
     streetViewControl: false,
     mapTypeControl: false,
   };
+  terminarText:string='Dar como terminado'
 
   constructor(private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService){}
 
@@ -251,5 +252,42 @@ export class VerPedidoComponent implements OnInit{
     }
 
     if(this.flagloop) setTimeout( ()=>this.seguimiento(this.flagloop), 30000);
+  }
+
+  terminar(){
+    Swal.fire({
+      title: "Esta por dar por terminado el pedido",
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      confirmButtonColor:'#ea580c',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          let dato={
+            'token': localStorage.getItem('token'),
+            'tipo': 1,
+            'id': this.Pedido._id,
+          }
+
+          this.api.terminar(dato).subscribe({
+            next: (value) => {
+              if(value.ok){
+                Swal.fire({title:'Pedido terminado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }else{
+                Swal.fire({title:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              }
+            },
+            error: (err) => {
+              Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+            },
+          })
+          
+        } catch (error) {
+          Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }
+    });
   }
 }

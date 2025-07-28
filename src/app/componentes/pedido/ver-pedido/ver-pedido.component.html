@@ -202,7 +202,10 @@
                                                     <div class="table-row table-cell" style="width: 100%; border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important">{{miOferta.hora1+' - '+miOferta.hora2}}</div>
                                                 </div>
                                             </div>
-                                            @if(hoy==miOferta.fecha && miOferta.estado=='Aceptada'){
+                                            @if(Pedido.selloCliente && !Pedido.selloPrestador){
+                                                <h3 class="form-section-title">El Cliente ha finalizado el pedido</h3>
+                                            }
+                                            @if(hoy==miOferta.fecha && miOferta.estado=='Aceptada' && !Pedido.selloPrestador){
                                                 <h3 class="form-section-title">Seguimiento:</h3>
                                                 <button class="btn btn-primary btn-full btn-lg" (click)="seguimiento(!flagloop)">{{seguimientoText}}</button>
                                                 <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">
@@ -212,6 +215,13 @@
                                                         <map-marker [position]="this.latlng" title="Tu" label="Tu"></map-marker>
                                                     }
                                                 </google-map>
+                                                <button class="btn btn-primary btn-full btn-lg" (click)="terminar()">{{terminarText}}</button>
+                                            }
+                                            @if(Pedido.selloPrestador && !Pedido.selloCliente){
+                                                <h3 class="form-section-title">El Cliente no ha finalizado el pedido</h3>
+                                            }
+                                            @if(Pedido.selloPrestador && Pedido.selloCliente){
+                                                <h3 class="form-section-title">Ha finalizado el pedido</h3>
                                             }
                                         }
                                     </div>

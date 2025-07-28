@@ -220,7 +220,10 @@
                                                     }
                                                 </div>
                                             }
-                                            @if(!Pedido.disponible && hoy==Ofertas[0].fecha && Ofertas[0].estado=='Aceptada'){
+                                            @if(!Pedido.selloCliente && Pedido.selloPrestador){
+                                                <h3 class="form-section-title">El Prestador ha finalizado el pedido</h3>
+                                            }
+                                            @if(!Pedido.disponible && !Pedido.selloCliente && hoy==Ofertas[0].fecha && Ofertas[0].estado=='Aceptada'){
                                                 <h3 class="form-section-title">Seguimiento:</h3>
                                                 <p class="profile-member-since">Ultima actualizacion: {{act}}</p>
                                                 <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">
@@ -230,6 +233,13 @@
                                                         <map-marker [position]="this.latlng" title="Tu" label="Pres."></map-marker>
                                                     }
                                                 </google-map>
+                                                <button class="btn btn-primary btn-full btn-lg" (click)="terminar()">{{terminarText}}</button>
+                                            }
+                                            @if(Pedido.selloCliente && !Pedido.selloPrestador){
+                                                <h3 class="form-section-title">El Prestador no ha finalizado el pedido</h3>
+                                            }
+                                            @if(Pedido.selloCliente && Pedido.selloPrestador){
+                                                <h3 class="form-section-title">Ha finalizado el pedido</h3>
                                             }
                                         </div>
                                     }

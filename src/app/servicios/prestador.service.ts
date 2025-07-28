@@ -33,4 +33,7 @@ export class PrestadorService {
   emitCords(dato:any):Observable<any>{
     return this.http.post(base_url+'/prestadores/emitCords', dato, {'headers':this.header})
   }
+  terminar(dato:any):Observable<any>{
+    return this.http.post(base_url+'/prestadores/terminar', dato, {'headers':this.header})
+  }
 }

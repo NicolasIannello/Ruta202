@@ -36,4 +36,7 @@ export class ClienteService {
   geocodeReverse(dato:any):Observable<any>{
     return this.http.post(base_url+'/clientes/geocodeReverse', dato, {'headers':this.header})
   }
+  terminar(dato:any):Observable<any>{
+    return this.http.post(base_url+'/clientes/terminar', dato, {'headers':this.header})
+  }
 }
