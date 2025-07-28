@@ -32,6 +32,7 @@ export const routes: Routes = [
         { path: 'verPedidos', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
         { path: 'verPedidos/:id', component: VerPedidoComponent, canActivate: [loggedPrestadorGuard] },
         { path: 'misPedidos', component: MisPedidosComponent, canActivate: [loggedClienteGuard] },
+        { path: 'misPedidos/:id', component: MisPedidosComponent, canActivate: [loggedClienteGuard] },
         { path: 'misOfertas', component: OfertasComponent, canActivate: [loggedPrestadorGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
