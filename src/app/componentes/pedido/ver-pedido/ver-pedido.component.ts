@@ -8,6 +8,8 @@ import { Location } from '@angular/common';
 import { UsuariosService } from '../../../servicios/usuarios.service';
 import { filter, first } from 'rxjs';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CommonService } from '../../../servicios/common.service';
 
 @Component({
   selector: 'app-ver-pedido',
@@ -45,9 +47,11 @@ export class VerPedidoComponent implements OnInit{
     streetViewControl: false,
     mapTypeControl: false,
   };
-  terminarText:string='Dar como terminado'
+  terminarText:string='Dar como terminado';
+  pdf:SafeResourceUrl|null=null;
+  ordenRetiro:any=null;
 
-  constructor(private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService){}
+  constructor(private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService){}
 
   ngOnInit(): void {
     let date_time=new Date();
@@ -71,6 +75,7 @@ export class VerPedidoComponent implements OnInit{
               next: (value:any) => {
                 if (value.ok) {
                   this.Pedido=value.pedido
+                  this.getPDF();
                   this.getOferta();
                 }
               },
@@ -291,5 +296,53 @@ export class VerPedidoComponent implements OnInit{
         }
       }
     });
+  }
+
+  showPDF(event: Event){
+    this.pdf=null;
+    this.ordenRetiro=null;
+    const element = event.currentTarget as HTMLInputElement;    
+    if(element.files?.length!=undefined && element.files?.length>0){ 
+      this.pdf= this.transform(URL.createObjectURL(element.files[0]));
+      this.ordenRetiro=element.files;
+    }    
+	}
+
+  transform(url: any) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+
+  subirOrden(){    
+    if(this.ordenRetiro!=null){
+      const formData = new FormData();
+
+      formData.append('token', localStorage.getItem('token')!)
+      formData.append('tipo', '1')
+      formData.append('orden', this.ordenRetiro[0])
+      formData.append('pedido', this.Pedido.UUID)
+
+      this.api.subirOrden(formData).then(resp =>{
+        if(resp.ok){
+          Swal.fire({title:'Orden de retiro cargado con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+        }else{
+          Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }, (err)=>{				
+        Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+      });
+    }else{
+      Swal.fire({title:'Seleccione un archivo pdf',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+    }
+
+  }
+
+  getPDF(){
+    if(this.Pedido.ordenRetiro!=''){
+      this.api3.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
+        if(resp!=false){
+          this.pdf=this.transform(resp.url)
+        }
+      })
+    }
   }
 }
