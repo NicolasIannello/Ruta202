@@ -78,6 +78,18 @@ export class CommonService {
       return false;
     }
   }
+  async getPDF(orden:string,token:string){    
+    try {
+      const resp = await fetch(base_url+'/imagenes/pdf?orden='+orden+'&token='+token+'&tipo=1',{
+        method: 'GET', 
+        headers: {'Acces-Control-Allow-Origin':'*'},
+      });
+
+      return resp;
+    } catch (error) {
+      return false;
+    }
+  }
   mensaje(dato:any):Observable<any>{
     return this.http.post(base_url+'/usuarios/mensaje', dato, {'headers':this.header})
   }
