@@ -92,9 +92,9 @@ export class MisPedidosComponent implements OnInit{
     this.firma=true;
     const canvas = this.canvasRef.nativeElement;
     // Resize for HiDPI
-    const ratio = Math.max(window.devicePixelRatio || 1, 1)==2 ? 0.5 : Math.max(window.devicePixelRatio || 1, 1);    
+    const ratio = Math.max(window.devicePixelRatio || 1, 1)==2 ? 0.2 : Math.max(window.devicePixelRatio || 1, 1);    
     canvas.width = window.innerWidth<500 ? (window.innerWidth*0.70) * ratio : 500 * ratio;
-    canvas.height = window.innerHeight<180 ? (window.innerWidth*0.60) * ratio : 200 * ratio;
+    canvas.height = window.innerHeight<200 ? (window.innerWidth*0.60) * ratio : 200 * ratio;
     const ctx = canvas.getContext('2d')!;
     ctx.scale(ratio, ratio);
     this.pad = new SignaturePad(canvas, { throttle: 0 });
