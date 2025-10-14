@@ -88,11 +88,12 @@ export class MisPedidosComponent implements OnInit{
     });
   }
 
-  ngAfterViewInit() {    
+  initPad() {
+    this.firma=true;
     const canvas = this.canvasRef.nativeElement;
     // Resize for HiDPI
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    canvas.width = 500 * ratio;
+    const ratio = Math.max(window.devicePixelRatio || 1, 1)==2 ? 1 : Math.max(window.devicePixelRatio || 1, 1);    
+    canvas.width = window.innerWidth<500 ? (window.innerWidth-100) * ratio : 500 * ratio;
     canvas.height = 200 * ratio;
     const ctx = canvas.getContext('2d')!;
     ctx.scale(ratio, ratio);
