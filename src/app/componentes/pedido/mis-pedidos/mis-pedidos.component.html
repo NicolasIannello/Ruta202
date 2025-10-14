@@ -223,12 +223,12 @@
                                             @if(!Pedido.selloCliente && Pedido.selloPrestador){
                                                 <h3 class="form-section-title">El Prestador ha finalizado el pedido</h3>
                                             }
-                                            @if(Pedido.ordenRetiro!=''){
-                                                <h3 class="form-section-title">Orden de retiro:</h3>
-                                                <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
-                                                <button class="btn btn-primary btn-full btn-lg" (click)="firma=true">Firmar PDF</button>
-                                            }
                                             @if(!Pedido.disponible && !Pedido.selloCliente && hoy==Ofertas[0].fecha && Ofertas[0].estado=='Aceptada'){
+                                                @if(Pedido.ordenRetiro!=''){
+                                                    <h3 class="form-section-title">Orden de retiro:</h3>
+                                                    <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
+                                                    <button class="btn btn-primary btn-full btn-lg" (click)="initPad()">Firmar PDF</button>
+                                                }
                                                 <h3 class="form-section-title">Seguimiento:</h3>
                                                 <p class="profile-member-since">Ultima actualizacion: {{act}}</p>
                                                 <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">

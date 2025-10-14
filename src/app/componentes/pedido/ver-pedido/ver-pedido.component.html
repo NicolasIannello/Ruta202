@@ -205,17 +205,17 @@
                                             @if(Pedido.selloCliente && !Pedido.selloPrestador){
                                                 <h3 class="form-section-title">El Cliente ha finalizado el pedido</h3>
                                             }
-                                            <h3 class="form-section-title">Orden de retiro:</h3>
-                                            @if(Pedido.ordenRetiro!=''){
-                                                <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
-                                            }@else {
-                                                @if (pdf!=null){
-                                                    <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
-                                                }
-                                                <input type="file" name="pdfTC" id="pdfTC" class="btn btn-full btn-lg" #pdfTC accept=".pdf," (change)="showPDF($event)">
-                                                <button class="btn btn-primary btn-full btn-lg" (click)="subirOrden()">Subir orden de retiro</button>
-                                            }
                                             @if(hoy==miOferta.fecha && miOferta.estado=='Aceptada' && !Pedido.selloPrestador){
+                                                <h3 class="form-section-title">Orden de retiro:</h3>
+                                                @if(Pedido.ordenRetiro!=''){
+                                                    <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
+                                                }@else {
+                                                    @if (pdf!=null){
+                                                        <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
+                                                    }
+                                                    <input type="file" name="pdfTC" id="pdfTC" class="btn btn-full btn-lg" #pdfTC accept=".pdf," (change)="showPDF($event)">
+                                                    <button class="btn btn-primary btn-full btn-lg" (click)="subirOrden()">Subir orden de retiro</button>
+                                                }
                                                 <h3 class="form-section-title">Seguimiento:</h3>
                                                 <button class="btn btn-primary btn-full btn-lg" (click)="seguimiento(!flagloop)">{{seguimientoText}}</button>
                                                 <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">
