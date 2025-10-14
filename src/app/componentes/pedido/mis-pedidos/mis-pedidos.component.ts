@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { UsuariosService } from '../../../servicios/usuarios.service';
 import { filter, first } from 'rxjs';
 import { ClienteService } from '../../../servicios/cliente.service';
@@ -7,15 +7,18 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { SocketService } from '../../../servicios/socket.service';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { isPlatformBrowser, Location } from '@angular/common';
+import { CommonModule, isPlatformBrowser, Location } from '@angular/common';
 import { PrestadorService } from '../../../servicios/prestador.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CommonService } from '../../../servicios/common.service';
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-mis-pedidos',
   standalone: true,
-  imports: [RouterModule, FormsModule, GoogleMapsModule],
+  imports: [RouterModule, FormsModule, GoogleMapsModule, CommonModule],
   templateUrl: './mis-pedidos.component.html',
-  styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
+  styleUrls: ['../../user/user.component.css','../../admin/admin.component.css','../../admin/usuarios/user-modal/user-modal.component.css']
 })
 export class MisPedidosComponent implements OnInit{
   tab:string='lista'
@@ -42,8 +45,12 @@ export class MisPedidosComponent implements OnInit{
   };
   act:string='-';
   terminarText:string='Dar como terminado'
+  pdf:SafeResourceUrl|null=null;
+  @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  private pad!: SignaturePad;
+  firma:boolean=false;
 
-  constructor(private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute) {}
+  constructor(private sanitizer: DomSanitizer, private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, public api4:CommonService) {}
 
   ngOnInit(): void {
     let date_time=new Date();
@@ -81,6 +88,48 @@ export class MisPedidosComponent implements OnInit{
     });
   }
 
+  ngAfterViewInit() {    
+    const canvas = this.canvasRef.nativeElement;
+    // Resize for HiDPI
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = 500 * ratio;
+    canvas.height = 200 * ratio;
+    const ctx = canvas.getContext('2d')!;
+    ctx.scale(ratio, ratio);
+    this.pad = new SignaturePad(canvas, { throttle: 0 });
+  }
+
+  clear(){ this.pad.clear(); }
+
+  accept() {
+    if (this.pad.isEmpty()) {
+      Swal.fire({title:'Realize su firma',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+    }else{
+      const dataUrl = this.pad.toDataURL('image/png'); // base64 PNG
+      // this.pad.toDataURL(); // save image as PNG
+      // this.pad.toDataURL("image/jpeg"); // save image as JPEG
+
+      const formData = new FormData();
+
+      formData.append('token', localStorage.getItem('token')!)
+      formData.append('tipo', '1')
+      formData.append('pedido', this.Pedido.UUID)
+      formData.append('firma', dataUrl)
+
+      this.api2.firmar(formData).then(resp =>{
+        if(resp.ok){
+          Swal.fire({title:'Orden de retiro firmada con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then( () => {
+            window.location.reload()
+          });
+        }else{
+          Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }, (err)=>{				
+        Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+      });
+    }
+  }
+
   paginacion(int:number){
     this.pagina=int;        
     this.getPedidos(this.pagina, 10, this.asc, this.order);
@@ -99,6 +148,7 @@ export class MisPedidosComponent implements OnInit{
       'tipo': 1,
       '_id': this.Pedido._id
     }
+    this.getPDF()
     this.api2.getOfertas(dato).subscribe({
       next: (value:any) => {
         if (value.ok) {
@@ -288,5 +338,19 @@ export class MisPedidosComponent implements OnInit{
         }
       }
     });
+  }
+
+  transform(url: any) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+
+  getPDF(){
+    if(this.Pedido.ordenRetiro!=''){
+      this.api4.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
+        if(resp!=false){
+          this.pdf=this.transform(resp.url)
+        }
+      })
+    }
   }
 }
