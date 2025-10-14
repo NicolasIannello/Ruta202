@@ -225,7 +225,7 @@
                                             }
                                             @if(!Pedido.disponible && !Pedido.selloCliente && hoy==Ofertas[0].fecha && Ofertas[0].estado=='Aceptada'){
                                                 @if(Pedido.ordenRetiro!=''){
-                                                    <h3 class="form-section-title">Orden de retiro::</h3>
+                                                    <h3 class="form-section-title">Orden de retiro:</h3>
                                                     <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
                                                     <button class="btn btn-primary btn-full btn-lg" (click)="initPad()">Firmar PDF</button>
                                                 }
