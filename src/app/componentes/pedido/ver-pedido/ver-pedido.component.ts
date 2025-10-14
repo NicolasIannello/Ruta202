@@ -323,7 +323,9 @@ export class VerPedidoComponent implements OnInit{
 
       this.api.subirOrden(formData).then(resp =>{
         if(resp.ok){
-          Swal.fire({title:'Orden de retiro cargado con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+          Swal.fire({title:'Orden de retiro cargado con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then(()=>{
+            window.location.reload();
+          });
         }else{
           Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         }
