@@ -83,4 +83,13 @@ export class AdminService {
   crearPedidoAdmin(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/crearPedidoAdmin', dato, {'headers':this.header})
   }
+  getPedidosAdmin(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/verPedidosAdmin', dato, {'headers':this.header})
+  }
+  getOfertaPedidoAdmin(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/getOfertaPedidoAdmin', dato, {'headers':this.header})
+  }
+  getPedidoAdmin(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/verPedidoAdmin', dato, {'headers':this.header})
+  }
 }

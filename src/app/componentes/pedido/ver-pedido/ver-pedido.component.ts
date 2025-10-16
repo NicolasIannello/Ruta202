@@ -3,13 +3,14 @@ import { PrestadorService } from '../../../servicios/prestador.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { UsuariosService } from '../../../servicios/usuarios.service';
 import { filter, first } from 'rxjs';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonService } from '../../../servicios/common.service';
+import { AdminService } from '../../../servicios/admin.service';
 
 @Component({
   selector: 'app-ver-pedido',
@@ -51,8 +52,12 @@ export class VerPedidoComponent implements OnInit{
   terminarText:string='Dar como terminado';
   pdf:SafeResourceUrl|null=null;
   ordenRetiro:any=null;
+  taburl:string='';
+  id:string=''
 
-  constructor(private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService){}
+  constructor(private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService, private router: Router, private api4:AdminService){
+    this.taburl=router.url
+  }
 
   ngOnInit(): void {
     let date_time=new Date();
@@ -89,6 +94,36 @@ export class VerPedidoComponent implements OnInit{
         }
       }
     });
+
+    if(this.taburl.includes('/panelAdmin/pedidos')){
+      if(isPlatformBrowser(this.platformId)){
+        if(localStorage.getItem('token')){
+          let id = this.ruta.snapshot.paramMap.get('id')
+          if(id){
+            this.id=id;
+            this.tab='pedido'
+            let dato={
+              'token': localStorage.getItem('token'),
+              'tipo': 1,
+              'id': id
+            }
+            this.api4.getPedidoAdmin(dato).subscribe({
+              next: (value:any) => {
+                if (value.ok) {
+                  this.Pedido=value.pedido
+                  this.Orden=value.ordenDB
+                  this.getPDF();
+                  this.getOferta();
+                }
+              },
+              error: (err:any) => {
+              },		
+            });
+          }
+        }
+        this.getPedidos(this.pagina, 10, this.asc, this.order);
+      }
+    }
   }
 
   getPedidos(desde:number, limit:number, orden:number, order:string){
@@ -102,19 +137,35 @@ export class VerPedidoComponent implements OnInit{
       'datoTipo': this.datoTipo,
       'datoBuscar': this.datoBuscar
     }
-    this.api.getPedidos(dato).subscribe({
-      next: (value:any) => {
-        if (value.ok) {          
-          this.Pedidos=value.pedidos      
-          this.total=value.total  
-          this.lastPage=Math.trunc(this.total/10)
-          this.loading=false;
-          this.pages=Array.from({ length: this.total/10 }, (_, i) => i + 1)
-        }
-      },
-      error: (err:any) => {
-      },		
-    });
+    if(this.taburl.includes('/panelAdmin/pedidos')){      
+      this.api4.getPedidosAdmin(dato).subscribe({
+        next: (value:any) => {
+          if (value.ok) {          
+            this.Pedidos=value.pedidos      
+            this.total=value.total  
+            this.lastPage=Math.trunc(this.total/10)
+            this.loading=false;
+            this.pages=Array.from({ length: this.total/10 }, (_, i) => i + 1)
+          }
+        },
+        error: (err:any) => {
+        },		
+      });
+    }else{
+      this.api.getPedidos(dato).subscribe({
+        next: (value:any) => {
+          if (value.ok) {          
+            this.Pedidos=value.pedidos      
+            this.total=value.total  
+            this.lastPage=Math.trunc(this.total/10)
+            this.loading=false;
+            this.pages=Array.from({ length: this.total/10 }, (_, i) => i + 1)
+          }
+        },
+        error: (err:any) => {
+        },		
+      });
+    }
   }
 
   paginacion(int:number){
@@ -130,7 +181,8 @@ export class VerPedidoComponent implements OnInit{
     this.oferta='';
     this.tab='pedido'
     this.Pedido=u    
-    this.location.go('verPedidos/'+this.Pedido.UUID); 
+    let tab= this.taburl.includes('/panelAdmin/pedidos') ? '/panelAdmin/pedidos/' :  'verPedidos/';
+    this.location.go(tab+this.Pedido.UUID); 
     this.getOferta();
   }
 
@@ -138,7 +190,8 @@ export class VerPedidoComponent implements OnInit{
     this.oferta='';
     this.tab='lista';
     this.Pedido={}
-    this.location.go('verPedidos');
+    let tab= this.taburl.includes('/panelAdmin/pedidos') ? '/panelAdmin/pedidos' :  'verPedidos';
+    this.location.go(tab);
     this.miOferta={} 
   }
 
@@ -210,21 +263,39 @@ export class VerPedidoComponent implements OnInit{
   }
 
   getOferta(){
-    let dato2={
-      'token': localStorage.getItem('token'),
-      'tipo': 1,
-      'pedido': this.Pedido.UUID,
-      'prestador': this.api2.getUUID()
+    if(this.taburl.includes('/panelAdmin/pedidos')){      
+      let dato2={
+        'token': localStorage.getItem('token'),
+        'tipo': 1,
+        'pedido': this.Pedido.UUID,
+      }
+      this.id=this.Pedido.UUID
+      this.api4.getOfertaPedidoAdmin(dato2).subscribe({
+        next: (value:any) => {
+          if (value.ok) {
+            this.miOferta=value.oferta[0]
+          }
+        },
+        error: (err:any) => {
+        },		
+      });
+    }else{
+      let dato2={
+        'token': localStorage.getItem('token'),
+        'tipo': 1,
+        'pedido': this.Pedido.UUID,
+        'prestador': this.api2.getUUID()
+      }
+      this.api.getOfertaPedido(dato2).subscribe({
+        next: (value:any) => {
+          if (value.ok) {
+            this.miOferta=value.oferta[0]
+          }
+        },
+        error: (err:any) => {
+        },		
+      });
     }
-    this.api.getOfertaPedido(dato2).subscribe({
-      next: (value:any) => {
-        if (value.ok) {
-          this.miOferta=value.oferta[0]
-        }
-      },
-      error: (err:any) => {
-      },		
-    });
   }
 
   seguimiento(flag:boolean){
