@@ -10,7 +10,11 @@
                             </div>
                             <div class="profile-info">
                                 <h1 class="profile-name">Crear Pedido</h1>
-                                <p class="profile-email">Los usuarios prestadores verán su pedido y crearan una oferta</p>
+                                @if(tab=='/panelAdmin/crearPedido'){
+                                    <p class="profile-email">Cree y asigne un pedido a un prestador existente</p>
+                                }@else {
+                                    <p class="profile-email">Los usuarios prestadores verán su pedido y crearan una oferta</p>
+                                }
                             </div>
                         </div>
                     </div>
@@ -96,6 +100,31 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if(tab=='/panelAdmin/crearPedido'){
+                                <div class="users-table">
+                                    <div class="form-row" style="gap: 0 !important;">
+                                        <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Prestador</div>
+                                        <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
+                                            <input id="prestador" name="prestador" type="text" class="form-input" placeholder="UUID prestador" min="0" [(ngModel)]="prestador"/>
+                                        </div>
+                                        <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Cantidad</div>
+                                        <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
+                                            <input id="oferta" name="oferta" type="number" class="form-input" placeholder="Oferta" min="0" [(ngModel)]="oferta"/>
+                                        </div>
+                                        <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Fecha</div>
+                                        <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr; justify-content:flex-start !important; padding: 0;">
+                                            <input id="fecha" name="fecha" type="date" class="form-input" [(ngModel)]="fecha"/>
+                                        </div>
+                                        <div class="table-header table-cell" style="grid-template-columns: 1fr; justify-content:flex-start !important;">Horarios entre</div>
+                                        <div class="table-row table-cell" style="border-bottom: 1px solid var(--color-gray-100) !important; grid-template-columns: 1fr 1fr; justify-content:flex-start !important; padding: 0;">
+                                            <input id="hora1" name="hora1" type="time" class="form-input" [(ngModel)]="hora1"/>
+                                            <input id="hora2" name="hora2" type="time" class="form-input" [(ngModel)]="hora2"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
                             <button class="btn btn-primary btn-full btn-lg" (click)="crearPedido()" [disabled]="disabled">{{text}}</button>
                         </span>
                     </div>

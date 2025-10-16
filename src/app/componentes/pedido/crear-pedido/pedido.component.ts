@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ClienteService } from '../../../servicios/cliente.service';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { Router } from '@angular/router';
+import { AdminService } from '../../../servicios/admin.service';
 
 @Component({
   selector: 'app-pedido',
   standalone: true,
   imports: [FormsModule, GoogleMapsModule],
   templateUrl: './pedido.component.html',
-  styleUrl: '../../user/user.component.css'
+  styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
 })
 export class PedidoComponent {
   datosPedido:Pedido= Object.assign({}, pedidosData);
@@ -28,8 +30,17 @@ export class PedidoComponent {
     streetViewControl: false,
     mapTypeControl: false,
   };
+  tab:string='';
+  oferta:string='';
+  miOferta:any={}
+  fecha:string='';
+  hora1:string=''
+  hora2:string=''
+  prestador:string='';
 
-  constructor(private api:ClienteService){}
+  constructor(private api:ClienteService, private router: Router, private api2:AdminService){
+    this.tab=router.url
+  }
 
   onMapClick(event: google.maps.MapMouseEvent,campo:any) {
     if (event.latLng) {
@@ -106,29 +117,68 @@ export class PedidoComponent {
     }
 
     if(flag){
-      let dato={
-        'pedido': this.datosPedido,
-        'token': localStorage.getItem('token'),
-        'tipo': 1
-      }
+      if(this.tab=='/panelAdmin/crearPedido'){
+        if(this.hora1>this.hora2){
+              Swal.fire({title:'Horarios incorrectos', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              return;
+            }
+            if(this.oferta=='' || this.oferta=='' || this.fecha=='' || this.hora1=='' || this.hora2==''){
+              Swal.fire({title:'Complete todos los campo', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+            }else{
+              let dato={
+                  'token': localStorage.getItem('token'),
+                  'Tipo': 1,
+                  'oferta': this.oferta,
+                  'fecha': this.fecha,
+                  'hora1': this.hora1,
+                  'hora2': this.hora2,
+                  'pedido': this.datosPedido,
+                  'prestador': this.prestador
+                }
 
-      this.api.crearPedido(dato).subscribe({
-        next: (value) => {
-          if(value.ok){
-            Swal.fire({title:'Pedido creado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
-            this.datosPedido= Object.assign({}, pedidosData);
-          }else{
+                this.api2.crearPedidoAdmin(dato).subscribe({
+                  next: (value) => {
+                    if(value.ok){
+                      Swal.fire({title:'Pedido creado con éxito', text:'https://ruta202.com.ar/verPedidos/'+value.pedido, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                      this.datosPedido= Object.assign({}, pedidosData);
+                    }else{
+                      Swal.fire({title:'Ocurrió un error', text:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                    }
+                    this.disabled=false;
+                    this.text='Crear Pedido'
+                  },
+                  error: (err) => {
+                    this.disabled=false;
+                    this.text='Crear Pedido'
+                    Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                  },
+                })
+            }
+      }else{
+        let dato={
+          'pedido': this.datosPedido,
+          'token': localStorage.getItem('token'),
+          'tipo': 1
+        }
+
+        this.api.crearPedido(dato).subscribe({
+          next: (value) => {
+            if(value.ok){
+              Swal.fire({title:'Pedido creado con éxito', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+              this.datosPedido= Object.assign({}, pedidosData);
+            }else{
+              Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+            }
+            this.disabled=false;
+            this.text='Crear Pedido'
+          },
+          error: (err) => {
+            this.disabled=false;
+            this.text='Crear Pedido'
             Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
-          }
-          this.disabled=false;
-          this.text='Crear Pedido'
-        },
-        error: (err) => {
-          this.disabled=false;
-          this.text='Crear Pedido'
-          Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
-        },
-      })
+          },
+        })
+      }
     }
   }
 }

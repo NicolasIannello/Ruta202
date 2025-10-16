@@ -80,4 +80,7 @@ export class AdminService {
   borrarUser(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/borrarUser', dato, {'headers':this.header})
   }
+  crearPedidoAdmin(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/crearPedidoAdmin', dato, {'headers':this.header})
+  }
 }
