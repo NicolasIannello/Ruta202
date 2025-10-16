@@ -27,6 +27,7 @@ export class VerPedidoComponent implements OnInit{
   datoBuscar:string='';
   Pedidos:any=[]
   Pedido:any={}
+  Orden:any={}
   total:number=0
   lastPage:number=0
   loading:boolean=true;
@@ -75,6 +76,7 @@ export class VerPedidoComponent implements OnInit{
               next: (value:any) => {
                 if (value.ok) {
                   this.Pedido=value.pedido
+                  this.Orden=value.ordenDB
                   this.getPDF();
                   this.getOferta();
                 }

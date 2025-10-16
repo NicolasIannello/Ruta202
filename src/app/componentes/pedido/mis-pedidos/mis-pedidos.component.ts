@@ -27,6 +27,7 @@ export class MisPedidosComponent implements OnInit{
   loading:boolean=true;
   pagina:number=0;
   Pedido:any={}
+  Orden:any={}
   asc:number=1;
   order:string='_id'
   datoTipo:string='tipo'
@@ -73,6 +74,7 @@ export class MisPedidosComponent implements OnInit{
             this.api3.getPedido(dato).subscribe({
               next: (value:any) => {
                 if (value.ok) {
+                  this.Orden=value.ordenDB
                   this.verPedido(value.pedido)
                 }
               },
