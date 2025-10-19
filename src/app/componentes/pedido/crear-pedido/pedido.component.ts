@@ -54,26 +54,57 @@ export class PedidoComponent {
         'tipo': 1
       }
 
-      this.api.geocodeReverse(dato).subscribe({
+      if(this.tab=='/panelAdmin/crearPedido'){
+        this.api2.geocodeReverse(dato).subscribe({
+          next: (value) => {
+            if(campo=='retiro') this.datosPedido.lugarRetiro=value.data.results[0].formatted_address
+            if(campo=='entrega') this.datosPedido.lugarEntrega=value.data.results[0].formatted_address
+          },
+          error: (err) => {
+            Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          },
+        })
+      }else{
+        this.api.geocodeReverse(dato).subscribe({
+          next: (value) => {
+            if(campo=='retiro') this.datosPedido.lugarRetiro=value.data.results[0].formatted_address
+            if(campo=='entrega') this.datosPedido.lugarEntrega=value.data.results[0].formatted_address
+          },
+          error: (err) => {
+            Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          },
+        })
+      }
+    }
+  }
+
+  geocode(campo:any){
+    let dato = {
+      'lugar': campo=='retiro' ? this.datosPedido.lugarRetiro : this.datosPedido.lugarEntrega,
+      'token': localStorage.getItem('token'),
+      'tipo': 1
+    }
+    
+    if(this.tab=='/panelAdmin/crearPedido'){
+      this.api2.geocode(dato).subscribe({
         next: (value) => {
-          if(campo=='retiro') this.datosPedido.lugarRetiro=value.data.results[0].formatted_address
-          if(campo=='entrega') this.datosPedido.lugarEntrega=value.data.results[0].formatted_address
+          if(campo=='retiro'){
+            this.datosPedido.lugarRetiro=value.data.results[0].formatted_address;
+            this.datosPedido.lugarRetiroLatLng=value.data.results[0].geometry.location;
+            this.center=value.data.results[0].geometry.location;
+            this.zoom=16;
+          }else{
+            this.datosPedido.lugarEntrega=value.data.results[0].formatted_address;
+            this.datosPedido.lugarEntregaLatLng=value.data.results[0].geometry.location;
+            this.center2=value.data.results[0].geometry.location;
+            this.zoom2=16;
+          }
         },
         error: (err) => {
           Swal.fire({title:'Ocurrió un error', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
         },
       })
-    }
-  }
-
-  geocode(campo:any){
-    if(this.datosPedido.lugarRetiro!=''){
-      let dato = {
-        'lugar': campo=='retiro' ? this.datosPedido.lugarRetiro : this.datosPedido.lugarEntrega,
-        'token': localStorage.getItem('token'),
-        'tipo': 1
-      }
-
+    }else{
       this.api.geocode(dato).subscribe({
         next: (value) => {
           if(campo=='retiro'){

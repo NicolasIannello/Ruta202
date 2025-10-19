@@ -92,4 +92,10 @@ export class AdminService {
   getPedidoAdmin(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/verPedidoAdmin', dato, {'headers':this.header})
   }
+  geocode(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/geocodeAdmin', dato, {'headers':this.header})
+  }
+  geocodeReverse(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/geocodeReverseAdmin', dato, {'headers':this.header})
+  }
 }
