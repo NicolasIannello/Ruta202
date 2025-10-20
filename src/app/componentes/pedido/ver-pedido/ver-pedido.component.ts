@@ -54,9 +54,11 @@ export class VerPedidoComponent implements OnInit{
   ordenRetiro:any=null;
   taburl:string='';
   id:string=''
+  tipo:number=0;
 
   constructor(private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService, private router: Router, private api4:AdminService){
     this.taburl=router.url
+    if(this.taburl.includes('/pedido/'))this.tab='pedido'
   }
 
   ngOnInit(): void {
@@ -68,8 +70,8 @@ export class VerPedidoComponent implements OnInit{
 
     this.api2.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
       if(isPlatformBrowser(this.platformId)){
+        let id = this.ruta.snapshot.paramMap.get('id')
         if(localStorage.getItem('token')){
-          let id = this.ruta.snapshot.paramMap.get('id')
           if(id){
             this.tab='pedido'
             let dato={
@@ -91,6 +93,23 @@ export class VerPedidoComponent implements OnInit{
             });
           }
           this.getPedidos(this.pagina, 10, this.asc, this.order);
+        }else{
+            this.tipo = Number(this.ruta.snapshot.paramMap.get('tipo'))
+            let dato={
+              'id': id
+            }
+            this.api2.getPedido(dato).subscribe({
+              next: (value:any) => {
+                if (value.ok) {
+                  this.Pedido=value.pedido
+                  this.Orden=value.ordenDB
+                  this.getPDF();
+                  this.getOferta();
+                }
+              },
+              error: (err:any) => {
+              },		
+            });
         }
       }
     });
@@ -279,6 +298,19 @@ export class VerPedidoComponent implements OnInit{
         error: (err:any) => {
         },		
       });
+    }else if(this.taburl.includes('/pedido/')){
+      let dato2={
+        'pedido': this.Pedido.UUID,
+      }
+      this.api2.getOfertaPedido(dato2).subscribe({
+        next: (value:any) => {
+          if (value.ok) {
+            this.miOferta=value.oferta[0]
+          }
+        },
+        error: (err:any) => {
+        },		
+      });
     }else{
       let dato2={
         'token': localStorage.getItem('token'),
@@ -386,7 +418,7 @@ export class VerPedidoComponent implements OnInit{
 	}
 
   subirOrden(){    
-    if(this.ordenRetiro!=null){
+    if(this.ordenRetiro!=null && !this.taburl.includes('/pedido/')){
       const formData = new FormData();
 
       formData.append('token', localStorage.getItem('token')!)
@@ -405,6 +437,23 @@ export class VerPedidoComponent implements OnInit{
       }, (err)=>{				
         Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
       });
+    }else if(this.ordenRetiro!=null && this.taburl.includes('/pedido/')){
+      const formData = new FormData();
+
+      formData.append('orden', this.ordenRetiro[0])
+      formData.append('pedido', this.Pedido.UUID)
+
+      this.api2.subirOrden(formData).then(resp =>{
+        if(resp.ok){
+          Swal.fire({title:'Orden de retiro cargado con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then(()=>{
+            window.location.reload();
+          });
+        }else{
+          Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+        }
+      }, (err)=>{				
+        Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+      });
     }else{
       Swal.fire({title:'Seleccione un archivo pdf',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
     }
@@ -412,8 +461,14 @@ export class VerPedidoComponent implements OnInit{
   }
 
   getPDF(){
-    if(this.Pedido.ordenRetiro!=''){
+    if(this.Pedido.ordenRetiro!='' && !this.taburl.includes('/pedido/')){
       this.api3.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
+        if(resp!=false){
+          this.pdf=this.transform(resp.url)
+        }
+      })
+    }else if(this.Pedido.ordenRetiro!='' && this.taburl.includes('/pedido/')){
+      this.api3.getPDF2(this.Pedido.ordenRetiro).then(resp=>{
         if(resp!=false){
           this.pdf=this.transform(resp.url)
         }

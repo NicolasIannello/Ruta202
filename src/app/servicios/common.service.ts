@@ -90,6 +90,18 @@ export class CommonService {
       return false;
     }
   }
+  async getPDF2(orden:string){    
+    try {
+      const resp = await fetch(base_url+'/imagenes/pdf2?orden='+orden,{
+        method: 'GET', 
+        headers: {'Acces-Control-Allow-Origin':'*'},
+      });
+
+      return resp;
+    } catch (error) {
+      return false;
+    }
+  }
   mensaje(dato:any):Observable<any>{
     return this.http.post(base_url+'/usuarios/mensaje', dato, {'headers':this.header})
   }

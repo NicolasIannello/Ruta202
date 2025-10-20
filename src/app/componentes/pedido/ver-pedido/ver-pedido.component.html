@@ -13,23 +13,29 @@
                                     <h1 class="profile-name">Pedidos</h1>
                                     <p class="profile-email">Listado de pedidos creados</p>
                                 }@else{
-                                    <h1 class="profile-name">Pedidos Disponibles</h1>
-                                    <p class="profile-email">Listado de pedidos disponibles</p>
+                                    @if(!this.taburl.includes('/pedido/')){
+                                        <h1 class="profile-name">Pedidos Disponibles</h1>
+                                        <p class="profile-email">Listado de pedidos disponibles</p>
+                                    }@else {
+                                        <h1 class="profile-name">Pedido</h1>
+                                    }
                                 }
                             </div>
                         </div>
                     </div>
 
-                    <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="verLista()">
-                            <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
-                            <span>Listado</span>
-                        </button>
-                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'; oferta=''">
-                            <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
-                            <span>Pedido</span>
-                        </button>
-                    </div>
+                    @if(!this.taburl.includes('/pedido/')){
+                        <div class="profile-tabs">
+                            <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="verLista()">
+                                <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
+                                <span>Listado</span>
+                            </button>
+                            <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'; oferta=''">
+                                <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
+                                <span>Pedido</span>
+                            </button>
+                        </div>
+                    }
 
                     <div class="profile-content">
                         <span class="profile-form">
@@ -216,7 +222,7 @@
                                                 @if(Orden.firma.fecha){
                                                     <h3 class="form-section-title">Orden de retiro firmada el: {{Orden.firma.fecha}}</h3>
                                                 }
-                                            }@else if(miOferta.estado=='Aceptada' && !this.taburl.includes('/panelAdmin/pedidos')){
+                                            }@else if(miOferta.estado=='Aceptada' && !this.taburl.includes('/panelAdmin/pedidos') && this.tipo!=1){
                                                 <h3 class="form-section-title">Orden de retiro:</h3>
                                                 @if (pdf!=null){
                                                     <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
@@ -224,7 +230,7 @@
                                                 <input type="file" name="pdfTC" id="pdfTC" class="btn btn-full btn-lg" #pdfTC accept=".pdf," (change)="showPDF($event)">
                                                 <button class="btn btn-primary btn-full btn-lg" (click)="subirOrden()">Subir orden de retiro</button>
                                             }
-                                            @if(hoy==miOferta.fecha && miOferta.estado=='Aceptada' && !Pedido.selloPrestador && !this.taburl.includes('/panelAdmin/pedidos')){
+                                            @if(hoy==miOferta.fecha && miOferta.estado=='Aceptada' && !Pedido.selloPrestador && !this.taburl.includes('/panelAdmin/pedidos') && this.tipo!=1){
                                                 <h3 class="form-section-title">Seguimiento:</h3>
                                                 <button class="btn btn-primary btn-full btn-lg" (click)="seguimiento(!flagloop)">{{seguimientoText}}</button>
                                                 <google-map height="600px" width="100%" [center]="this.latlng" [zoom]="15" [options]="mapOptions">
@@ -234,7 +240,9 @@
                                                         <map-marker [position]="this.latlng" title="Tu" label="Tu"></map-marker>
                                                     }
                                                 </google-map>
-                                                <button class="btn btn-primary btn-full btn-lg" (click)="terminar()">{{terminarText}}</button>
+                                                @if(this.tipo==0){
+                                                    <button class="btn btn-primary btn-full btn-lg" (click)="terminar()">{{terminarText}}</button>
+                                                }
                                             }
                                             @if(Pedido.selloPrestador && !Pedido.selloCliente && miOferta.estado=='Aceptada' && !this.taburl.includes('/panelAdmin/pedidos')){
                                                 <h3 class="form-section-title">El Cliente no ha finalizado el pedido</h3>
