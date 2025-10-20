@@ -54,7 +54,6 @@ export class VerPedidoComponent implements OnInit{
   ordenRetiro:any=null;
   taburl:string='';
   id:string=''
-  tipo:number=0;
 
   constructor(private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService, private router: Router, private api4:AdminService){
     this.taburl=router.url
@@ -94,7 +93,6 @@ export class VerPedidoComponent implements OnInit{
           }
           this.getPedidos(this.pagina, 10, this.asc, this.order);
         }else{
-            this.tipo = Number(this.ruta.snapshot.paramMap.get('tipo'))
             let dato={
               'id': id
             }
