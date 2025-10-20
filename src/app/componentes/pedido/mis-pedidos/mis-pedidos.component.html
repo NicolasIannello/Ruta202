@@ -9,29 +9,37 @@
                                 <i class="fa-solid fa-clipboard-list" style="font-size: xx-large; color: var(--color-white)"></i>
                             </div>
                             <div class="profile-info">
-                                <h1 class="profile-name">Visualiza tus pedidos y su información relacionada</h1>
-                                <p class="profile-email">{{empresa}}</p>
-                                <p class="profile-member-since">{{mail}}</p>
+                                @if(this.taburl.includes('/pedido/')){
+                                    <h1 class="profile-name">Pedido</h1>
+                                }@else {
+                                    <h1 class="profile-name">Visualiza tus pedidos y su información relacionada</h1>
+                                    <p class="profile-email">{{empresa}}</p>
+                                    <p class="profile-member-since">{{mail}}</p>
+                                }
                             </div>
                         </div>
+                        @if(!this.taburl.includes('/pedido/')){
                             <div class="profile-actions">
                                 <button class="btn btn-primary" routerLink="/crearPedido">
                                     <i class="fa-solid fa-pen-to-square" style="width: 2rem;"></i>Crear Pedido
                                 </button>
                             </div>
+                        }
                     </div>
 
-                    <div class="profile-tabs">
-                        <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista'; loading2=true; Ofertas=[]; Pedido=[]; disconnect()">
-                            <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
-                            <span>Mis Pedidos</span>
-                        </button>
-                        <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'">
-                            <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
-                            <span>Información del pedido</span>
-                        </button>
-                    </div>
-
+                    @if(!this.taburl.includes('/pedido/')){
+                        <div class="profile-tabs">
+                            <button class="profile-tab" [class]="tab=='lista' ? 'active' : ''" style="min-width: 50%;" (click)="tab='lista'; loading2=true; Ofertas=[]; Pedido=[]; disconnect()">
+                                <i class="fa-solid fa-rectangle-list" style="width: 2rem;"></i>
+                                <span>Mis Pedidos</span>
+                            </button>
+                            <button class="profile-tab" [class]="tab=='pedido' ? 'active' : ''" style="min-width: 50%;" (click)="tab='pedido'">
+                                <i class="fa-solid fa-clipboard-list" style="width: 2rem;"></i>
+                                <span>Información del pedido</span>
+                            </button>
+                        </div>
+                    }
+                    
                     <div class="profile-content">
                         <span class="profile-form">
                             <div class="form-section">
@@ -191,9 +199,11 @@
                                                 <div class="table-cell">Cantidad</div>
                                                 <div class="table-cell">Fecha</div>
                                                 <div class="table-cell">Horarios</div>
-                                                <div class="table-cell">Prestador</div>
-                                                <div class="table-cell">Email</div>
-                                                <div class="table-cell">Celular</div>
+                                                @if(!this.taburl.includes('/pedido/')){
+                                                    <div class="table-cell">Prestador</div>
+                                                    <div class="table-cell">Email</div>
+                                                    <div class="table-cell">Celular</div>
+                                                }
                                                 @if (Pedido.disponible){ 
                                                     <div class="table-cell">Acciones</div>
                                                 }
@@ -203,9 +213,11 @@
                                                     <div class="table-cell">{{o.oferta}}</div>
                                                     <div class="table-cell">{{o.fecha}}</div>
                                                     <div class="table-cell">{{o.hora1+' - '+o.hora2}}</div>
-                                                    <div class="table-cell">{{o.dato_prestador.Empresa}}</div>
-                                                    <div class="table-cell">{{o.dato_prestador.EmailResponsable}}</div>
-                                                    <div class="table-cell">{{o.dato_prestador.Celular}}</div>
+                                                    @if(!this.taburl.includes('/pedido/')){
+                                                        <div class="table-cell">{{o.dato_prestador.Empresa}}</div>
+                                                        <div class="table-cell">{{o.dato_prestador.EmailResponsable}}</div>
+                                                        <div class="table-cell">{{o.dato_prestador.Celular}}</div>
+                                                    }
                                                     @if (Pedido.disponible){ 
                                                         <div class="table-cell">
                                                             <div class="action-buttons">
@@ -242,7 +254,9 @@
                                                         <map-marker [position]="this.latlng" title="Tu" label="Pres."></map-marker>
                                                     }
                                                 </google-map>
-                                                <button class="btn btn-primary btn-full btn-lg" (click)="terminar()">{{terminarText}}</button>
+                                                @if(!this.taburl.includes('/pedido/')){
+                                                    <button class="btn btn-primary btn-full btn-lg" (click)="terminar()">{{terminarText}}</button>
+                                                }
                                             }
                                             @if(Pedido.selloCliente && !Pedido.selloPrestador){
                                                 <h3 class="form-section-title">El Prestador no ha finalizado el pedido</h3>

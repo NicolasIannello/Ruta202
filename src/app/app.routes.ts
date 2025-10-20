@@ -36,7 +36,8 @@ export const routes: Routes = [
         { path: 'misPedidos', component: MisPedidosComponent, canActivate: [loggedClienteGuard] },
         { path: 'misPedidos/:id', component: MisPedidosComponent, canActivate: [loggedClienteGuard] },
         { path: 'misOfertas', component: OfertasComponent, canActivate: [loggedPrestadorGuard] },
-        { path: 'pedido/:id/:tipo', component: VerPedidoComponent, canActivate: [loggedOutGuard] },
+        { path: 'pedido/:id/2', component: VerPedidoComponent, canActivate: [loggedOutGuard] },
+        { path: 'pedido/:id/1', component: MisPedidosComponent, canActivate: [loggedOutGuard] },
     ] },
     { path: 'panelAdmin', component: AdminComponent , children: [
         { path: '', component: LoginAdminComponent, canActivate: [loggedOutAdminGuard] },

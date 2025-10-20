@@ -128,4 +128,21 @@ export class UsuariosService{
       return false;
     }
   }
+  getOfertas(dato:any):Observable<any>{
+    return this.http.post(base_url+'/usuarios/getOfertas', dato, {'headers':this.header})
+  }
+  async firmar(dato:any){
+    try {
+      const resp = await fetch(base_url+'/usuarios/firmar',{
+        method: 'POST', 
+        headers: {'Acces-Control-Allow-Origin':'*'},
+        body: dato
+      });
+
+      const data = await resp.json();
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }
 }

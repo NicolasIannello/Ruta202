@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@
 import { UsuariosService } from '../../../servicios/usuarios.service';
 import { filter, first } from 'rxjs';
 import { ClienteService } from '../../../servicios/cliente.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { SocketService } from '../../../servicios/socket.service';
@@ -50,8 +50,12 @@ export class MisPedidosComponent implements OnInit{
   @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   private pad!: SignaturePad;
   firma:boolean=false;
+  taburl:string='';
 
-  constructor(private sanitizer: DomSanitizer, private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, public api4:CommonService) {}
+  constructor(private sanitizer: DomSanitizer, private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, public api4:CommonService, private router: Router) {
+    this.taburl=router.url
+    if(this.taburl.includes('/pedido/'))this.tab='pedido'
+  }
 
   ngOnInit(): void {
     let date_time=new Date();
@@ -62,8 +66,8 @@ export class MisPedidosComponent implements OnInit{
 
     this.api.ready$.pipe(filter(isReady => isReady),first()).subscribe(() => {
       if(isPlatformBrowser(this.platformId)){
+        let id = this.ruta.snapshot.paramMap.get('id')
         if(localStorage.getItem('token')){
-          let id = this.ruta.snapshot.paramMap.get('id')
           if(id){
             this.tab='pedido'
             let dato={
@@ -82,11 +86,27 @@ export class MisPedidosComponent implements OnInit{
               },		
             });
           }
+        }else{          
+          let dato={
+            'id': id
+          }
+          this.api.getPedido(dato).subscribe({
+            next: (value:any) => {
+              if (value.ok) {
+                this.Orden=value.ordenDB
+                this.verPedido(value.pedido)
+              }
+            },
+            error: (err:any) => {
+            },		
+          });
         }
       }
+      if(localStorage.getItem('token')){
       this.empresa=this.api.getEmpresa()
       this.mail=this.api.getEmail()
       this.getPedidos(this.pagina, 10, this.asc, this.order);
+      }
     });
   }
 
@@ -112,24 +132,43 @@ export class MisPedidosComponent implements OnInit{
       // this.pad.toDataURL(); // save image as PNG
       // this.pad.toDataURL("image/jpeg"); // save image as JPEG
 
-      const formData = new FormData();
+      if(this.taburl.includes('/pedido/')){
+        const formData = new FormData();
 
-      formData.append('token', localStorage.getItem('token')!)
-      formData.append('tipo', '1')
-      formData.append('pedido', this.Pedido.UUID)
-      formData.append('firma', dataUrl)
+        formData.append('pedido', this.Pedido.UUID)
+        formData.append('firma', dataUrl)
 
-      this.api2.firmar(formData).then(resp =>{
-        if(resp.ok){
-          Swal.fire({title:'Orden de retiro firmada con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then( () => {
-            window.location.reload()
-          });
-        }else{
-          Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
-        }
-      }, (err)=>{				
-        Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
-      });
+        this.api.firmar(formData).then(resp =>{
+          if(resp.ok){
+            Swal.fire({title:'Orden de retiro firmada con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then( () => {
+              window.location.reload()
+            });
+          }else{
+            Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          }
+        }, (err)=>{				
+          Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+        });
+      }else{
+        const formData = new FormData();
+
+        formData.append('token', localStorage.getItem('token')!)
+        formData.append('tipo', '1')
+        formData.append('pedido', this.Pedido.UUID)
+        formData.append('firma', dataUrl)
+
+        this.api2.firmar(formData).then(resp =>{
+          if(resp.ok){
+            Swal.fire({title:'Orden de retiro firmada con éxito',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'}).then( () => {
+              window.location.reload()
+            });
+          }else{
+            Swal.fire({title:resp.msg,confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+          }
+        }, (err)=>{				
+          Swal.fire({title:'Ocurrió un error',confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'});
+        });
+      }
     }
   }
 
@@ -143,34 +182,61 @@ export class MisPedidosComponent implements OnInit{
   }
 
   verPedido(u:any){
-    this.tab='pedido'
-    this.Pedido=u
-    this.location.go('misPedidos/'+this.Pedido.UUID); 
-    let dato={
-      'token': localStorage.getItem('token'),
-      'tipo': 1,
-      '_id': this.Pedido._id
-    }
-    this.getPDF()
-    this.api2.getOfertas(dato).subscribe({
-      next: (value:any) => {
-        if (value.ok) {
-          this.loading2=false;
-          this.Ofertas=value.ofertasDB
-          
-          if(!this.Pedido.disponible && this.hoy==this.Ofertas[0].fecha && this.Ofertas[0].estado=='Aceptada'){
-            this.socketIo.connect()
-            this.socketIo.onMessage().subscribe((message:any) => {      
-              this.act=message.last;
-              this.latlng= { lat:message.lat , lng: message.lng}
-            });
-            this.socketIo.sendMessage(this.Pedido.UUID);
+    if(this.taburl.includes('/pedido/')){
+      this.Pedido=u
+      let dato={
+        '_id': this.Pedido._id
+      }
+      this.getPDF()
+      this.api.getOfertas(dato).subscribe({
+        next: (value:any) => {
+          if (value.ok) {
+            this.loading2=false;
+            this.Ofertas=value.ofertasDB
+            
+            if(!this.Pedido.disponible && this.hoy==this.Ofertas[0].fecha && this.Ofertas[0].estado=='Aceptada'){
+              this.socketIo.connect()
+              this.socketIo.onMessage().subscribe((message:any) => {      
+                this.act=message.last;
+                this.latlng= { lat:message.lat , lng: message.lng}
+              });
+              this.socketIo.sendMessage(this.Pedido.UUID);
+            }
           }
-        }
-      },
-      error: (err:any) => {
-      },		
-    });
+        },
+        error: (err:any) => {
+        },		
+      });
+    }else{
+      this.tab='pedido'
+      this.Pedido=u
+      this.location.go('misPedidos/'+this.Pedido.UUID); 
+      let dato={
+        'token': localStorage.getItem('token'),
+        'tipo': 1,
+        '_id': this.Pedido._id
+      }
+      this.getPDF()
+      this.api2.getOfertas(dato).subscribe({
+        next: (value:any) => {
+          if (value.ok) {
+            this.loading2=false;
+            this.Ofertas=value.ofertasDB
+            
+            if(!this.Pedido.disponible && this.hoy==this.Ofertas[0].fecha && this.Ofertas[0].estado=='Aceptada'){
+              this.socketIo.connect()
+              this.socketIo.onMessage().subscribe((message:any) => {      
+                this.act=message.last;
+                this.latlng= { lat:message.lat , lng: message.lng}
+              });
+              this.socketIo.sendMessage(this.Pedido.UUID);
+            }
+          }
+        },
+        error: (err:any) => {
+        },		
+      });
+    }
   }
 
   disconnect(){
@@ -348,8 +414,14 @@ export class MisPedidosComponent implements OnInit{
 	}
 
   getPDF(){
-    if(this.Pedido.ordenRetiro!=''){
+    if(this.Pedido.ordenRetiro!='' && !this.taburl.includes('/pedido/')){
       this.api4.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
+        if(resp!=false){
+          this.pdf=this.transform(resp.url)
+        }
+      })
+    }else if(this.Pedido.ordenRetiro!='' && this.taburl.includes('/pedido/')){
+      this.api4.getPDF2(this.Pedido.ordenRetiro).then(resp=>{
         if(resp!=false){
           this.pdf=this.transform(resp.url)
         }
