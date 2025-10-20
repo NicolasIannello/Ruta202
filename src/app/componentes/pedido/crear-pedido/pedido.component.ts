@@ -36,7 +36,6 @@ export class PedidoComponent {
   fecha:string='';
   hora1:string=''
   hora2:string=''
-  prestador:string='';
 
   constructor(private api:ClienteService, private router: Router, private api2:AdminService){
     this.tab=router.url
@@ -164,13 +163,12 @@ export class PedidoComponent {
                   'hora1': this.hora1,
                   'hora2': this.hora2,
                   'pedido': this.datosPedido,
-                  'prestador': this.prestador
                 }
 
                 this.api2.crearPedidoAdmin(dato).subscribe({
                   next: (value) => {
                     if(value.ok){
-                      Swal.fire({title:'Pedido creado con éxito', text:'https://ruta202.com.ar/verPedidos/'+value.pedido, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
+                      Swal.fire({title:'Pedido creado con éxito', text:'Link prestador: https://ruta202.com.ar/pedido/'+value.pedido+'/2\nLink cliente: https://ruta202.com.ar/pedido/'+value.pedido+'/1', confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
                       this.datosPedido= Object.assign({}, pedidosData);
                     }else{
                       Swal.fire({title:'Ocurrió un error', text:value.msg, confirmButtonText:'Aceptar',confirmButtonColor:'#ea580c'})
