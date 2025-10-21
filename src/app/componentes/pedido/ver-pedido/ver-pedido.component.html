@@ -216,16 +216,22 @@
                                             @if(Pedido.selloCliente && !Pedido.selloPrestador && miOferta.estado=='Aceptada' && !this.taburl.includes('/panelAdmin/pedidos')){
                                                 <h3 class="form-section-title">El Cliente ha finalizado el pedido</h3>
                                             }
-                                            @if(Pedido.ordenRetiro!='' && miOferta.estado=='Aceptada' && !this.taburl.includes('/panelAdmin/pedidos')){
-                                                <h3 class="form-section-title">Orden de retiro:</h3>
-                                                <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
+                                            @if(Pedido.ordenRetiro!='' && miOferta.estado=='Aceptada'){
+                                                <h3 class="form-section-title">Orden de retiro:hola</h3>
+                                                <!-- <embed width="100%" height="450px" [src]="pdf" type='application/pdf'> -->
+                                                <ngx-extended-pdf-viewer width="100%" height="450px" [src]="pdf2"
+                                                [showCommentEditor]="false" [showDrawEditor]="false" [showHighlightEditor]="false"
+                                                [showTextEditor]="false" [showFindMessages]="false" [showStampEditor]="false"></ngx-extended-pdf-viewer>
                                                 @if(Orden.firma.fecha){
                                                     <h3 class="form-section-title">Orden de retiro firmada el: {{Orden.firma.fecha}}</h3>
                                                 }
                                             }@else if(miOferta.estado=='Aceptada'){
-                                                <h3 class="form-section-title">Orden de retiro:</h3>
-                                                @if (pdf!=null){
-                                                    <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
+                                                <h3 class="form-section-title">Orden de retiro:asd</h3>
+                                                @if (pdf2!=''){
+                                                    <!-- <embed width="100%" height="450px" [src]="pdf" type='application/pdf'> -->
+                                                    <ngx-extended-pdf-viewer width="100%" height="450px" [src]="pdf2"
+                                                    [showCommentEditor]="false" [showDrawEditor]="false" [showHighlightEditor]="false"
+                                                    [showTextEditor]="false" [showFindMessages]="false" [showStampEditor]="false"></ngx-extended-pdf-viewer>
                                                 }
                                                 @if(!this.taburl.includes('/panelAdmin/pedidos')){
                                                     <input type="file" name="pdfTC" id="pdfTC" class="btn btn-full btn-lg" #pdfTC accept=".pdf," (change)="showPDF($event)">

@@ -11,11 +11,15 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonService } from '../../../servicios/common.service';
 import { AdminService } from '../../../servicios/admin.service';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { HttpClient } from '@angular/common/http';
+
+type PdfInput = string | ArrayBuffer | Blob | Uint8Array| URL;
 
 @Component({
   selector: 'app-ver-pedido',
   standalone: true,
-  imports: [FormsModule, GoogleMapsModule],
+  imports: [FormsModule, GoogleMapsModule, NgxExtendedPdfViewerModule],
   templateUrl: './ver-pedido.component.html',
   styleUrls: ['../../user/user.component.css','../../admin/admin.component.css']
 })
@@ -51,11 +55,12 @@ export class VerPedidoComponent implements OnInit{
   };
   terminarText:string='Dar como terminado';
   pdf:SafeResourceUrl|null=null;
+  pdf2:PdfInput='';
   ordenRetiro:any=null;
   taburl:string='';
   id:string=''
 
-  constructor(private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService, private router: Router, private api4:AdminService){
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer, private api:PrestadorService, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, private location: Location, private api2:UsuariosService, private api3:CommonService, private router: Router, private api4:AdminService){
     this.taburl=router.url
     if(this.taburl.includes('/pedido/'))this.tab='pedido'
   }
@@ -124,7 +129,7 @@ export class VerPedidoComponent implements OnInit{
               'tipo': 1,
               'id': id
             }
-            this.api4.getPedidoAdmin(dato).subscribe({
+            this.api2.getPedido(dato).subscribe({
               next: (value:any) => {
                 if (value.ok) {
                   this.Pedido=value.pedido
@@ -136,6 +141,18 @@ export class VerPedidoComponent implements OnInit{
               error: (err:any) => {
               },		
             });
+            // this.api4.getPedidoAdmin(dato).subscribe({
+            //   next: (value:any) => {
+            //     if (value.ok) {
+            //       this.Pedido=value.pedido
+            //       this.Orden=value.ordenDB
+            //       this.getPDF();
+            //       this.getOferta();
+            //     }
+            //   },
+            //   error: (err:any) => {
+            //   },		
+            // });
           }
         }
         this.getPedidos(this.pagina, 10, this.asc, this.order);
@@ -403,10 +420,23 @@ export class VerPedidoComponent implements OnInit{
 
   showPDF(event: Event){
     this.pdf=null;
+    this.pdf2='';
     this.ordenRetiro=null;
     const element = event.currentTarget as HTMLInputElement;    
     if(element.files?.length!=undefined && element.files?.length>0){ 
-      this.pdf= this.transform(URL.createObjectURL(element.files[0]));
+      //this.pdf= this.transform(URL.createObjectURL(element.files[0]));
+      this.http.get(URL.createObjectURL(element.files[0]), {
+        responseType: 'blob',
+        withCredentials: false
+      }).subscribe({
+        next: (blob) => {
+          if (blob.type && !blob.type.includes('pdf')) return;
+          this.pdf2 = blob;
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      });
       this.ordenRetiro=element.files;
     }    
 	}
@@ -462,13 +492,37 @@ export class VerPedidoComponent implements OnInit{
     if(this.Pedido.ordenRetiro!='' && !this.taburl.includes('/pedido/') && !this.taburl.includes('/panelAdmin/pedidos')){
       this.api3.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
         if(resp!=false){
-          this.pdf=this.transform(resp.url)
+          //this.pdf=this.transform(resp.url)
+          this.http.get(resp.url, {
+            responseType: 'blob',
+            withCredentials: false
+          }).subscribe({
+            next: (blob) => {
+              if (blob.type && !blob.type.includes('pdf')) return;
+              this.pdf2 = blob;
+            },
+            error: (e) => {
+              console.error(e);
+            }
+          });
         }
       })
     }else if(this.Pedido.ordenRetiro!='' && (this.taburl.includes('/pedido/') || this.taburl.includes('/panelAdmin/pedidos'))){
       this.api3.getPDF2(this.Pedido.ordenRetiro).then(resp=>{
         if(resp!=false){
-          this.pdf=this.transform(resp.url)
+          //this.pdf=this.transform(resp.url)
+          this.http.get(resp.url, {
+            responseType: 'blob',
+            withCredentials: false
+          }).subscribe({
+            next: (blob) => {
+              if (blob.type && !blob.type.includes('pdf')) return;
+              this.pdf2 = blob;
+            },
+            error: (e) => {
+              console.error(e);
+            }
+          });
         }
       })
     }

@@ -12,11 +12,15 @@ import { PrestadorService } from '../../../servicios/prestador.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonService } from '../../../servicios/common.service';
 import SignaturePad from 'signature_pad';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { HttpClient } from '@angular/common/http';
+
+type PdfInput = string | ArrayBuffer | Blob | Uint8Array| URL;
 
 @Component({
   selector: 'app-mis-pedidos',
   standalone: true,
-  imports: [RouterModule, FormsModule, GoogleMapsModule, CommonModule],
+  imports: [RouterModule, FormsModule, GoogleMapsModule, CommonModule, NgxExtendedPdfViewerModule],
   templateUrl: './mis-pedidos.component.html',
   styleUrls: ['../../user/user.component.css','../../admin/admin.component.css','../../admin/usuarios/user-modal/user-modal.component.css']
 })
@@ -47,12 +51,13 @@ export class MisPedidosComponent implements OnInit{
   act:string='-';
   terminarText:string='Dar como terminado'
   pdf:SafeResourceUrl|null=null;
+  pdf2:PdfInput='';
   @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   private pad!: SignaturePad;
   firma:boolean=false;
   taburl:string='';
 
-  constructor(private sanitizer: DomSanitizer, private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, public api4:CommonService, private router: Router) {
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer, private api: UsuariosService, private api2: ClienteService, private api3: PrestadorService, private socketIo:SocketService, private location: Location, @Inject(PLATFORM_ID) private platformId: Object, public ruta:ActivatedRoute, public api4:CommonService, private router: Router) {
     this.taburl=router.url
     if(this.taburl.includes('/pedido/'))this.tab='pedido'
   }
@@ -417,13 +422,36 @@ export class MisPedidosComponent implements OnInit{
     if(this.Pedido.ordenRetiro!='' && !this.taburl.includes('/pedido/')){
       this.api4.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
         if(resp!=false){
-          this.pdf=this.transform(resp.url)
-        }
+          //this.pdf=this.transform(resp.url)
+          this.http.get(resp.url, {
+            responseType: 'blob',
+            withCredentials: false
+          }).subscribe({
+            next: (blob) => {
+              if (blob.type && !blob.type.includes('pdf')) return;
+              this.pdf2 = blob;
+            },
+            error: (e) => {
+              console.error(e);
+            }
+          });        }
       })
     }else if(this.Pedido.ordenRetiro!='' && this.taburl.includes('/pedido/')){
       this.api4.getPDF2(this.Pedido.ordenRetiro).then(resp=>{
         if(resp!=false){
-          this.pdf=this.transform(resp.url)
+          //this.pdf=this.transform(resp.url)
+          this.http.get(resp.url, {
+            responseType: 'blob',
+            withCredentials: false
+          }).subscribe({
+            next: (blob) => {
+              if (blob.type && !blob.type.includes('pdf')) return;
+              this.pdf2 = blob;
+            },
+            error: (e) => {
+              console.error(e);
+            }
+          });
         }
       })
     }
