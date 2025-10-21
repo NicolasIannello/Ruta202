@@ -222,13 +222,15 @@
                                                 @if(Orden.firma.fecha){
                                                     <h3 class="form-section-title">Orden de retiro firmada el: {{Orden.firma.fecha}}</h3>
                                                 }
-                                            }@else if(miOferta.estado=='Aceptada' && !this.taburl.includes('/panelAdmin/pedidos')){
+                                            }@else if(miOferta.estado=='Aceptada'){
                                                 <h3 class="form-section-title">Orden de retiro:</h3>
                                                 @if (pdf!=null){
                                                     <embed width="100%" height="450px" [src]="pdf" type='application/pdf'>
                                                 }
-                                                <input type="file" name="pdfTC" id="pdfTC" class="btn btn-full btn-lg" #pdfTC accept=".pdf," (change)="showPDF($event)">
-                                                <button class="btn btn-primary btn-full btn-lg" (click)="subirOrden()">Subir orden de retiro</button>
+                                                @if(!this.taburl.includes('/panelAdmin/pedidos')){
+                                                    <input type="file" name="pdfTC" id="pdfTC" class="btn btn-full btn-lg" #pdfTC accept=".pdf," (change)="showPDF($event)">
+                                                    <button class="btn btn-primary btn-full btn-lg" (click)="subirOrden()">Subir orden de retiro</button>
+                                                }
                                             }
                                             @if(hoy==miOferta.fecha && miOferta.estado=='Aceptada' && !Pedido.selloPrestador && !this.taburl.includes('/panelAdmin/pedidos')){
                                                 <h3 class="form-section-title">Seguimiento:</h3>

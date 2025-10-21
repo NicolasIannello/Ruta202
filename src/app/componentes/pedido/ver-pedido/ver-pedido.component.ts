@@ -459,13 +459,13 @@ export class VerPedidoComponent implements OnInit{
   }
 
   getPDF(){
-    if(this.Pedido.ordenRetiro!='' && !this.taburl.includes('/pedido/')){
+    if(this.Pedido.ordenRetiro!='' && !this.taburl.includes('/pedido/') && !this.taburl.includes('/panelAdmin/pedidos')){
       this.api3.getPDF(this.Pedido.ordenRetiro,localStorage.getItem('token')!).then(resp=>{
         if(resp!=false){
           this.pdf=this.transform(resp.url)
         }
       })
-    }else if(this.Pedido.ordenRetiro!='' && this.taburl.includes('/pedido/')){
+    }else if(this.Pedido.ordenRetiro!='' && (this.taburl.includes('/pedido/') || this.taburl.includes('/panelAdmin/pedidos'))){
       this.api3.getPDF2(this.Pedido.ordenRetiro).then(resp=>{
         if(resp!=false){
           this.pdf=this.transform(resp.url)
