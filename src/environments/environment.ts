@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   //base_url:'https://ruta202.com.ar/ruta',
   base_url:'http://localhost:5000/ruta',
+  //base_url2:'https://ruta202.com.ar/',
   base_url2:'http://localhost:5000',
   numero: '+5491127605336',
   numeroString: '+54 9 11 2760-5336',
