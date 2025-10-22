@@ -1,0 +1,100 @@
+<div class="admin-tab-content">
+    <div class="admin-header">
+        <h1 class="admin-title">Tabla PDFs</h1>
+        <p class="admin-subtitle">Listado de ordenes</p>
+    </div>
+
+<div class="admin-controls">
+        <div class="search-filter-group">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="search-input" type="text" placeholder="Usuario" [(ngModel)]="usuario"/>
+            </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="search-input" type="text" placeholder="Prestador" [(ngModel)]="prestador"/>
+            </div>
+            <button class="btn btn-black" (click)="buscarDato()">Buscar</button>
+        </div>
+    </div>
+
+    @if(loading){
+        <div class="verification-icon loading">
+            <i class="fa-solid fa-spinner spinner" style='font-size: xxx-large; color: var(--color-red)'></i>
+        </div>
+    }@else{
+        <div class="admin-section-card">
+            <div class="users-table">
+                <div class="table-header" style="grid-template-columns: 2fr 2fr 2fr 2fr 1fr">
+                    <div class="table-cell">Orden</div>
+                    <div class="table-cell">Usuario</div>
+                    <div class="table-cell">Prestador</div>
+                    <div class="table-cell">Firma</div>
+                    <div class="table-cell">Actions</div>
+                </div>
+                @for (u of Ordenes; track u) {
+                    <div class="table-row" style="grid-template-columns: 2fr 2fr 2fr 2fr 1fr">
+                        <div class="table-cell">{{u.pdf}}</div>
+                        <div class="table-cell">{{u.usuario}}</div>
+                        <div class="table-cell">{{u.prestador}}</div>
+                        <div class="table-cell">{{u.firma ? u.firma.fecha : '-'}}</div>
+                        <div class="table-cell">
+                            <div class="action-buttons">
+                                <button class="action-btn" (click)="ver(u.Copia)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando 10 de {{total}} Ordenes totales
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" (click)="paginacion(pagina-10)" [disabled]="pagina==0">
+                        <i class="fa-solid fa-left-long"></i>
+                    </button>
+                    @if (pagina>10) {
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(0)">1</button>
+                        </div>
+                        ...
+                    }
+                    @if (lastPage>2) {
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina==0 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 0 : pagina/10==lastPage ? 10*(pagina/10-2) : 10*(pagina/10-1))">
+                                {{pagina/10==0 ? 1 : pagina/10==lastPage ? lastPage-1 : pagina/10}}
+                            </button>
+                        </div>
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina/10!=0 && pagina!=lastPage*10 ? 'active' : ''" (click)="paginacion(pagina/10==0 ? 10 : pagina==lastPage*10 ? (lastPage*10)-10 : pagina)">
+                                {{pagina/10==0 ? 2 : pagina/10<(lastPage) ? 1+pagina/10 : lastPage}}
+                            </button>
+                        </div>
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina==lastPage*10 ? 'active' : ''" (click)="paginacion(pagina<20 ? 20 : pagina+10!=lastPage*10 ? 10*(pagina/10+1) : lastPage*10)">
+                                {{pagina/10<(lastPage) ? pagina/10+(pagina/10==0 ? 3 : 2) : lastPage+1}}
+                            </button>
+                        </div>
+                    }
+                    @if (lastPage*10>pagina+10) {
+                        ...
+                        <div class="pagination-numbers">
+                            <button class="pagination-number" [class]="pagina==(lastPage)*10+20 ? 'active' : ''" (click)="paginacion((lastPage)*10)">{{lastPage+1}}</button>
+                        </div>
+                    }
+                    <button class="pagination-btn" (click)="paginacion(pagina+10)" [disabled]="(pagina+10)>total">
+                        <i class="fa-solid fa-right-long"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@if (menuOpen){
+    
+}

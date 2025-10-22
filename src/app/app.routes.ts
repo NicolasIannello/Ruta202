@@ -21,6 +21,7 @@ import { MisPedidosComponent } from './componentes/pedido/mis-pedidos/mis-pedido
 import { OfertasComponent } from './componentes/pedido/ofertas/ofertas.component';
 import { PedidoAdminComponent } from './componentes/admin/pedido-admin/pedido-admin.component';
 import { PedidosAdminComponent } from './componentes/admin/pedidos-admin/pedidos-admin.component';
+import { PdfsComponent } from './componentes/admin/pdfs/pdfs.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
@@ -46,6 +47,7 @@ export const routes: Routes = [
         { path: 'crearPedido', component: PedidoAdminComponent, canActivate: [loggedGuard] },
         { path: 'pedidos', component: PedidosAdminComponent, canActivate: [loggedGuard] },
         { path: 'pedidos/:id', component: PedidosAdminComponent, canActivate: [loggedGuard] },
+        { path: 'pdfs', component: PdfsComponent, canActivate: [loggedGuard] },
         { path: '**',   redirectTo: 'inicio', pathMatch: 'full' },
     ]},
     { path: '**',   redirectTo: '', pathMatch: 'full' },

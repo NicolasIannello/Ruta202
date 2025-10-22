@@ -98,4 +98,7 @@ export class AdminService {
   geocodeReverse(dato:any):Observable<any>{
     return this.http.post(base_url+'/admins/geocodeReverseAdmin', dato, {'headers':this.header})
   }
+  getOrdenes(dato:any):Observable<any>{
+    return this.http.post(base_url+'/admins/getOrdenes', dato, {'headers':this.header})
+  }
 }
