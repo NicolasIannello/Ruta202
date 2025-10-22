@@ -8,6 +8,7 @@
     "/panelAdmin",
     "/panelAdmin/crearPedido",
     "/panelAdmin/inicio",
+    "/panelAdmin/pdfs",
     "/panelAdmin/pedidos",
     "/panelAdmin/usuarios",
     "/perfil",
