@@ -1,15 +1,19 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import Swal from 'sweetalert2';
 import { AdminService } from '../../../servicios/admin.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { CommonService } from '../../../servicios/common.service';
+import { HttpClient } from '@angular/common/http';
+
+type PdfInput = string | ArrayBuffer | Blob | Uint8Array| URL;
 
 @Component({
   selector: 'app-pdfs',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgxExtendedPdfViewerModule],
   templateUrl: './pdfs.component.html',
-  styleUrl: '../admin.component.css'
+  styleUrls: ['../admin.component.css','../usuarios/user-modal/user-modal.component.css']
 })
 export class PdfsComponent implements OnInit{
   loading:boolean=true;
@@ -22,8 +26,9 @@ export class PdfsComponent implements OnInit{
   iterator:Array<number>=[1,2,3]
   usuario:string=''
   prestador:string=''
+  pdf2:PdfInput='';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private api: AdminService) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private api: AdminService, public api4:CommonService) {}
   
   ngOnInit(): void {
     if(isPlatformBrowser(this.platformId)){
@@ -68,5 +73,27 @@ export class PdfsComponent implements OnInit{
   
   ver(orden:string){
     this.menuOpen=true;
+    this.pdf2 = '';
+    this.api4.getPDF2(orden).then(resp=>{
+        if(resp!=false){
+          this.http.get(resp.url, {
+            responseType: 'blob',
+            withCredentials: false
+          }).subscribe({
+            next: (blob) => {
+              if (blob.type && !blob.type.includes('pdf')) return;
+              this.pdf2 = blob;
+            },
+            error: (e) => {
+              console.error(e);
+            }
+          });        
+        }
+      })
+  }
+
+  cerrar(){
+    this.menuOpen=false;
+    this.pdf2 = '';
   }
 }
