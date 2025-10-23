@@ -26,6 +26,7 @@ export class PdfsComponent implements OnInit{
   iterator:Array<number>=[1,2,3]
   usuario:string=''
   prestador:string=''
+  matricula:string=''
   pdf2:PdfInput='';
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private api: AdminService, public api4:CommonService) {}
@@ -50,6 +51,7 @@ export class PdfsComponent implements OnInit{
       'limit': limit,
       'usuario': this.usuario,
       'prestador': this.prestador,
+      'matricula': this.matricula,
     }
     this.api.getOrdenes(dato).subscribe({
       next: (value:any) => {

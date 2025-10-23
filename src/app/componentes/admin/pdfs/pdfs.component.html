@@ -14,6 +14,10 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input class="search-input" type="text" placeholder="Prestador" [(ngModel)]="prestador"/>
             </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="search-input" type="text" placeholder="Matricula" [(ngModel)]="matricula"/>
+            </div>
             <button class="btn btn-black" (click)="buscarDato()">Buscar</button>
         </div>
     </div>
@@ -25,18 +29,20 @@
     }@else{
         <div class="admin-section-card">
             <div class="users-table">
-                <div class="table-header" style="grid-template-columns: 2fr 2fr 2fr 2fr 1fr">
+                <div class="table-header" style="grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr">
                     <div class="table-cell">Orden</div>
                     <div class="table-cell">Usuario</div>
                     <div class="table-cell">Prestador</div>
+                    <div class="table-cell">Matricula</div>
                     <div class="table-cell">Firma</div>
                     <div class="table-cell">Actions</div>
                 </div>
                 @for (u of Ordenes; track u) {
-                    <div class="table-row" style="grid-template-columns: 2fr 2fr 2fr 2fr 1fr">
+                    <div class="table-row" style="grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr">
                         <div class="table-cell">{{u.pdf}}</div>
                         <div class="table-cell">{{u.usuario}}</div>
                         <div class="table-cell">{{u.prestador}}</div>
+                        <div class="table-cell">{{u.pedido[0] ? u.pedido[0].matricula : '-'}}</div>
                         <div class="table-cell">{{u.firma ? u.firma.fecha : '-'}}</div>
                         <div class="table-cell">
                             <div class="action-buttons">

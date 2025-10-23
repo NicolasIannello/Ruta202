@@ -163,6 +163,7 @@ export class PedidoComponent {
                   'hora1': this.hora1,
                   'hora2': this.hora2,
                   'pedido': this.datosPedido,
+                  'matricula': this.datosPedido.matricula
                 }
 
                 this.api2.crearPedidoAdmin(dato).subscribe({
@@ -186,6 +187,7 @@ export class PedidoComponent {
       }else{
         let dato={
           'pedido': this.datosPedido,
+          'matricula': this.datosPedido.matricula,
           'token': localStorage.getItem('token'),
           'tipo': 1
         }

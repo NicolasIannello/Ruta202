@@ -8,6 +8,7 @@ export interface Pedido {
     lugarEntregaLatLng: {lat:number, lng:number}
     personaEntrega: string
     personaRetiro: string
+    matricula: string
 }
 
 export type Tipo = '' | 'Auto' | 'SUV' | 'VAN' | 'Pick Up' | 'Utilitario' | 'Mini Bus' | 'Camion';

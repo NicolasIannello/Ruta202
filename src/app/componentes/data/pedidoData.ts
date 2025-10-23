@@ -9,6 +9,7 @@ export var pedidosData: Pedido = {
     lugarEntrega: '',
     personaEntrega: '',
     personaRetiro: '',
+    matricula: '',
     lugarEntregaLatLng: {lat:0, lng:0},
 }
 

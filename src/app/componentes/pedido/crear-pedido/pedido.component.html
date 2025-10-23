@@ -94,9 +94,15 @@
                                             <button class="btn btn-primary btn-full btn-lg" (click)="geocode('entrega')">Verificar</button>
                                         </span>
                                     </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-field">
                                         <label htmlFor="personaEntrega" class="form-label">Persona lugar de entrega</label>
                                         <input id="personaEntrega" name="personaEntrega" type="text" class="form-input" placeholder="Persona lugar de entrega" [(ngModel)]="datosPedido.personaEntrega"/>
+                                    </div>
+                                    <div class="form-field">
+                                        <label htmlFor="matricula" class="form-label">Matricula</label>
+                                        <input id="matricula" name="matricula" type="text" class="form-input" placeholder="Matricula" [(ngModel)]="datosPedido.matricula"/>
                                     </div>
                                 </div>
                             </div>
